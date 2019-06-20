@@ -1,4 +1,3 @@
-//<?php include('/test/wp-content/plugins/birthday-app/php/header.php'); ?>
 <head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="/test/wp-content/plugins/birthday-app/css/style.css">

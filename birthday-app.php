@@ -13,6 +13,7 @@ function test_plugin_setup_menu(){
 }
  
 function test_init(){
+	echo file_get_contents("C://xampp/htdocs/test/wp-content/plugins/birthday-app/php/header.php");
 	echo file_get_contents("C://xampp/htdocs/test/wp-content/plugins/birthday-app/php/index.php"); 
 }
 ?>
