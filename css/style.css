@@ -1,0 +1,68 @@
+table{
+  width:80% !important;
+  alignment: center !important;
+}
+table,h1,.lisa{
+margin-left:10%;
+}
+table,tr,th,td{
+  border:none !important;
+}
+input{
+	display:block;
+}
+input:not(.edit):not(.delete){
+	margin-bottom:2em;
+}
+h1{
+	font-size:60px;
+	font-weight:bold;
+	margin-bottom:5%;
+	margin-top:10%;
+}
+.center{
+	margin-left:30%;
+	margin-top:10%;
+}
+.meil{
+width:30% !important;
+}
+.lisa{
+background-color: #088A68 !important;
+border: none !important;
+margin-bottom:10px;
+}
+input.lisa{
+font-size:25px;
+font-weight:bold;
+}
+tr{
+padding: 5px;
+text-align:center;
+}
+tr:nth-child(even){
+background-color: #e6e6e6
+}
+.delete{
+  border: none !important;
+  background-color: #BC2424 !important;
+}
+.edit{
+  border: none !important;
+  background-color: #3D75AC !important;
+}
+.edit:hover{
+  background-color: #699CD0;
+}
+.delete:hover{
+  background-color: #D46565;
+}
+.lisa:hover{
+  background-color: #77B179;
+}
+tr:hover{
+  background-color:#C0C6D8;
+}
+#head:hover{
+  background-color: white;
+}
