@@ -6,6 +6,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 <style>
+table,h1,button{
+margin-left:30%;
+}
 table,tr,th,td{
   border:none !important;
 }
@@ -66,6 +69,7 @@ tr:hover{
 }
 </style>
 </head>
+<h1 style="margin-top:10%;">Grupid</h1>
 <a  href="http://localhost/test/add-group/"><button class="btn btn-primary lisa">+ Lisa grupp</button></a><br><br>
 <table>
   <tr id="head">

@@ -10,5 +10,6 @@
   Struktuuri ID: <input name="structure_id" type="number"><br><br>
   Email: <input name="email" type="text"><br><br>
   Aktiivne: <input name="active" value="Active" checked="" type="checkbox"><br><br>
+  <button type="button" class="btn btn-primary delete">Kustuta</button>
   <input value="Lisa" type="submit">
 </form>

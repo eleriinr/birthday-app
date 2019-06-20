@@ -11,5 +11,6 @@
   Email: <input name="email" type="text"><br><br>
   Grupi ID: <input name="group_id" type="number"><br><br>
   Aktiivne: <input name="active" value="Active" checked="" type="checkbox"><br><br>
+  <button type="button" class="btn btn-primary delete">Kustuta</button>
   <input value="Submit" type="submit">
 </form>
