@@ -1,10 +1,24 @@
-<div class="center">
-<h1>Lisa grupp</h1>
+<h1 class="display-3 text-center my-5 font-weight-bold" >Lisa inimene</h1>
 <form action="/index.php" method="post">
-  Nimi: <input name="name" type="text">
-  Struktuuri ID: <input name="structure_id" type="number">
-  Email: <input name="email" type="text">
-  Aktiivne: <input name="active" value="Active" checked="" type="checkbox">
-  <input value="Lisa" type="submit" class="lisa btn btn-primary"> 
+  <div class="form-group w-25" style="margin:auto;">
+  <label for="grupi_id">Grupi ID: </label>
+  <input class="form-control" id="grupi_id" type="number" readonly>
+  </div>
+  <div class="form-group w-25" style="margin:auto;">
+  <label for="nimi">Nimi: </label>
+  <input class="form-control" id="nimi" type="text" placeholder="Nimi">
+  </div>
+  <div class="form-group w-25" style="margin:auto;">
+  <label for="struktuuri_id">Struktuuri ID: </label>
+  <input class="form-control" id="struktuuri_id" type="text" placeholder="ID">
+  </div>
+  <div class="form-group w-25" style="margin:auto;">
+  <label for="email">Üldmeil: </label>
+  <input class="form-control" id="email" type="email" placeholder="Email">
+  </div>
+ <div class="form-group text-center my-2">
+ <label class="form-check-label" for="aktiivne">Aktiivne</label>
+ <input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne">
+  </div>
+  <input value="Lisa" type="submit" class="btn btn-primary lisa mx-auto mb-3 border-0 d-block"> 
 </form>
-</div>
