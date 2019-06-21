@@ -11,7 +11,7 @@ $muudagrupp_url = str_replace('sunnipaevaplugin','muudagrupp',$url);
 $lisagrupp_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
 ?>
 <h1 class="h1 text-center my-4">Grupid</h1>
-<div  class="text-center my-2"><a  href=<?php echo $lisagrupp_url;?>><button class="btn btn-info mx-auto mb-3 border-0">+ Lisa grupp</button></a></div>
+<div  class="text-center my-2"><a  href=<?php echo $lisagrupp_url;?>><button class="btn btn-info mx-auto mb-3">+ Lisa grupp</button></a></div>
 <table class="table-striped table-hover border-0 mx-auto text-center">
 <thead>
   <tr>
@@ -32,8 +32,8 @@ $lisagrupp_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
     <td class="p-2">Jah</td>
 <td class="p-2">
 <div class="btn-group">
-    <form method="post" action=<?php echo $muudagrupp_url;?>><input value="Muuda" type="submit" class="btn btn-info btn-sm border-0 d-block"></form>
-	 <button type="button" class="btn btn-primary delete border-0 btn-danger btn-sm">Kustuta</button>
+    <form method="post" action=<?php echo $muudagrupp_url;?>><input value="Muuda" type="submit" class="btn btn-info btn-sm"></form>
+	 <button type="button" class="btn btn-danger btn-sm">Kustuta</button>
 </div>
 </td>
   </tr>
@@ -45,8 +45,8 @@ $lisagrupp_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
     <td class="p-2">Jah</td>
 <td class="p-2">
  <div class="btn-group">
-    <form method="post" action=<?php echo $muudagrupp_url;?>><input value="Muuda" type="submit" class="btn btn-info btn-sm border-0 d-block"></form>
-	 <button type="button" class="btn btn-danger btn-sm delete border-0">Kustuta</button>
+    <form method="post" action=<?php echo $muudagrupp_url;?>><input value="Muuda" type="submit" class="btn btn-info btn-sm"></form>
+	 <button type="button" class="btn btn-danger btn-sm">Kustuta</button>
 </div>
 </td>
 </tr>
@@ -58,8 +58,8 @@ $lisagrupp_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
     <td class="p-2">Jah</td>
 <td class="p-2">
 <div class="btn-group">
-    <form method="post" action=<?php echo $muudagrupp_url;?>><input value="Muuda" type="submit" class="btn btn-info btn-sm edit border-0 d-block"></form>
-	 <button type="button" class="btn btn-danger btn-sm delete border-0">Kustuta</button>
+    <form method="post" action=<?php echo $muudagrupp_url;?>><input value="Muuda" type="submit" class="btn btn-info btn-sm"></form>
+	 <button type="button" class="btn btn-danger btn-sm">Kustuta</button>
 </div>
 </td>
 </tr>

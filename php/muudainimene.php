@@ -34,5 +34,5 @@ echo '<form action=' . $url . ' method="post">';
  <label class="form-check-label" for="aktiivne">Aktiivne</label>
  <input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne">
   </div>
-  <input value="Muuda" type="submit" class="btn btn-info mx-auto mb-3 border-0 d-block"> 
+  <input value="Muuda" type="submit" class="btn btn-info mx-auto mb-3 d-block"> 
 </form>
