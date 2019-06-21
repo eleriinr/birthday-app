@@ -1,5 +1,15 @@
-<h1 class="display-3 text-center my-5 font-weight-bold" >Lisa inimene</h1>
-<form action="/index.php" method="post">
+<h1 class="h1 text-center my-4" >Lisa grupp</h1>
+<?php 
+function current_url()
+{
+    $url      = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    $validURL = str_replace("&", "&amp", $url);
+    return $validURL;
+}
+$url = current_url();
+$url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
+echo '<form action=' . $url . ' method="post">';
+?>
   <div class="form-group w-25" style="margin:auto;">
   <label for="grupi_id">Grupi ID: </label>
   <input class="form-control" id="grupi_id" type="number" readonly>
@@ -20,5 +30,5 @@
  <label class="form-check-label" for="aktiivne">Aktiivne</label>
  <input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne">
   </div>
-  <input value="Lisa" type="submit" class="btn btn-primary lisa mx-auto mb-3 border-0 d-block"> 
+  <input value="Lisa" type="submit" class="btn btn-info mx-auto mb-3 border-0 d-block"> 
 </form>

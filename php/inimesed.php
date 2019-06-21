@@ -1,5 +1,16 @@
-<h1 class="display-3 text-center my-4 font-weight-bold">Inimesed</h1>
-<div  class="text-center my-2"><a  href=""><button class="btn btn-primary lisa mx-auto mb-3 border-0">+ Lisa inimene</button></a></div>
+<?php 
+function current_url()
+{
+    $url      = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    $validURL = str_replace("&", "&amp", $url);
+    return $validURL;
+}
+$url = current_url();
+$lisainimene_url = str_replace('inimesed','lisainimene',$url);
+$muudainimene_url = str_replace('inimesed','muudainimene',$url);
+?>
+<h1 class="h1 text-center my-4">Isikud</h1>
+<div  class="text-center my-2"><a href=<?php echo $lisainimene_url;?>><button class="btn btn-info mx-auto mb-3 border-0">+ Lisa inimene</button></a></div>
 <table class="table-striped table-hover border-0 mx-auto text-center">
 <thead>
   <tr>
@@ -19,8 +30,8 @@
     <td class="p-2"></td>
     <td class="p-2">
       <div class="btn-group">
-		<button type="button" class="btn btn-primary edit border-0">Muuda</button>
-		<button type="button" class="btn btn-primary delete border-0">Kustuta</button>
+    <form method="post" action=<?php echo $muudainimene_url;?>><input value="Muuda" type="submit" class="btn btn-info btn-sm border-0 d-block"></form>
+		<button type="button" class="btn btn-danger btn-sm border-0">Kustuta</button>
 	  </div>
     </td>
   </tr>
@@ -32,8 +43,8 @@
     <td class="p-2">sekre.tar@ut.ee</td>
     <td class="p-2">
       <div class="btn-group">
-		<button type="button" class="btn btn-primary edit border-0">Muuda</button>
-		<button type="button" class="btn btn-primary delete border-0">Kustuta</button>
+    <form method="post" action=<?php echo $muudainimene_url;?>><input value="Muuda" type="submit" class="btn btn-info btn-sm border-0 d-block"></form>
+		<button type="button" class="btn btn-danger btn-sm border-0">Kustuta</button>
 	  </div>
     </td>
   </tr>
