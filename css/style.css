@@ -1,12 +1,10 @@
 table{
   width:80% !important;
   alignment: center !important;
+  border:none !important;
 }
 table,h1,.lisa{
 margin-left:10%;
-}
-table,tr,th,td{
-  border:none !important;
 }
 input{
 	display:block;

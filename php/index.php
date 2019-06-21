@@ -1,4 +1,4 @@
-<h1>Grupid</h1>
+<h1 class="pealkiri" >Grupid</h1>
 <a  href=""><button class="btn btn-primary lisa">+ Lisa grupp</button></a>
 <table align="center">
   <tr id="head">
