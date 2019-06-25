@@ -1,4 +1,4 @@
-<?php $url = str_replace('muudainimene', 'inimesed',$url);?>
+<?php $url = str_replace('muudaisik', 'isikud',$url);?>
 
 <h1 class="h1 text-center my-4" >Muuda isik</h1>
 <div class="container">

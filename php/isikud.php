@@ -1,7 +1,7 @@
 <?php 
-$lisaisik_url = str_replace('inimesed','lisainimene',$url);
-$muudaisik_url = str_replace('inimesed','muudainimene',$url);
-$url = str_replace('inimesed', 'sunnipaevaplugin',$url);
+$lisaisik_url = str_replace('isikud','lisaisik',$url);
+$muudaisik_url = str_replace('isikud','muudaisik',$url);
+$url = str_replace('isikud', 'sunnipaevaplugin',$url);
 ?>
 
 <h1 class="h1 text-center my-4">Isikud</h1>

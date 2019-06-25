@@ -1,5 +1,5 @@
 <?php 
-$inimesed_url = str_replace('sunnipaevaplugin','inimesed',$url);
+$inimesed_url = str_replace('sunnipaevaplugin','isikud',$url);
 $muudagrupp_url = str_replace('sunnipaevaplugin','muudagrupp',$url);
 $lisagrupp_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
 ?>

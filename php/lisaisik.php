@@ -1,4 +1,4 @@
-<?php $url = str_replace('lisainimene', 'inimesed',$url);?>
+<?php $url = str_replace('lisaisik', 'isikud',$url);?>
 
 <h1 class="h1 text-center my-4">Lisa isik</h1>
 <div class="container">

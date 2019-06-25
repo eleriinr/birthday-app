@@ -10,10 +10,10 @@
  
 function test_plugin_setup_menu(){
     add_menu_page( 'Sünnipäevaplugin', 'Sünnipäevaplugin', 'manage_options', 'sunnipaevaplugin', 'test_init' );
-	add_submenu_page( 'sunnipaevaplgin', 'Lisa inimene', 'Lisa inimene', 'manage_options', 'lisainimene', 'lisainimene_init' );
+	add_submenu_page( 'sunnipaevaplgin', 'Lisa isik', 'Lisa isik', 'manage_options', 'lisaisik', 'lisaisik_init' );
 	add_submenu_page( 'sunnipaevaplgin', 'Lisa grupp', 'Lisa grupp', 'manage_options', 'lisagrupp', 'lisagrupp_init' );
-	add_submenu_page( 'sunnipaevaplgin', 'Inimesed', 'Inimesed', 'manage_options', 'inimesed', 'inimesed_init' );
-	add_submenu_page( 'sunnipaevaplgin', 'Muuda inimene', 'Muuda inimene', 'manage_options', 'muudainimene', 'muudainimene_init' );
+	add_submenu_page( 'sunnipaevaplgin', 'Isikud', 'Isikud', 'manage_options', 'isikud', 'isikud_init' );
+	add_submenu_page( 'sunnipaevaplgin', 'Muuda isik', 'Muuda isik', 'manage_options', 'muudaisik', 'muudaisik_init' );
 	add_submenu_page( 'sunnipaevaplgin', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'muudagrupp', 'muudagrupp_init' );
 }
 function test_init(){
@@ -21,25 +21,25 @@ function test_init(){
 	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/index.php'); 
 }
-function lisainimene_init(){
+function lisaisik_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include ('../wp-content/plugins/birthday-app/php/url_function.php');
-	include('../wp-content/plugins/birthday-app/php/lisainimene.php'); 
+	include('../wp-content/plugins/birthday-app/php/lisaisik.php'); 
 }
 function lisagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/lisagrupp.php'); 
 } 
-function inimesed_init(){
+function isikud_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include ('../wp-content/plugins/birthday-app/php/url_function.php');
-	include('../wp-content/plugins/birthday-app/php/inimesed.php'); 
+	include('../wp-content/plugins/birthday-app/php/isikud.php'); 
 }
-function muudainimene_init(){
+function muudaisik_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include ('../wp-content/plugins/birthday-app/php/url_function.php');
-	include('../wp-content/plugins/birthday-app/php/muudainimene.php'); 
+	include('../wp-content/plugins/birthday-app/php/muudaisik.php'); 
 }
 function muudagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
