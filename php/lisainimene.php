@@ -1,12 +1,5 @@
 <h1 class="h1 text-center my-4" >Lisa isik</h1>
 <?php 
-function current_url()
-{
-    $url      = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-    $validURL = str_replace("&", "&amp", $url);
-    return $validURL;
-}
-$url = current_url();
 $url = str_replace('lisainimene', 'inimesed',$url);
 echo '<form action=' . $url . ' method="post">';
 ?>

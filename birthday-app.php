@@ -18,26 +18,32 @@ function test_plugin_setup_menu(){
 }
 function test_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
+	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/index.php'); 
 }
 function lisainimene_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
+	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/lisainimene.php'); 
 }
 function lisagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
+	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/lisagrupp.php'); 
 } 
 function inimesed_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
+	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/inimesed.php'); 
 }
 function muudainimene_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
+	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/muudainimene.php'); 
 }
 function muudagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
+	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/muudagrupp.php'); 
 }
 ?>

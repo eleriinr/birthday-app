@@ -1,15 +1,9 @@
-<h1 class="h1 text-center my-4" >Lisa grupp</h1>
-<?php 
-function current_url()
-{
-    $url      = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-    $validURL = str_replace("&", "&amp", $url);
-    return $validURL;
-}
-$url = current_url();
+<?php
 $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
 echo '<form action=' . $url . ' method="post">';
 ?>
+
+<h1 class="h1 text-center my-4" >Lisa grupp</h1>
   <div class="form-group w-25" style="margin:auto;">
   <label for="grupi_id">Grupi ID: </label>
   <input class="form-control" id="grupi_id" type="number" readonly>
