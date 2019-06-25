@@ -1,8 +1,9 @@
+<?php $url = str_replace('muudagrupp', 'sunnipaevaplugin',$url);?>
+
 <h1 class="h1 text-center my-4" >Muuda gruppi</h1>
-<?php
-$url = str_replace('muudagrupp', 'sunnipaevaplugin',$url);
-echo '<form action=' . $url . ' method="post">';
-?>
+<div style="text-align:center;"><a href=<?php echo $url; ?>><button class="btn btn-danger">Tagasi</button></a></div>
+
+<?php echo '<form action=' . $url . ' method="post">';?>
   <div class="form-group w-25" style="margin:auto;">
   <label for="grupi_id">Grupi ID: </label>
   <input class="form-control" id="grupi_id" type="number" value=<?php echo $_POST["grupi_id"]; ?> readonly>

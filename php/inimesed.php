@@ -1,9 +1,11 @@
 <?php 
 $lisaisik_url = str_replace('inimesed','lisainimene',$url);
 $muudaisik_url = str_replace('inimesed','muudainimene',$url);
+$url = str_replace('inimesed', 'sunnipaevaplugin',$url);
 ?>
 
 <h1 class="h1 text-center my-4">Isikud</h1>
+<div style="text-align:center;"><a href=<?php echo $url; ?>><button class="btn btn-danger">Tagasi</button></a></div>
 <div  class="text-center my-2"><a href=<?php echo $lisaisik_url;?>><button class="btn btn-info mx-auto mb-3">+ Lisa inimene</button></a></div>
 <table class="table-striped table-hover border-0 mx-auto text-center">
 <thead>

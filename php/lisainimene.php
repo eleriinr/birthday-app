@@ -1,8 +1,9 @@
+<?php $url = str_replace('lisainimene', 'inimesed',$url);?>
+
 <h1 class="h1 text-center my-4" >Lisa isik</h1>
-<?php 
-$url = str_replace('lisainimene', 'inimesed',$url);
-echo '<form action=' . $url . ' method="post">';
-?>
+<div style="text-align:center;"><a href=<?php echo $url; ?>><button class="btn btn-danger">Tagasi</button></a></div>
+
+<?php echo '<form action=' . $url . ' method="post">';?>
   <div class="form-group w-25" style="margin:auto;">
   <label for="eesnimi">Eesnimi: </label>
   <input class="form-control" id="eesnimi" type="text" placeholder="Eesnimi">
