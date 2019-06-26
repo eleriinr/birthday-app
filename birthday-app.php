@@ -46,4 +46,93 @@ function muudagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/muudagrupp.php'); 
 }
+function create_birthday_database(){
+	global $wpdb;
+	
+	$table_name1 = $wpdb->'wp_' . 'grupid';
+	$table_name2 = $wpdb->'wp_' . 'isikud';
+	
+	$charset_collate = $wpdb->get_charset_collate();
+	
+	$sql1 = "CREATE TABLE $table_name1 (
+			id mediumint(9) NOT NULL AUTO_INCREMENT,
+			nimi varchar(40) NOT NULL,
+			struktuuri_id varchar(20) NOT NULL,
+			uldmeil varchar(40) NOT NULL,
+			aktiivne varchar(3) NOT NULL,
+			PRIMARY KEY  (id)
+	) $charset_collate;";
+	
+	$sql2 = "CREATE TABLE $table_name2 (
+			id mediumint(9) NOT NULL AUTO_INCREMENT,
+			eesnimi varchar(30) NOT NULL,
+			perenimi varchar(30) NOT NULL,
+			kuupaev date NOT NULL,
+			email varchar(40) NOT NULL,
+			saaja_email varchar(40),
+			grupi_id mediumint(9) NOT NULL,
+			aktiivne varchar(3) NOT NULL,
+			PRIMARY KEY  (id)
+	) $charset_collate;";
+	
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql1 );
+	dbDelta( $sql2 );
+}
+function grupp_lisa($nimi, $struktuuri_id, $uldmeil, $aktiivne){
+	global $wpdb;
+	
+	$table_name = $wpdb->'wp_' . 'grupid';
+	
+	$wpdb->insert(
+			$table_name,
+			array(
+					'nimi' => $nimi,
+					'struktuuri_id' => $struktuuri_id,
+					'uldmeil' => $uldmeil,
+					'aktiivne' => $aktiivne,
+			)
+	);
+}
+function isik_lisa($eesnimi, $perenimi, $kuupaev, $email, $saaja_email, $grupi_id, $aktiivne){
+	global $wpdb;
+	
+	$table_name = $wpdb->'wp_' . 'isikud';
+	
+	$wpdb->insert(
+			$table_name,
+			array(
+					'eesnimi' => $eesnimi,
+					'perenimi' => $perenimi,
+					'kuupaev' => $kuupaev,
+					'email' => $email,
+					'saaja_email' => $saaja_email,
+					'grupi_id' => $grupi_id,
+					'aktiivne' => $aktiivne,
+			)
+	);
+}
+function grupp_kustuta(){
+	require_once( '../../../wp-load.php' );
+	
+	if (!empty($_POST['id'])){
+		global $wpdb;
+		
+		$table = 'wp_' . 'grupid';
+		$id = $_POST['id'];
+		$wpdb->delete( $table, array( 'id' => $id ) );
+	}
+}
+function isik_kustuta(){
+	require_once( '../../../wp-load.php' );
+	
+	if (!empty($_POST['id'])){
+		global $wpdb;
+		
+		$table = 'wp_' . 'isikud';
+		$id = $_POST['id'];
+		$wpdb->delete( $table, array( 'id' => $id ) );
+	}
+}
+register_activation_hook( __FILE__, 'create_birthday_database' );
 ?>
