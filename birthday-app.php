@@ -134,5 +134,24 @@ function isik_kustuta(){
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
 }
-register_activation_hook( __FILE__, 'create_birthday_database' );
+
+function ajax_group_form(){
+	global $wpdb;
+	
+	$wpdb->insert(
+			'grupid',
+			array(
+					'nimi' => $nimi,
+					'struktuuri_id' => $struktuuri_id,
+					'uldmeil' => $uldmeil,
+					'aktiivne' => $aktiivne,
+			)
+	);
+	
+	exit();
+}
+
+add_action( 'wp_ajax_ajax_form', 'ajax_group_form' );
+add_action( 'wp_ajax_nopriv_ajax_form', 'ajax_group_form' );
+
 ?>
