@@ -49,8 +49,8 @@ function muudagrupp_init(){
 function create_birthday_database(){
 	global $wpdb;
 	
-	$table_name1 = $wpdb->'wp_' . 'grupid';
-	$table_name2 = $wpdb->'wp_' . 'isikud';
+	$table_name1 = $wpdb->prefix . 'grupid';
+	$table_name2 = $wpdb->prefix . 'isikud';
 	
 	$charset_collate = $wpdb->get_charset_collate();
 	
@@ -82,7 +82,7 @@ function create_birthday_database(){
 function grupp_lisa($nimi, $struktuuri_id, $uldmeil, $aktiivne){
 	global $wpdb;
 	
-	$table_name = $wpdb->'wp_' . 'grupid';
+	$table_name = $wpdb->prefix . 'grupid';
 	
 	$wpdb->insert(
 			$table_name,
@@ -97,7 +97,7 @@ function grupp_lisa($nimi, $struktuuri_id, $uldmeil, $aktiivne){
 function isik_lisa($eesnimi, $perenimi, $kuupaev, $email, $saaja_email, $grupi_id, $aktiivne){
 	global $wpdb;
 	
-	$table_name = $wpdb->'wp_' . 'isikud';
+	$table_name = $wpdb->prefix . 'isikud';
 	
 	$wpdb->insert(
 			$table_name,
@@ -118,7 +118,7 @@ function grupp_kustuta(){
 	if (!empty($_POST['id'])){
 		global $wpdb;
 		
-		$table = 'wp_' . 'grupid';
+		$table = prefix . 'grupid';
 		$id = $_POST['id'];
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
@@ -129,7 +129,7 @@ function isik_kustuta(){
 	if (!empty($_POST['id'])){
 		global $wpdb;
 		
-		$table = 'wp_' . 'isikud';
+		$table = prefix . 'isikud';
 		$id = $_POST['id'];
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
