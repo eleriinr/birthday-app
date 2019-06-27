@@ -40,9 +40,30 @@ global $wpdb;
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
 					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" <?php if($retrieved_data->aktiivne == 'Jah') echo 'checked';?>>
 				</div>
-				<input value="Muuda" type="submit" class="btn btn-info pull-right d-block"> 
+				<input value="Muuda" type="submit" id="edit" class="btn btn-info pull-right d-block"> 
 			</form>
 		</div>
 		<div class="col"></div>
 	</div>
 </div>
+<script>
+function grupp_muuda(){
+	$.ajax({
+		type: 'POST',
+		url: ajaxurl,
+		data: {action: "grupp_muuda", nimi: "Grupp3", struktuuri_id: "AT", uldmeil: "ut.ak@lists.ut.ee" aktiivne: "Jah"},
+		dataType: 'json',
+		contentType:"application/json; charset=utf-8"
+	})
+	.done(function() {
+		console.log('done');
+	})
+	.fail(function() {
+		console.log('fail');
+	});
+}
+	
+jQuery(document).ready(function() {
+		jQuery("#edit").on("click", grupp_muuda);
+	});
+</script>

@@ -39,7 +39,7 @@ global $wpdb;
 						<td class="p-2">
 							<div class="btn-group">
 								<form method="post" action=' . $muudagrupp_url . '>
-									<input type="number" name="id" value="' . $retrieved_data->id . '" hidden>
+									<input type="number" id="' . $retrieved_data->id . '" name="id" value="' . $retrieved_data->id . '" hidden>
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
 								<button class="btn btn-danger btn-sm delete">Kustuta</button>
@@ -58,13 +58,36 @@ global $wpdb;
 	</div>
 </div>
 <script>
-function grupp_kustuta(){
-	jQuery.post( ajaxurl, { action: "grupp_kustuta", id: 1}).done(function( data ) {
-			console.log( "Data loaded: " + data);
-	});
-}
-	
 jQuery(document).ready(function() {
-		jQuery(".delete").on("click", grupp_kustuta);
+	jQuery(".delete").on("click", function(event) {
+			event.preventDefault();
+			var post = jQuery.post("POST", ajaxurl, { "action": "grupp_kustuta", "id": '1'});
+			
+			post.fail(function( response ) {
+				console.log( "Fail response: " + response);
+			});
+			
+			post.done(function( response ) {
+				console.log( "Response: " + response);
+			});
+			
+			/* VARIANT 2
+			
+			$.ajax({
+				type: 'POST',
+				url: ajaxurl,
+				data: {action: 'grupp_kustuta', id: 1},
+				dataType: 'json',
+				contentType:"application/json; charset=utf-8"
+			})
+			.done(function() {
+				console.log('done');
+			})
+			.fail(function() {
+				console.log('fail');
+			});
+			
+			*/
 	});
+})
 </script>

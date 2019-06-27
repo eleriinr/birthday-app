@@ -65,9 +65,26 @@ global $wpdb;
 </div>
 <script>
 function isik_kustuta(){
-	jQuery.post( ajaxurl, { action: "isik_kustuta", id: 1}).done(function( data ) {
-			console.log( "Data loaded: " + data);
+	jQuery.post( ajaxurl, { action: "isik_kustuta", id: 1}).fail(function( data ) {
+			console.log( "Failed" );
 	});
+	
+	/* VARIANT 2
+	$.ajax({
+		type: 'POST',
+		url: ajaxurl,
+		data: {action: 'grupp_kustuta', id: 1},
+		dataType: 'json',
+		contentType:"application/json; charset=utf-8"
+	})
+	.done(function() {
+		console.log('done');
+	})
+	.fail(function() {
+		console.log('fail');
+	});
+
+	*/
 }	
 jQuery(document).ready(function() {
 		jQuery(".delete").on("click", isik_kustuta);

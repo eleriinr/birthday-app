@@ -87,10 +87,10 @@ function grupp_lisa(){
 	$wpdb->insert(
 			$table_name,
 			array(
-					'nimi' => $_POST['nimi'],
-					'struktuuri_id' => $_POST['struktuuri_id'],
-					'uldmeil' => $_POST['uldmeil'],
-					'aktiivne' => $_POST['aktiivne']
+				'nimi' => $_POST['nimi'],
+				'struktuuri_id' => $_POST['struktuuri_id'],
+				'uldmeil' => $_POST['uldmeil'],
+				'aktiivne' => $_POST['aktiivne']
 			)
 	);
 }
@@ -105,19 +105,64 @@ function isik_lisa(){
 	$wpdb->insert(
 			$table_name,
 			array(
-					'eesnimi' => $_POST['eesnimi'],
-					'perenimi' => $_POST['perenimi'],
-					'kuupaev' => $_POST['kuupaev'],
-					'email' => $_POST['email'],
-					'saaja_email' => $_POST['saaja_email'],
-					'grupi_id' => $_POST['grupi_id'],
-					'aktiivne' => $_POST['aktiivne']
+				'eesnimi' => $_POST['eesnimi'],
+				'perenimi' => $_POST['perenimi'],
+				'kuupaev' => $_POST['kuupaev'],
+				'email' => $_POST['email'],
+				'saaja_email' => $_POST['saaja_email'],
+				'grupi_id' => $_POST['grupi_id'],
+				'aktiivne' => $_POST['aktiivne']
 			)
 	);
 }
 	
 	add_action( 'wp_ajax_isik_lisa', 'isik_lisa' );
 	
+function grupp_muuda(){
+	global $wpdb;
+	
+	$table_name = $wpdb->prefix . 'grupid';
+	
+	$wpdb->update(
+			$table_name,
+			array(
+				'nimi' => $_POST['nimi'],
+				'struktuuri_id' => $_POST['struktuuri_id'],
+				'uldmeil' => $_POST['uldmeil'],
+				'aktiivne' => $_POST['aktiivne']
+			),
+			array(
+				'id' => $_POST['id']
+			)
+	);
+}
+
+add_action( 'wp_ajax_grupp_muuda', 'grupp_muuda' );
+
+function isik_muuda(){
+	global $wpdb;
+	
+	$table_name = $wpdb->prefix . 'isikud';
+	
+	$wpdb->update(
+			$table_name,
+			array(
+				'eesnimi' => $_POST['eesnimi'],
+				'perenimi' => $_POST['perenimi'],
+				'kuupaev' => $_POST['kuupaev'],
+				'email' => $_POST['email'],
+				'saaja_email' => $_POST['saaja_email'],
+				'grupi_id' => $_POST['grupi_id'],
+				'aktiivne' => $_POST['aktiivne']
+			),
+			array(
+				'id' => $_POST['id']
+			)
+	);
+}
+
+add_action( 'wp_ajax_isik_muuda', 'isik_muuda' );
+
 function isik_kustuta(){
 	require_once( '../../../wp-load.php' );
 	

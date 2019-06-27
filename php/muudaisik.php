@@ -48,9 +48,20 @@ global $wpdb;
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
 					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" <?php if($retrieved_data->aktiivne == 'Jah') echo 'checked';?>>
 				</div>
-				<input value="Muuda" type="submit" class="btn btn-info pull-right d-block"> 
+				<input value="Muuda" id="edit" type="submit" class="btn btn-info pull-right d-block"> 
 			</form>
 		</div>
 		<div class="col"></div>
 	</div>
 </div>
+<script>
+function isik_muuda(){
+	jQuery.post( ajaxurl, { action: "isik_muuda", eesnimi: "John", perenimi: "Doe", kuupaev: "1996-01-09", email: "j.doe@gmail.com", grupi_id: "AK", aktiivne: "Jah"}).done(function( data ) {
+			console.log( "Data loaded: " + data);
+	});
+}
+	
+jQuery(document).ready(function() {
+		jQuery("#edit").on("click", isik_muuda);
+	});
+</script>
