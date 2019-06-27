@@ -48,7 +48,7 @@ global $wpdb;
 									<input type="number" name="id" value="' . $retrieved_data->id . '" hidden>
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
-								<button type="button" class="btn btn-danger btn-sm">Kustuta</button>
+								<button type="button" class="btn btn-danger btn-sm delete">Kustuta</button>
 							</div>
 						</td>
 				</tr>';}?>
@@ -64,19 +64,12 @@ global $wpdb;
 	</div>
 </div>
 <script>
-function getValues(){
-	for( var i = 1; i < $("tr").length; i++){
-		$("#formfname" + i).val($("#fname" + i).text());
-		$("#formlname" + i).val($("#lname" + i).text());
-		var kp = $("#kp" + i).text().split(".");
-		$("#formkp" + i).val(kp[2] + "-" + kp[1] + "-" + kp[0]);
-		$("#formemail" + i).val($("#email" + i).text());
-		$("#formemails" + i).val($("#emails" + i).text());
-		$("#formgid" + i).val(parseInt($("#gid" + i).text(),10));
-		$("#formakt" + i).val($("#akt" + i).text());
-	}
-}
-
-$(document).ready(function() {
-	getValues();
-});</script>
+function isik_kustuta(){
+	jQuery.post( ajaxurl, { action: "isik_kustuta", id: 1}).done(function( data ) {
+			console.log( "Data loaded: " + data);
+	});
+}	
+jQuery(document).ready(function() {
+		jQuery(".delete").on("click", isik_kustuta);
+	});
+</script>

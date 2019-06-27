@@ -79,7 +79,7 @@ function create_birthday_database(){
 	dbDelta( $sql1 );
 	dbDelta( $sql2 );
 }
-function grupp_lisa($nimi, $struktuuri_id, $uldmeil, $aktiivne){
+function grupp_lisa(){
 	global $wpdb;
 	
 	$table_name = $wpdb->prefix . 'grupid';
@@ -87,14 +87,17 @@ function grupp_lisa($nimi, $struktuuri_id, $uldmeil, $aktiivne){
 	$wpdb->insert(
 			$table_name,
 			array(
-					'nimi' => $nimi,
-					'struktuuri_id' => $struktuuri_id,
-					'uldmeil' => $uldmeil,
-					'aktiivne' => $aktiivne,
+					'nimi' => $_POST['nimi'],
+					'struktuuri_id' => $_POST['struktuuri_id'],
+					'uldmeil' => $_POST['uldmeil'],
+					'aktiivne' => $_POST['aktiivne']
 			)
 	);
 }
-function isik_lisa($eesnimi, $perenimi, $kuupaev, $email, $saaja_email, $grupi_id, $aktiivne){
+
+add_action( 'wp_ajax_grupp_lisa', 'grupp_lisa' );
+
+function isik_lisa(){
 	global $wpdb;
 	
 	$table_name = $wpdb->prefix . 'isikud';
@@ -102,27 +105,19 @@ function isik_lisa($eesnimi, $perenimi, $kuupaev, $email, $saaja_email, $grupi_i
 	$wpdb->insert(
 			$table_name,
 			array(
-					'eesnimi' => $eesnimi,
-					'perenimi' => $perenimi,
-					'kuupaev' => $kuupaev,
-					'email' => $email,
-					'saaja_email' => $saaja_email,
-					'grupi_id' => $grupi_id,
-					'aktiivne' => $aktiivne,
+					'eesnimi' => $_POST['eesnimi'],
+					'perenimi' => $_POST['perenimi'],
+					'kuupaev' => $_POST['kuupaev'],
+					'email' => $_POST['email'],
+					'saaja_email' => $_POST['saaja_email'],
+					'grupi_id' => $_POST['grupi_id'],
+					'aktiivne' => $_POST['aktiivne']
 			)
 	);
 }
-function grupp_kustuta(){
-	require_once( '../../../wp-load.php' );
 	
-	if (!empty($_POST['id'])){
-		global $wpdb;
-		
-		$table = prefix . 'grupid';
-		$id = $_POST['id'];
-		$wpdb->delete( $table, array( 'id' => $id ) );
-	}
-}
+	add_action( 'wp_ajax_isik_lisa', 'isik_lisa' );
+	
 function isik_kustuta(){
 	require_once( '../../../wp-load.php' );
 	
@@ -133,25 +128,23 @@ function isik_kustuta(){
 		$id = $_POST['id'];
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
+	die;
 }
 
-function ajax_group_form(){
-	global $wpdb;
+add_action( 'wp_ajax_isik_kustuta', 'isik_kustuta' );
+
+function grupp_kustuta(){
+	require_once( '../../../wp-load.php' );
 	
-	$wpdb->insert(
-			'grupid',
-			array(
-					'nimi' => $nimi,
-					'struktuuri_id' => $struktuuri_id,
-					'uldmeil' => $uldmeil,
-					'aktiivne' => $aktiivne,
-			)
-	);
-	
-	exit();
+	if (!empty($_POST['id'])){
+		global $wpdb;
+		
+		$table = prefix . 'grupid';
+		$id = $_POST['id'];
+		$wpdb->delete( $table, array( 'id' => $id ) );
+	}
+	die;
 }
 
-add_action( 'wp_ajax_ajax_form', 'ajax_group_form' );
-add_action( 'wp_ajax_nopriv_ajax_form', 'ajax_group_form' );
-
+add_action( 'wp_ajax_grupp_kustuta', 'grupp_kustuta' );
 ?>

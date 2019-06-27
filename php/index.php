@@ -42,7 +42,7 @@ global $wpdb;
 									<input type="number" name="id" value="' . $retrieved_data->id . '" hidden>
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
-								<button type="button" class="btn btn-danger btn-sm">Kustuta</button>
+								<button class="btn btn-danger btn-sm delete">Kustuta</button>
 							</div>
 						</td>
 					</tr>';}?>
@@ -58,16 +58,13 @@ global $wpdb;
 	</div>
 </div>
 <script>
-function getValues(){
-	for( var i = 1; i < $("tr").length; i++){
-		$("#formgid" + i).val(i);
-		$("#formnimi" + i).val($("#nimi" + i).text());
-		$("#formid" + i).val($("#id" + i).text());
-		$("#formemail" + i).val($("#email" + i).text());
-		$("#formakt" + i).val($("#akt" + i).text());
-	}
+function grupp_kustuta(){
+	jQuery.post( ajaxurl, { action: "grupp_kustuta", id: 1}).done(function( data ) {
+			console.log( "Data loaded: " + data);
+	});
 }
-
-$(document).ready(function() {
-	getValues();
-});</script>
+	
+jQuery(document).ready(function() {
+		jQuery(".delete").on("click", grupp_kustuta);
+	});
+</script>

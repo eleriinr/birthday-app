@@ -23,8 +23,12 @@
 					<input class="form-control" id="kuupaev" type="date">
 				</div>
 				<div class="form-group">
-					<label for="email">Meili saaja: </label>
+					<label for="email">Email: </label>
 					<input class="form-control" id="email" type="email" placeholder="Email">
+				</div>
+				<div class="form-group">
+					<label for="emails">Meili saaja: </label>
+					<input class="form-control" id="emails" type="email" placeholder="Saaja Email">
 				</div>
 				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
@@ -40,3 +44,14 @@
 		<div class="col"></div>
 	</div>
 </div>
+<script>
+function isik_lisa(){
+	jQuery.post( ajaxurl, { action: "isik_lisa", eesnimi: "John", perenimi: "Doe", kuupaev: "1996-01-09", email: "j.doe@gmail.com", grupi_id: "AK", aktiivne: "Jah"}).done(function( data ) {
+			console.log( "Data loaded: " + data);
+	});
+}
+	
+jQuery(document).ready(function() {
+		jQuery(".add").on("click", isik_lisa);
+	});
+</script>

@@ -1,4 +1,6 @@
-<?php $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);?>
+<?php
+$url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
+?>
 
 <h1 class="h1 text-center my-4" >Lisa grupp</h1>
 <div class="container">
@@ -30,9 +32,20 @@
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
 					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne">
 				</div>
-				<input value="Lisa" type="submit" class="btn btn-info pull-right d-block"> 
+				<input value="Lisa" type="submit" class="btn btn-info pull-right d-block add"> 
 			</form>
 		</div>
 		<div class="col"></div>
 	</div>
 </div>
+<script>
+function grupp_lisa(){
+	jQuery.post( ajaxurl, { action: "grupp_lisa", nimi: "Grupp3", struktuuri_id: "AT", uldmeil: "ut.ak@lists.ut.ee" aktiivne: "Jah"}).done(function( data ) {
+			console.log( "Data loaded: " + data);
+	});
+}
+	
+jQuery(document).ready(function() {
+		jQuery(".add").on("click", grupp_lisa);
+	});
+</script>
