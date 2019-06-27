@@ -32,20 +32,26 @@ $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
 					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne">
 				</div>
-				<input value="Lisa" type="submit" class="btn btn-info pull-right d-block add"> 
+				<input value="Lisa" id="add" type="submit" class="btn btn-info pull-right d-block add"> 
 			</form>
 		</div>
 		<div class="col"></div>
 	</div>
 </div>
 <script>
-function grupp_lisa(){
-	jQuery.post( ajaxurl, { action: "grupp_lisa", nimi: "Grupp3", struktuuri_id: "AT", uldmeil: "ut.ak@lists.ut.ee" aktiivne: "Jah"}).done(function( data ) {
-			console.log( "Data loaded: " + data);
-	});
-}
-	
 jQuery(document).ready(function() {
-		jQuery(".add").on("click", grupp_lisa);
+	jQuery("#add").on("click", function(event) {
+			var andmed = { action: "grupp_lisa", nimi: "Grupp3", struktuuri_id: "AT", uldmeil: "ut.ak@lists.ut.ee" aktiivne: "Jah"};
+			$.ajax(ajaxurl, {
+				"data": andmed,
+				"type": "POST"
+			})
+			.done(function () {
+				console.log("done");
+			})
+			.fail(function () {
+				console.log("fail");
+			})
 	});
+})
 </script>

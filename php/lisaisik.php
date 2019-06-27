@@ -38,20 +38,26 @@
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
 					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne">
 				</div>
-				<input value="Lisa" type="submit" class="btn btn-info pull-right mb-3 d-block"> 
+				<input value="Lisa" id="add" type="submit" class="btn btn-info pull-right mb-3 d-block"> 
 			</form>
 		</div>
 		<div class="col"></div>
 	</div>
 </div>
 <script>
-function isik_lisa(){
-	jQuery.post( ajaxurl, { action: "isik_lisa", eesnimi: "John", perenimi: "Doe", kuupaev: "1996-01-09", email: "j.doe@gmail.com", grupi_id: "AK", aktiivne: "Jah"}).done(function( data ) {
-			console.log( "Data loaded: " + data);
-	});
-}
-	
 jQuery(document).ready(function() {
-		jQuery(".add").on("click", isik_lisa);
+	jQuery("#add").on("click", function(event) {
+			var andmed = { action: "isik_lisa", eesnimi: "John", perenimi: "Doe", kuupaev: "1996-01-09", email: "j.doe@gmail.com", grupi_id: "AK", aktiivne: "Jah"};
+			$.ajax(ajaxurl, {
+				"data": andmed,
+				"type": "POST"
+			})
+			.done(function () {
+				console.log("done");
+			})
+			.fail(function () {
+				console.log("fail");
+			})
 	});
+})
 </script>

@@ -55,13 +55,19 @@ global $wpdb;
 	</div>
 </div>
 <script>
-function isik_muuda(){
-	jQuery.post( ajaxurl, { action: "isik_muuda", eesnimi: "John", perenimi: "Doe", kuupaev: "1996-01-09", email: "j.doe@gmail.com", grupi_id: "AK", aktiivne: "Jah"}).done(function( data ) {
-			console.log( "Data loaded: " + data);
-	});
-}
-	
 jQuery(document).ready(function() {
-		jQuery("#edit").on("click", isik_muuda);
+	jQuery("#edit").on("click", function(event) {
+			var andmed = { action: "isik_muuda", eesnimi: "John", perenimi: "Doe", kuupaev: "1996-01-09", email: "j.doe@gmail.com", grupi_id: "AK", aktiivne: "Jah"};
+			$.ajax(ajaxurl, {
+				"data": andmed,
+				"type": "POST"
+			})
+			.done(function () {
+				console.log("done");
+			})
+			.fail(function () {
+				console.log("fail");
+			})
 	});
+})
 </script>

@@ -47,23 +47,19 @@ global $wpdb;
 	</div>
 </div>
 <script>
-function grupp_muuda(){
-	$.ajax({
-		type: 'POST',
-		url: ajaxurl,
-		data: {action: "grupp_muuda", nimi: "Grupp3", struktuuri_id: "AT", uldmeil: "ut.ak@lists.ut.ee" aktiivne: "Jah"},
-		dataType: 'json',
-		contentType:"application/json; charset=utf-8"
-	})
-	.done(function() {
-		console.log('done');
-	})
-	.fail(function() {
-		console.log('fail');
-	});
-}
-	
 jQuery(document).ready(function() {
-		jQuery("#edit").on("click", grupp_muuda);
+	jQuery("#edit").on("click", function(event) {
+			var andmed = { action: "grupp_muuda", nimi: "Grupp3", struktuuri_id: "AT", uldmeil: "ut.ak@lists.ut.ee" aktiivne: "Jah"};
+			$.ajax(ajaxurl, {
+				"data": andmed,
+				"type": "POST"
+			})
+			.done(function () {
+				console.log("done");
+			})
+			.fail(function () {
+				console.log("fail");
+			})
 	});
+})
 </script>

@@ -93,6 +93,7 @@ function grupp_lisa(){
 				'aktiivne' => $_POST['aktiivne']
 			)
 	);
+	wp_die();
 }
 
 add_action( 'wp_ajax_grupp_lisa', 'grupp_lisa' );
@@ -114,6 +115,7 @@ function isik_lisa(){
 				'aktiivne' => $_POST['aktiivne']
 			)
 	);
+	wp_die();
 }
 	
 	add_action( 'wp_ajax_isik_lisa', 'isik_lisa' );
@@ -135,6 +137,7 @@ function grupp_muuda(){
 				'id' => $_POST['id']
 			)
 	);
+	wp_die();
 }
 
 add_action( 'wp_ajax_grupp_muuda', 'grupp_muuda' );
@@ -159,6 +162,7 @@ function isik_muuda(){
 				'id' => $_POST['id']
 			)
 	);
+	wp_die();
 }
 
 add_action( 'wp_ajax_isik_muuda', 'isik_muuda' );
@@ -173,7 +177,7 @@ function isik_kustuta(){
 		$id = $_POST['id'];
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
-	die;
+	wp_die();
 }
 
 add_action( 'wp_ajax_isik_kustuta', 'isik_kustuta' );
@@ -188,7 +192,7 @@ function grupp_kustuta(){
 		$id = $_POST['id'];
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
-	die;
+	wp_die();
 }
 
 add_action( 'wp_ajax_grupp_kustuta', 'grupp_kustuta' );

@@ -60,34 +60,17 @@ global $wpdb;
 <script>
 jQuery(document).ready(function() {
 	jQuery(".delete").on("click", function(event) {
-			event.preventDefault();
-			var post = jQuery.post("POST", ajaxurl, { "action": "grupp_kustuta", "id": '1'});
-			
-			post.fail(function( response ) {
-				console.log( "Fail response: " + response);
-			});
-			
-			post.done(function( response ) {
-				console.log( "Response: " + response);
-			});
-			
-			/* VARIANT 2
-			
-			$.ajax({
-				type: 'POST',
-				url: ajaxurl,
-				data: {action: 'grupp_kustuta', id: 1},
-				dataType: 'json',
-				contentType:"application/json; charset=utf-8"
+			var andmed = { action: "grupp_kustuta", id: 1};
+			$.ajax(ajaxurl, {
+				"data": andmed,
+				"type": "POST"
 			})
-			.done(function() {
-				console.log('done');
+			.done(function () {
+				console.log("done");
 			})
-			.fail(function() {
-				console.log('fail');
-			});
-			
-			*/
+			.fail(function () {
+				console.log("fail");
+			})
 	});
 })
 </script>
