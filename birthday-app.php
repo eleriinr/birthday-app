@@ -82,15 +82,20 @@ function create_birthday_database(){
 function grupp_lisa(){
 	global $wpdb;
 	
+	$nimi = $_POST['nimi'];
+	$struktuuri_id = $_POST['struktuuri_id'];
+	$uldmeil = $_POST['uldmeil'];
+	$aktiivne = $_POST['aktiivne'];
+	
 	$table_name = $wpdb->prefix . 'grupid';
 	
 	$wpdb->insert(
 			$table_name,
 			array(
-				'nimi' => $_POST['nimi'],
-				'struktuuri_id' => $_POST['struktuuri_id'],
-				'uldmeil' => $_POST['uldmeil'],
-				'aktiivne' => $_POST['aktiivne']
+				'nimi' => $nimi,
+				'struktuuri_id' => $struktuuri_id,
+				'uldmeil' => $uldmeil,
+				'aktiivne' => $aktiivne
 			)
 	);
 	wp_die();
@@ -101,18 +106,26 @@ add_action( 'wp_ajax_grupp_lisa', 'grupp_lisa' );
 function isik_lisa(){
 	global $wpdb;
 	
+	$eesnimi = $_POST['eesnimi'];
+	$perenimi = $_POST['perenimi'];
+	$kuupaev = $_POST['kuupaev'];
+	$email = $_POST['email'];
+	$saaja_email = $_POST['saaja_email'];
+	$grupi_id = $_POST['grupi_id'];
+	$aktiivne = $_POST['aktiivne'];
+	
 	$table_name = $wpdb->prefix . 'isikud';
 	
 	$wpdb->insert(
 			$table_name,
 			array(
-				'eesnimi' => $_POST['eesnimi'],
-				'perenimi' => $_POST['perenimi'],
-				'kuupaev' => $_POST['kuupaev'],
-				'email' => $_POST['email'],
-				'saaja_email' => $_POST['saaja_email'],
-				'grupi_id' => $_POST['grupi_id'],
-				'aktiivne' => $_POST['aktiivne']
+				'eesnimi' => $eesnimi,
+				'perenimi' => $perenimi,
+				'kuupaev' => $kuupaev,
+				'email' => $email,
+				'saaja_email' => $saaja_email,
+				'grupi_id' => $grupi_id,
+				'aktiivne' => $aktiivne
 			)
 	);
 	wp_die();
@@ -123,18 +136,25 @@ function isik_lisa(){
 function grupp_muuda(){
 	global $wpdb;
 	
+	$nimi = $_POST['nimi'];
+	$struktuuri_id = $_POST['struktuuri_id'];
+	$uldmeil = $_POST['uldmeil'];
+	$aktiivne = $_POST['aktiivne'];
+	
+	$id = $_POST['id'];
+	
 	$table_name = $wpdb->prefix . 'grupid';
 	
 	$wpdb->update(
 			$table_name,
 			array(
-				'nimi' => $_POST['nimi'],
-				'struktuuri_id' => $_POST['struktuuri_id'],
-				'uldmeil' => $_POST['uldmeil'],
-				'aktiivne' => $_POST['aktiivne']
+				'nimi' => $nimi,
+				'struktuuri_id' => $struktuuri_id,
+				'uldmeil' => $uldmeil,
+				'aktiivne' => $aktiivne
 			),
 			array(
-				'id' => $_POST['id']
+				'id' => $id
 			)
 	);
 	wp_die();
@@ -145,21 +165,31 @@ add_action( 'wp_ajax_grupp_muuda', 'grupp_muuda' );
 function isik_muuda(){
 	global $wpdb;
 	
+	$eesnimi = $_POST['eesnimi'];
+	$perenimi = $_POST['perenimi'];
+	$kuupaev = $_POST['kuupaev'];
+	$email = $_POST['email'];
+	$saaja_email = $_POST['saaja_email'];
+	$grupi_id = $_POST['grupi_id'];
+	$aktiivne = $_POST['aktiivne'];
+				
+	$id = $_POST['id'];
+				
 	$table_name = $wpdb->prefix . 'isikud';
 	
 	$wpdb->update(
 			$table_name,
 			array(
-				'eesnimi' => $_POST['eesnimi'],
-				'perenimi' => $_POST['perenimi'],
-				'kuupaev' => $_POST['kuupaev'],
-				'email' => $_POST['email'],
-				'saaja_email' => $_POST['saaja_email'],
-				'grupi_id' => $_POST['grupi_id'],
-				'aktiivne' => $_POST['aktiivne']
+				'eesnimi' => $eesnimi,
+				'perenimi' => $perenimi,
+				'kuupaev' => $kuupaev,
+				'email' => $email,
+				'saaja_email' => $saaja_email,
+				'grupi_id' => $grupi_id,
+				'aktiivne' => $aktiivne
 			),
 			array(
-				'id' => $_POST['id']
+				'id' => $id
 			)
 	);
 	wp_die();
@@ -173,7 +203,7 @@ function isik_kustuta(){
 	if (!empty($_POST['id'])){
 		global $wpdb;
 		
-		$table = prefix . 'isikud';
+		$table = $wpdb->prefix . 'isikud';
 		$id = $_POST['id'];
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
@@ -188,7 +218,7 @@ function grupp_kustuta(){
 	if (!empty($_POST['id'])){
 		global $wpdb;
 		
-		$table = prefix . 'grupid';
+		$table = $wpdb->prefix . 'grupid';
 		$id = $_POST['id'];
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
