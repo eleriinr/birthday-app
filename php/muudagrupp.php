@@ -49,23 +49,24 @@ global $wpdb;
 <script>
 jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
-			var nimi = jQuery("#nimi").val();
-			var struktuuri_id = jQuery("#struktuuri_id").val();
-			var uldmeil = jQuery("#email").val();
-			var aktiivne = "Jah";
-			
-			var andmed = { action: "grupp_muuda", nimi: nimi, struktuuri_id: struktuuri_id, uldmeil: uldmeil, aktiivne: aktiivne};
-			
-			$.ajax(ajaxurl, {
-				"data": andmed,
-				"type": "POST"
-			})
-			.done(function () {
-				console.log("done");
-			})
-			.fail(function () {
-				console.log("fail");
-			})
+		var id = jQuery("#grupi_id").val();
+		var nimi = jQuery("#nimi").val();
+		var struktuuri_id = jQuery("#struktuuri_id").val();
+		var uldmeil = jQuery("#email").val();
+		var aktiivne = "Jah";
+		
+		var andmed = { action: "grupp_muuda", id: id, nimi: nimi, struktuuri_id: struktuuri_id, uldmeil: uldmeil, aktiivne: aktiivne};
+		
+		$.ajax(ajaxurl, {
+			"data": andmed,
+			"type": "POST"
+		})
+		.done(function () {
+			console.log("done");
+		})
+		.fail(function () {
+			console.log("fail");
+		})
 	});
 })
 </script>

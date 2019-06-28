@@ -20,6 +20,9 @@ global $wpdb;
 			</a>
 			
 			<?php echo '<form action=' . $url . ' method="post">';?>
+				<div class="form-group" hidden>
+					<input class="form-control" id="id" type="number" value=<?php echo $retrieved_data->id; ?>>
+				</div>
 				<div class="form-group">
 					<label for="eesnimi">Eesnimi: </label>
 					<input class="form-control" id="eesnimi" type="text" value=<?php echo $retrieved_data->eesnimi; ?>>
@@ -57,26 +60,27 @@ global $wpdb;
 <script>
 jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
-			var eesnimi = jQuery("#eesnimi").val();
-			var perenimi = jQuery("#perenimi").val();
-			var kuupaev = jQuery("#kuupaev").val();
-			var email = jQuery("#email").val();
-			var saaja_email = jQuery("#saaja_email").val();
-			var grupi_id = jQuery("#grupi_id").val();
-			var aktiivne = "Jah";
+		var id = jQuery("#id").val();
+		var eesnimi = jQuery("#eesnimi").val();
+		var perenimi = jQuery("#perenimi").val();
+		var kuupaev = jQuery("#kuupaev").val();
+		var email = jQuery("#email").val();
+		var saaja_email = jQuery("#saaja_email").val();
+		var grupi_id = jQuery("#grupi_id").val();
+		var aktiivne = "Jah";
+	
+		var andmed = { action: "isik_muuda", id: id, eesnimi: eesnimi, perenimi: perenimi, kuupaev: kuupaev, email: email, saaja_email: saaja_email, grupi_id: grupi_id, aktiivne: aktiivne};
 		
-			var andmed = { action: "isik_muuda", eesnimi: eesnimi, perenimi: perenimi, kuupaev: kuupaev, email: email, saaja_email: saaja_email, grupi_id: grupi_id, aktiivne: aktiivne};
-			
-			$.ajax(ajaxurl, {
-				"data": andmed,
-				"type": "POST"
-			})
-			.done(function () {
-				console.log("done");
-			})
-			.fail(function () {
-				console.log("fail");
-			})
+		$.ajax(ajaxurl, {
+			"data": andmed,
+			"type": "POST"
+		})
+		.done(function () {
+			console.log("done");
+		})
+		.fail(function () {
+			console.log("fail");
+		})
 	});
 })
 </script>
