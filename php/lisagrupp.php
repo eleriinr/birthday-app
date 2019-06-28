@@ -32,7 +32,7 @@ $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
 					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne">
 				</div>
-				<input value="Lisa" id="add" type="submit" class="btn btn-info pull-right d-block add"> 
+				<input value="Lisa" id="add" type="submit" class="btn btn-info pull-right d-block"> 
 			</form>
 		</div>
 		<div class="col"></div>
@@ -40,8 +40,14 @@ $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
 </div>
 <script>
 jQuery(document).ready(function() {
-	jQuery("#add").on("click", function(event) {
-			var andmed = { action: "grupp_lisa", nimi: "Grupp3", struktuuri_id: "AT", uldmeil: "ut.ak@lists.ut.ee" aktiivne: "Jah"};
+	jQuery("#add").click(function() {
+			var nimi = jQuery("#nimi").val();
+			var struktuuri_id = jQuery("#struktuuri_id").val();
+			var uldmeil = jQuery("#email").val();
+			var aktiivne = "Jah";
+			
+			var andmed = { action: "grupp_lisa", nimi: nimi, struktuuri_id: struktuuri_id, uldmeil: uldmeil, aktiivne: aktiivne};
+			
 			$.ajax(ajaxurl, {
 				"data": andmed,
 				"type": "POST"

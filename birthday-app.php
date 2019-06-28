@@ -198,9 +198,9 @@ function isik_muuda(){
 add_action( 'wp_ajax_isik_muuda', 'isik_muuda' );
 
 function isik_kustuta(){
-	require_once( '../../../wp-load.php' );
-	
+
 	if (!empty($_POST['id'])){
+		
 		global $wpdb;
 		
 		$table = $wpdb->prefix . 'isikud';
@@ -213,9 +213,9 @@ function isik_kustuta(){
 add_action( 'wp_ajax_isik_kustuta', 'isik_kustuta' );
 
 function grupp_kustuta(){
-	require_once( '../../../wp-load.php' );
 	
 	if (!empty($_POST['id'])){
+		
 		global $wpdb;
 		
 		$table = $wpdb->prefix . 'grupid';

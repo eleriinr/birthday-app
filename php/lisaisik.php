@@ -28,7 +28,7 @@
 				</div>
 				<div class="form-group">
 					<label for="emails">Meili saaja: </label>
-					<input class="form-control" id="emails" type="email" placeholder="Saaja Email">
+					<input class="form-control" id="saaja_email" type="email" placeholder="Saaja Email">
 				</div>
 				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
@@ -46,8 +46,17 @@
 </div>
 <script>
 jQuery(document).ready(function() {
-	jQuery("#add").on("click", function(event) {
-			var andmed = { action: "isik_lisa", eesnimi: "John", perenimi: "Doe", kuupaev: "1996-01-09", email: "j.doe@gmail.com", grupi_id: "AK", aktiivne: "Jah"};
+	jQuery("#add").click(function() {
+			var eesnimi = jQuery("#eesnimi").val();
+			var perenimi = jQuery("#perenimi").val();
+			var kuupaev = jQuery("#kuupaev").val();
+			var email = jQuery("#email").val();
+			var saaja_email = jQuery("#saaja_email").val();
+			var grupi_id = jQuery("#grupi_id").val();
+			var aktiivne = "Jah";
+		
+			var andmed = { action: "isik_lisa", eesnimi: eesnimi, perenimi: perenimi, kuupaev: kuupaev, email: email, saaja_email: saaja_email, grupi_id: grupi_id, aktiivne: aktiivne};
+			
 			$.ajax(ajaxurl, {
 				"data": andmed,
 				"type": "POST"

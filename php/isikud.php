@@ -43,7 +43,7 @@ global $wpdb;
 						<td class="p-2">' . $retrieved_data->grupi_id . '</td>	
 						<td class="p-2">' . $retrieved_data->aktiivne . '</td>
 						<td class="p-2">
-							<div class="btn-group">
+							<div class="btn-group" id="' . $retrieved_data->id . '">
 								<form method="post" action=' . $muudaisik_url . '>
 									<input type="number" name="id" value="' . $retrieved_data->id . '" hidden>
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
@@ -65,18 +65,21 @@ global $wpdb;
 </div>
 <script>
 jQuery(document).ready(function() {
-	jQuery(".delete").on("click", function(event) {
-			var andmed = { action: "isik_kustuta", id: 1};
+	jQuery(".delete").click(function() {
+			var id = this.parentElement.id;
+		
+			var andmed = { action: "isik_kustuta", id: id};
+			
 			$.ajax(ajaxurl, {
 				"data": andmed,
 				"type": "POST"
 			})
-			.done(function () {
-				console.log("done");
+			.done(function (result, status, xhr) {
+				console.log(status);
 			})
 			.fail(function () {
 				console.log("fail");
-			})
+			});
 	});
 })
 </script>

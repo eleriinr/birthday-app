@@ -48,8 +48,14 @@ global $wpdb;
 </div>
 <script>
 jQuery(document).ready(function() {
-	jQuery("#edit").on("click", function(event) {
-			var andmed = { action: "grupp_muuda", nimi: "Grupp3", struktuuri_id: "AT", uldmeil: "ut.ak@lists.ut.ee" aktiivne: "Jah"};
+	jQuery("#edit").click(function() {
+			var nimi = jQuery("#nimi").val();
+			var struktuuri_id = jQuery("#struktuuri_id").val();
+			var uldmeil = jQuery("#email").val();
+			var aktiivne = "Jah";
+			
+			var andmed = { action: "grupp_muuda", nimi: nimi, struktuuri_id: struktuuri_id, uldmeil: uldmeil, aktiivne: aktiivne};
+			
 			$.ajax(ajaxurl, {
 				"data": andmed,
 				"type": "POST"

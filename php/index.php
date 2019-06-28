@@ -37,9 +37,9 @@ global $wpdb;
 						<td class="p-2">' . $retrieved_data->uldmeil . '</td>
 						<td class="p-2">' . $retrieved_data->aktiivne . '</td>
 						<td class="p-2">
-							<div class="btn-group">
+							<div class="btn-group" id="' . $retrieved_data->id . '">
 								<form method="post" action=' . $muudagrupp_url . '>
-									<input type="number" id="' . $retrieved_data->id . '" name="id" value="' . $retrieved_data->id . '" hidden>
+									<input type="number" value="' . $retrieved_data->id . '" name="id" hidden>
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
 								<button class="btn btn-danger btn-sm delete">Kustuta</button>
@@ -59,18 +59,21 @@ global $wpdb;
 </div>
 <script>
 jQuery(document).ready(function() {
-	jQuery(".delete").on("click", function(event) {
-			var andmed = { action: "grupp_kustuta", id: 1};
+	jQuery(".delete").click(function() {
+			var id = this.parentElement.id;
+		
+			var andmed = { action: "grupp_kustuta", id: id};
+			
 			$.ajax(ajaxurl, {
 				"data": andmed,
 				"type": "POST"
 			})
-			.done(function () {
-				console.log("done");
+			.done(function (result, status, xhr) {
+				console.log(status);
 			})
-			.fail(function () {
-				console.log("fail");
-			})
+			.fail(function (xhr, status, error) {
+				console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+			});
 	});
 })
 </script>

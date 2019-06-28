@@ -38,7 +38,7 @@ global $wpdb;
 				</div>
 				<div class="form-group">
 					<label for="email">Meili saaja: </label>
-					<input class="form-control" id="emails" type="email" value=<?php echo $retrieved_data->saaja_email; ?>>
+					<input class="form-control" id="saaja_email" type="email" value=<?php echo $retrieved_data->saaja_email; ?>>
 				</div>
 				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
@@ -56,8 +56,17 @@ global $wpdb;
 </div>
 <script>
 jQuery(document).ready(function() {
-	jQuery("#edit").on("click", function(event) {
-			var andmed = { action: "isik_muuda", eesnimi: "John", perenimi: "Doe", kuupaev: "1996-01-09", email: "j.doe@gmail.com", grupi_id: "AK", aktiivne: "Jah"};
+	jQuery("#edit").click(function() {
+			var eesnimi = jQuery("#eesnimi").val();
+			var perenimi = jQuery("#perenimi").val();
+			var kuupaev = jQuery("#kuupaev").val();
+			var email = jQuery("#email").val();
+			var saaja_email = jQuery("#saaja_email").val();
+			var grupi_id = jQuery("#grupi_id").val();
+			var aktiivne = "Jah";
+		
+			var andmed = { action: "isik_muuda", eesnimi: eesnimi, perenimi: perenimi, kuupaev: kuupaev, email: email, saaja_email: saaja_email, grupi_id: grupi_id, aktiivne: aktiivne};
+			
 			$.ajax(ajaxurl, {
 				"data": andmed,
 				"type": "POST"
