@@ -44,7 +44,11 @@ jQuery(document).ready(function() {
 			var nimi = jQuery("#nimi").val();
 			var struktuuri_id = jQuery("#struktuuri_id").val();
 			var uldmeil = jQuery("#email").val();
-			var aktiivne = "Jah";
+			var aktiivne = "Ei";
+	
+			if ( $("#aktiivne").is(':checked')) { 
+				aktiivne = "Jah";
+			}
 			
 			var andmed = { action: "grupp_lisa", nimi: nimi, struktuuri_id: struktuuri_id, uldmeil: uldmeil, aktiivne: aktiivne};
 			

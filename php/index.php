@@ -1,5 +1,5 @@
 <?php 
-$inimesed_url = str_replace('sunnipaevaplugin','isikud',$url);
+$isikud_url = str_replace('sunnipaevaplugin','isikud',$url);
 $muudagrupp_url = str_replace('sunnipaevaplugin','muudagrupp',$url);
 $lisagrupp_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
 
@@ -31,7 +31,10 @@ global $wpdb;
 				echo '<tr>
 						<td class="p-2">' . $retrieved_data->id . '</td>
 						<td class="p-2">
-							<a href="' . $inimesed_url . '" class="text-info">' . $retrieved_data->nimi . '</a>
+								<form method="post" action=' . $isikud_url . '>
+									<input type="number" value="' . $retrieved_data->id . '" name="id" hidden>
+									<input value="' . $retrieved_data->nimi . '" type="submit" class="btn btn-info btn-sm">
+								</form>
 						</td>
 						<td class="p-2">' . $retrieved_data->struktuuri_id . '</td>
 						<td class="p-2">' . $retrieved_data->uldmeil . '</td>

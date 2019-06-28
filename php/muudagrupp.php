@@ -22,19 +22,19 @@ global $wpdb;
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
-					<input class="form-control" id="grupi_id" type="number" value=<?php echo $retrieved_data->id; ?> readonly>
+					<input class="form-control" id="grupi_id" type="number" value="<?php echo $retrieved_data->id; ?>" readonly>
 				</div>
 				<div class="form-group">
 					<label for="nimi">Nimi: </label>
-					<input class="form-control" id="nimi" type="text" placeholder="Nimi" value=<?php echo $retrieved_data->nimi; ?>>
+					<input class="form-control" id="nimi" type="text" placeholder="Nimi" value="<?php echo $retrieved_data->nimi; ?>">
 				</div>
 				<div class="form-group">
 					<label for="struktuuri_id">Struktuuri ID: </label>
-					<input class="form-control" id="struktuuri_id" type="text" placeholder="ID" value=<?php echo $retrieved_data->struktuuri_id; ?>>
+					<input class="form-control" id="struktuuri_id" type="text" placeholder="ID" value="<?php echo $retrieved_data->struktuuri_id; ?>">
 				</div>
 				<div class="form-group">
 					<label for="email">Üldmeil: </label>
-					<input class="form-control" id="email" type="email" placeholder="Email" value=<?php echo $retrieved_data->uldmeil; ?>>
+					<input class="form-control" id="email" type="email" placeholder="Email" value="<?php echo $retrieved_data->uldmeil; ?>">
 				</div>
 				<div class="form-group">
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
@@ -53,7 +53,11 @@ jQuery(document).ready(function() {
 		var nimi = jQuery("#nimi").val();
 		var struktuuri_id = jQuery("#struktuuri_id").val();
 		var uldmeil = jQuery("#email").val();
-		var aktiivne = "Jah";
+		var aktiivne = "Ei";
+	
+		if ( $("#aktiivne").is(':checked')) { 
+			aktiivne = "Jah";
+		}
 		
 		var andmed = { action: "grupp_muuda", id: id, nimi: nimi, struktuuri_id: struktuuri_id, uldmeil: uldmeil, aktiivne: aktiivne};
 		

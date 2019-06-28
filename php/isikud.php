@@ -3,11 +3,13 @@ $lisaisik_url = str_replace('isikud','lisaisik',$url);
 $muudaisik_url = str_replace('isikud','muudaisik',$url);
 $url = str_replace('isikud', 'sunnipaevaplugin',$url);
 
+$id = $_POST['id'];
+
 global $wpdb;
 	
 	$table_name = $wpdb->prefix . 'isikud';
 	
-	$retrieve_data = $wpdb->get_results( "SELECT * FROM $table_name" );
+	$retrieve_data = $wpdb->get_results( "SELECT * FROM $table_name WHERE grupi_id=$id" );
 ?>
 
 <h1 class="h1 text-center my-4">Isikud</h1>

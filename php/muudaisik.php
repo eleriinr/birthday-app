@@ -21,36 +21,37 @@ global $wpdb;
 			
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group" hidden>
-					<input class="form-control" id="id" type="number" value=<?php echo $retrieved_data->id; ?>>
+					<input class="form-control" id="id" type="number" value="<?php echo $retrieved_data->id; ?>">
 				</div>
 				<div class="form-group">
 					<label for="eesnimi">Eesnimi: </label>
-					<input class="form-control" id="eesnimi" type="text" value=<?php echo $retrieved_data->eesnimi; ?>>
+					<input class="form-control" id="eesnimi" type="text" value="<?php echo $retrieved_data->eesnimi; ?>">
 				</div>
 				<div class="form-group">
 					<label for="perenimi">Perenimi: </label>
-					<input class="form-control" id="perenimi" type="text" value=<?php echo $retrieved_data->perenimi; ?>>
+					<input class="form-control" id="perenimi" type="text" value="<?php echo $retrieved_data->perenimi; ?>">
 				</div>
 				<div class="form-group">
 					<label for="kuupaev">Kuupäev: </label>
-					<input class="form-control" id="kuupaev" type="date" value=<?php echo $retrieved_data->kuupaev; ?>>
+					<input class="form-control" id="kuupaev" type="date" value="<?php echo $retrieved_data->kuupaev; ?>">
 				</div>
 				<div class="form-group">
 					<label for="email">Email: </label>
-					<input class="form-control" id="email" type="email" value=<?php echo $retrieved_data->email; ?>>
+					<input class="form-control" id="email" type="email" value="<?php echo $retrieved_data->email; ?>">
 				</div>
 				<div class="form-group">
 					<label for="email">Meili saaja: </label>
-					<input class="form-control" id="saaja_email" type="email" value=<?php echo $retrieved_data->saaja_email; ?>>
+					<input class="form-control" id="saaja_email" type="email" value="<?php echo $retrieved_data->saaja_email; ?>">
 				</div>
 				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
-					<input class="form-control" id="grupi_id" type="number" value=<?php echo $retrieved_data->grupi_id; ?>>
+					<input class="form-control" id="grupi_id" type="number" value="<?php echo $retrieved_data->grupi_id; ?>">
 				</div>
 				<div class="form-group">
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
 					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" <?php if($retrieved_data->aktiivne == 'Jah') echo 'checked';?>>
 				</div>
+				<input type="number" name="id" value=<?php echo $retrieved_data->grupi_id; ?> hidden>
 				<input value="Muuda" id="edit" type="submit" class="btn btn-info pull-right d-block"> 
 			</form>
 		</div>
@@ -67,7 +68,11 @@ jQuery(document).ready(function() {
 		var email = jQuery("#email").val();
 		var saaja_email = jQuery("#saaja_email").val();
 		var grupi_id = jQuery("#grupi_id").val();
-		var aktiivne = "Jah";
+		var aktiivne = "Ei";
+	
+		if ( $("#aktiivne").is(':checked')) { 
+			aktiivne = "Jah";
+		}
 	
 		var andmed = { action: "isik_muuda", id: id, eesnimi: eesnimi, perenimi: perenimi, kuupaev: kuupaev, email: email, saaja_email: saaja_email, grupi_id: grupi_id, aktiivne: aktiivne};
 		

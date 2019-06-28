@@ -53,7 +53,11 @@ jQuery(document).ready(function() {
 			var email = jQuery("#email").val();
 			var saaja_email = jQuery("#saaja_email").val();
 			var grupi_id = jQuery("#grupi_id").val();
-			var aktiivne = "Jah";
+			var aktiivne = "Ei";
+	
+			if ( $("#aktiivne").is(':checked')) { 
+				aktiivne = "Jah";
+			}
 		
 			var andmed = { action: "isik_lisa", eesnimi: eesnimi, perenimi: perenimi, kuupaev: kuupaev, email: email, saaja_email: saaja_email, grupi_id: grupi_id, aktiivne: aktiivne};
 			
