@@ -28,7 +28,9 @@ global $wpdb;
 				</thead>
 				<tbody>
 					<?php foreach ($retrieve_data as $retrieved_data){
-				echo '<tr>
+						echo '<tr';
+						if($retrieved_data->aktiivne == 'Ei') echo 'class="table-danger"';
+						echo '>
 						<td class="p-2">' . $retrieved_data->id . '</td>
 						<td class="p-2">
 								<form method="post" action=' . $isikud_url . '>

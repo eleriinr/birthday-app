@@ -36,7 +36,9 @@ global $wpdb;
 				</thead>
 				<tbody>
 				<?php foreach($retrieve_data as $retrieved_data){
-					echo '<tr>
+					echo '<tr';
+					if($retrieved_data->aktiivne == 'Ei') echo 'class="table-danger"';
+					echo '>
 						<td class="p-2">' . $retrieved_data->eesnimi . '</td>
 						<td class="p-2">' . $retrieved_data->perenimi . '</td>
 						<td class="p-2">' . $retrieved_data->kuupaev . '</td>
@@ -48,18 +50,21 @@ global $wpdb;
 							<div class="btn-group" id="' . $retrieved_data->id . '">
 								<form method="post" action=' . $muudaisik_url . '>
 									<input type="number" name="id" value="' . $retrieved_data->id . '" hidden>
+									<input type="number" name="gid" value="' . $id . '" hidden>
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
 								<button type="button" class="btn btn-danger btn-sm delete">Kustuta</button>
 							</div>
 						</td>
-				</tr>';}?>
+					</tr>';
+				}?>
 				</tbody>
 			</table>
 			<div class="text-right">
-				<a href=<?php echo $lisaisik_url;?>>
-					<button class="btn btn-info">+ Lisa isik</button>
-				</a>
+				<form method="post" action=<?php echo $lisaisik_url;?>>
+					<input type="number" name="id" value="<?php echo $id; ?>" hidden>
+					<input value="+ Lisa isik" type="submit" class="btn btn-info btn-sm">
+				</form>
 			</div>
 		</div>
 		<div class="col"></div>

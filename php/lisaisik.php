@@ -1,13 +1,18 @@
-<?php $url = str_replace('lisaisik', 'isikud',$url);?>
+<?php 
+$url = str_replace('lisaisik', 'isikud',$url);
+$id = $_POST['id'];
+?>
 
 <h1 class="h1 text-center my-4">Lisa isik</h1>
 <div class="container">
 	<div class="row">
 		<div class="col"></div>
 		<div class="col">
-			<a href=<?php echo $url; ?>>
-				<button class="btn btn-danger mb-4">Tagasi</button>
-			</a>
+		
+			<form method="post" action=<?php echo $url;?>>
+					<input type="number" name="id" value="<?php echo $id; ?>" hidden>
+					<input value="Tagasi" type="submit" class="btn btn-danger btn-sm">
+			</form>
 
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
@@ -32,12 +37,13 @@
 				</div>
 				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
-					<input class="form-control" id="grupi_id" type="number" placeholder="ID">
+					<input class="form-control" id="grupi_id" type="number" value="<?php echo $id; ?>" placeholder="ID">
 				</div>
 				<div class="form-group">
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
 					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne">
 				</div>
+				<input type="number" name="id" value="<?php echo $id; ?>" hidden>
 				<input value="Lisa" id="add" type="submit" class="btn btn-info pull-right mb-3 d-block"> 
 			</form>
 		</div>

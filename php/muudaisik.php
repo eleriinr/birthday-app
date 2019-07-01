@@ -5,6 +5,7 @@ global $wpdb;
 	
 	$table_name = $wpdb->prefix . 'isikud';
 	$id = $_POST['id'];
+	$gid = $_POST['gid'];
 	
 	$retrieve_data = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id");
 	$retrieved_data = $retrieve_data[0];
@@ -15,9 +16,10 @@ global $wpdb;
 	<div class="row">
 		<div class="col"></div>
 		<div class="col">
-			<a href=<?php echo $url; ?>>
-				<button class="btn btn-danger mb-3">Tagasi</button>
-			</a>
+			<form method="post" action=<?php echo $url;?>>
+					<input type="number" name="id" value="<?php echo $gid; ?>" hidden>
+					<input value="Tagasi" type="submit" class="btn btn-danger btn-sm">
+			</form>
 			
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group" hidden>
@@ -51,7 +53,7 @@ global $wpdb;
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
 					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" <?php if($retrieved_data->aktiivne == 'Jah') echo 'checked';?>>
 				</div>
-				<input type="number" name="id" value=<?php echo $retrieved_data->grupi_id; ?> hidden>
+				<input type="number" name="id" value=<?php echo $gid; ?> hidden>
 				<input value="Muuda" id="edit" type="submit" class="btn btn-info pull-right d-block"> 
 			</form>
 		</div>
