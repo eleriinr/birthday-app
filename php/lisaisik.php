@@ -15,25 +15,25 @@ $id = $_POST['id'];
 			
 			<form method="post" action=<?php echo $url;?>>
 					<input type="number" name="id" value="<?php echo $id; ?>" hidden>
-					<input value="Tagasi" type="submit" class="btn btn-danger btn-sm">
+					<input value="Tagasi" type="submit" class="btn btn-danger my-3">
 			</form>
-			
+						
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
 					<label for="eesnimi">Eesnimi: </label>
-					<input class="form-control" id="eesnimi" type="text" placeholder="Eesnimi">
+					<input class="form-control" id="eesnimi" type="text" placeholder="Eesnimi" required>
 				</div>
 				<div class="form-group">
 					<label for="perenimi">Perenimi: </label>
-					<input class="form-control" id="perenimi" type="text" placeholder="Perenimi">
+					<input class="form-control" id="perenimi" type="text" placeholder="Perenimi" required>
 				</div>
 				<div class="form-group">
 					<label for="kuupaev">Kuupäev: </label>
-					<input class="form-control" id="kuupaev" type="date">
+					<input class="form-control" id="kuupaev" type="date" required>
 				</div>
 				<div class="form-group">
 					<label for="email">Email: </label>
-					<input class="form-control" id="email" type="email" placeholder="Email">
+					<input class="form-control" id="email" type="email" placeholder="Email" required>
 				</div>
 				<div class="form-group">
 					<label for="emails">Meili saaja: </label>
@@ -68,8 +68,18 @@ jQuery(document).ready(function() {
 			if ( $("#aktiivne").is(':checked')) { 
 				aktiivne = "Jah";
 			}
-		
-			var andmed = { action: "isik_lisa", eesnimi: eesnimi, perenimi: perenimi, kuupaev: kuupaev, email: email, saaja_email: saaja_email, grupi_id: grupi_id, aktiivne: aktiivne};
+			
+			if(eesnimi != "" && perenimi != "" && kuupaev != 0000-00-00 && email != ""){ 
+			var andmed = { 
+							action: "isik_lisa",
+							eesnimi: eesnimi,
+							perenimi: perenimi,
+							kuupaev: kuupaev,
+							email: email,
+							saaja_email: saaja_email,
+							grupi_id: grupi_id,
+							aktiivne: aktiivne
+			};
 			
 			$.ajax(ajaxurl, {
 				"data": andmed,
@@ -81,6 +91,7 @@ jQuery(document).ready(function() {
 			.fail(function () {
 				console.log("fail");
 			})
+			}
 	});
 })
 </script>

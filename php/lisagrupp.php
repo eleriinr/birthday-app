@@ -20,15 +20,15 @@ $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
 				</div>
 				<div class="form-group">
 					<label for="nimi">Nimi: </label>
-					<input class="form-control" id="nimi" type="text" placeholder="Nimi">
+					<input class="form-control" id="nimi" type="text" placeholder="Nimi" required>
 				</div>
 				<div class="form-group">
 					<label for="struktuuri_id">Struktuuri ID: </label>
-					<input class="form-control" id="struktuuri_id" type="text" placeholder="ID">
+					<input class="form-control" id="struktuuri_id" type="text" placeholder="ID" required>
 				</div>
 				<div class="form-group">
 					<label for="email">Üldmeil: </label>
-					<input class="form-control" id="email" type="email" placeholder="Email">
+					<input class="form-control" id="email" type="email" placeholder="Email" required>
 				</div>
 				<div class="form-group">
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
@@ -52,6 +52,8 @@ jQuery(document).ready(function() {
 				aktiivne = "Jah";
 			}
 			
+			if(nimi != "" && struktuuri_id != "" && uldmeil != ""){
+				
 			var andmed = { action: "grupp_lisa", nimi: nimi, struktuuri_id: struktuuri_id, uldmeil: uldmeil, aktiivne: aktiivne};
 			
 			$.ajax(ajaxurl, {
@@ -64,6 +66,7 @@ jQuery(document).ready(function() {
 			.fail(function () {
 				console.log("fail");
 			})
+			}
 	});
 })
 </script>
