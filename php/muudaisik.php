@@ -5,13 +5,13 @@ $url = str_replace('muudaisik', 'isikud',$url);
 //Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
-	$table_name = $wpdb->prefix . 'isikud';
+$table_name = $wpdb->prefix . 'isikud';
 	
-	//ID of the person
-	$id = $_POST['id'];
+//ID of the person
+$id = $_POST['id'];
 	
-	$retrieve_data = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id");
-	$retrieved_data = $retrieve_data[0];
+$retrieve_data = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id");
+$retrieved_data = $retrieve_data[0];
 	
 //Data
 $eesnimi = $retrieved_data->eesnimi;
@@ -19,8 +19,7 @@ $perenimi = $retrieved_data->perenimi;
 $kuupaev = $retrieved_data->kuupaev;
 $email = $retrieved_data->email;
 $saaja_email = $retrieved_data->saaja_email;
-$group_id = $retrieved_data->grupi_id;
-$aktiivne = $retrieved_data->aktiivne;
+$grupi_id = $retrieved_data->grupi_id;
 ?>
 
 <h1 class="h1 text-center my-4" >Muuda isik</h1>
@@ -30,7 +29,7 @@ $aktiivne = $retrieved_data->aktiivne;
 		<div class="col"></div>
 		<div class="col">
 			<form method="post" action=<?php echo $url;?>>
-					<input type="number" name="id" value="<?php echo $gid; ?>" hidden>
+					<input type="number" name="id" value="<?php echo $grupi_id; ?>" hidden>
 					<input value="Tagasi" type="submit" class="btn btn-danger my-3">
 			</form>
 			
@@ -59,11 +58,7 @@ $aktiivne = $retrieved_data->aktiivne;
 					<label for="grupi_id">Grupi ID: </label>
 					<input class="form-control" id="grupi_id" type="number" value="<?php echo $grupi_id; ?>" required>
 				</div>
-				<div class="form-group">
-					<label class="form-check-label" for="aktiivne">Aktiivne</label>
-					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" <?php if($aktiivne == 'Jah') echo 'checked';?>>
-				</div>
-				<input type="number" name="id" value=<?php echo $gid; ?> hidden>
+				<input type="number" name="id" value="<?php echo $grupi_id; ?>" hidden>
 				<input value="Muuda" id="edit" type="submit" class="btn btn-info pull-right d-block"> 
 			</form>
 		</div>
@@ -80,11 +75,6 @@ jQuery(document).ready(function() {
 		var email = jQuery("#email").val();
 		var saaja_email = jQuery("#saaja_email").val();
 		var grupi_id = jQuery("#grupi_id").val();
-		var aktiivne = "Ei";
-	
-		if ( $("#aktiivne").is(':checked')) { 
-			aktiivne = "Jah";
-		}
 		
 		if(eesnimi != "" && perenimi != "" && kuupaev != 0000-00-00 && email != "" && grupi_id != ""){
 			var andmed = { 
@@ -95,8 +85,7 @@ jQuery(document).ready(function() {
 							kuupaev: kuupaev,
 							email: email,
 							saaja_email: saaja_email,
-							grupi_id: grupi_id,
-							aktiivne: aktiivne
+							grupi_id: grupi_id
 			};
 			
 			$.ajax(ajaxurl, {

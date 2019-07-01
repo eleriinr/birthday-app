@@ -18,7 +18,6 @@ $id = $retrieved_data->id;
 $nimi = $retrieved_data->nimi;
 $struktuuri_id = $retrieved_data->struktuuri_id;
 $uldmeil = $retrieved_data->uldmeil;
-$aktiivne = $retrieved_data->aktiivne;
 ?>
 
 <h1 class="h1 text-center my-4" >Muuda gruppi</h1>
@@ -47,10 +46,6 @@ $aktiivne = $retrieved_data->aktiivne;
 					<label for="email">Üldmeil: </label>
 					<input class="form-control" id="email" type="email" placeholder="Email" value="<?php echo $uldmeil; ?>" required>
 				</div>
-				<div class="form-group">
-					<label class="form-check-label" for="aktiivne">Aktiivne</label>
-					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" <?php if($aktiivne == 'Jah') echo 'checked';?>>
-				</div>
 				<input value="Muuda" type="submit" id="edit" class="btn btn-info pull-right d-block"> 
 			</form>
 		</div>
@@ -64,11 +59,6 @@ jQuery(document).ready(function() {
 		var nimi = jQuery("#nimi").val();
 		var struktuuri_id = jQuery("#struktuuri_id").val();
 		var uldmeil = jQuery("#email").val();
-		var aktiivne = "Ei";
-	
-		if ( $("#aktiivne").is(':checked')) { 
-			aktiivne = "Jah";
-		}
 		
 		if(nimi != "" && struktuuri_id != "" && uldmeil != ""){
 			var andmed = { 
@@ -76,8 +66,7 @@ jQuery(document).ready(function() {
 							id: id,
 							nimi: nimi,
 							struktuuri_id: struktuuri_id,
-							uldmeil: uldmeil,
-							aktiivne: aktiivne
+							uldmeil: uldmeil
 			};
 			
 			$.ajax(ajaxurl, {

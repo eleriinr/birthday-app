@@ -15,10 +15,6 @@ $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
 
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
-					<label for="grupi_id">Grupi ID: </label>
-					<input class="form-control" id="grupi_id" type="number" readonly>
-				</div>
-				<div class="form-group">
 					<label for="nimi">Nimi: </label>
 					<input class="form-control" id="nimi" type="text" placeholder="Nimi" required>
 				</div>

@@ -31,26 +31,45 @@ global $wpdb;
 				</thead>
 				<tbody>
 					<?php foreach ($retrieve_data as $retrieved_data){
-						echo '<tr id="rida' . $retrieved_data->id . '"';
-						if($retrieved_data->aktiivne == 'Ei') echo ' class="table-danger"';
+						$gid = $retrieved_data->id;
+						$aktiivne = $retrieved_data->aktiivne;
+						$nimi = $retrieved_data->nimi;
+						$struktuuri_id = $retrieved_data->struktuuri_id;
+						$uldmeil = $retrieved_data->uldmeil;
+						
+						echo '<tr id="' . $gid . '"';
+						if($aktiivne == 'Ei') echo ' class="table-danger"';
 						echo '>
-						<td class="p-2">' . $retrieved_data->id . '</td>
+						
+						<td class="p-2">' . $gid . '</td>
+						
 						<td class="p-2">
 							<form method="post" action=' . $isikud_url . '>
-								<input type="number" value="' . $retrieved_data->id . '" name="id" hidden>
-								<input value="' . $retrieved_data->nimi . '" type="submit" class="btn btn-info btn-sm">
+								<input type="number" value="' . $gid . '" name="id" hidden>
+								<input value="' . $nimi . '" type="submit" class="btn btn-info btn-sm">
 							</form>
 						</td>
-						<td class="p-2">' . $retrieved_data->struktuuri_id . '</td>
-						<td class="p-2">' . $retrieved_data->uldmeil . '</td>
-						<td class="p-2">' . $retrieved_data->aktiivne . '</td>
+						
+						<td class="p-2">' . $struktuuri_id . '</td>
+						
+						<td class="p-2">' . $uldmeil . '</td>
+						
 						<td class="p-2">
-							<div class="btn-group" id="' . $retrieved_data->id . '">
+							<input type="checkbox" class="aktiivne" id="kast' . $gid . '" ';
+								if($aktiivne == "Jah") {echo 'checked';}
+							echo '>
+						</td>
+						
+						<td class="p-2">
+							<div class="btn-group">
+								
 								<form method="post" action=' . $muudagrupp_url . '>
-									<input type="number" value="' . $retrieved_data->id . '" name="id" hidden>
+									<input type="number" value="' . $gid . '" name="id" hidden>
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
+								
 								<button class="btn btn-danger btn-sm delete">Kustuta</button>
+							
 							</div>
 						</td>
 					</tr>';
@@ -67,8 +86,8 @@ global $wpdb;
 <script>
 jQuery(document).ready(function() {
 	jQuery(".delete").click(function() {
-			$(<?php echo '"#rida' . $retrieved_data->id . '"';?>).remove();
-			var id = this.parentElement.id;
+			var id = this.parentElement.parentElement.parentElement.id;
+			$("tr#" + id).remove();
 		
 			var andmed = { action: "grupp_kustuta", id: id};
 			
@@ -76,12 +95,44 @@ jQuery(document).ready(function() {
 				"data": andmed,
 				"type": "POST"
 			})
-			.done(function (result, status, xhr) {
-				console.log(status);
+			.done(function () {
+				console.log("done");
 			})
-			.fail(function (xhr, status, error) {
-				console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText);
+			.fail(function () {
+				console.log("fail");
 			});
+	});
+	
+	jQuery(".aktiivne").click(function() {
+			var rida = this.parentElement.parentElement;
+			var id = rida.id;
+			var kast = $("#kast" + id);
+			var aktiivne = "Ei";
+	
+			if ( kast.is(':checked')) { 
+				aktiivne = "Jah";
+				rida.classList.remove("table-danger");
+			}
+			else{
+				rida.classList.add("table-danger");
+			}
+			
+			var andmed = { 
+							action: "grupp_muuda_aktiivsust",
+							id: id,
+							aktiivne: aktiivne
+			};
+			
+			$.ajax(ajaxurl, {
+				"data": andmed,
+				"type": "POST"
+			})
+			.done(function () {
+				console.log("done");
+			})
+			.fail(function () {
+				console.log("fail");
+			})
 	});
 })
 </script>
