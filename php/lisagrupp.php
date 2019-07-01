@@ -53,19 +53,24 @@ jQuery(document).ready(function() {
 			}
 			
 			if(nimi != "" && struktuuri_id != "" && uldmeil != ""){
+				var andmed = { 
+								action: "grupp_lisa",
+								nimi: nimi,
+								struktuuri_id: struktuuri_id,
+								uldmeil: uldmeil,
+								aktiivne: aktiivne
+				};
 				
-			var andmed = { action: "grupp_lisa", nimi: nimi, struktuuri_id: struktuuri_id, uldmeil: uldmeil, aktiivne: aktiivne};
-			
-			$.ajax(ajaxurl, {
-				"data": andmed,
-				"type": "POST"
-			})
-			.done(function () {
-				console.log("done");
-			})
-			.fail(function () {
-				console.log("fail");
-			})
+				$.ajax(ajaxurl, {
+					"data": andmed,
+					"type": "POST"
+				})
+				.done(function () {
+					console.log("done");
+				})
+				.fail(function () {
+					console.log("fail");
+				})
 			}
 	});
 })

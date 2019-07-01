@@ -2,9 +2,6 @@
 //Destination url
 $url = str_replace('muudaisik', 'isikud',$url);
 
-//ID of the group
-$gid = $_POST['gid'];
-
 //Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
@@ -15,6 +12,15 @@ global $wpdb;
 	
 	$retrieve_data = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id");
 	$retrieved_data = $retrieve_data[0];
+	
+//Data
+$eesnimi = $retrieved_data->eesnimi;
+$perenimi = $retrieved_data->perenimi;
+$kuupaev = $retrieved_data->kuupaev;
+$email = $retrieved_data->email;
+$saaja_email = $retrieved_data->saaja_email;
+$group_id = $retrieved_data->grupi_id;
+$aktiivne = $retrieved_data->aktiivne;
 ?>
 
 <h1 class="h1 text-center my-4" >Muuda isik</h1>
@@ -31,31 +37,31 @@ global $wpdb;
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
 					<label for="eesnimi">Eesnimi: </label>
-					<input class="form-control" id="eesnimi" type="text" value="<?php echo $retrieved_data->eesnimi; ?>">
+					<input class="form-control" id="eesnimi" type="text" value="<?php echo $eesnimi; ?>" required>
 				</div>
 				<div class="form-group">
 					<label for="perenimi">Perenimi: </label>
-					<input class="form-control" id="perenimi" type="text" value="<?php echo $retrieved_data->perenimi; ?>">
+					<input class="form-control" id="perenimi" type="text" value="<?php echo $perenimi; ?>" required>
 				</div>
 				<div class="form-group">
 					<label for="kuupaev">Kuupäev: </label>
-					<input class="form-control" id="kuupaev" type="date" value="<?php echo $retrieved_data->kuupaev; ?>">
+					<input class="form-control" id="kuupaev" type="date" value="<?php echo $kuupaev; ?>" required>
 				</div>
 				<div class="form-group">
 					<label for="email">Email: </label>
-					<input class="form-control" id="email" type="email" value="<?php echo $retrieved_data->email; ?>">
+					<input class="form-control" id="email" type="email" value="<?php echo $email; ?>" required>
 				</div>
 				<div class="form-group">
 					<label for="email">Meili saaja: </label>
-					<input class="form-control" id="saaja_email" type="email" value="<?php echo $retrieved_data->saaja_email; ?>">
+					<input class="form-control" id="saaja_email" type="email" value="<?php echo $saaja_email; ?>">
 				</div>
 				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
-					<input class="form-control" id="grupi_id" type="number" value="<?php echo $retrieved_data->grupi_id; ?>">
+					<input class="form-control" id="grupi_id" type="number" value="<?php echo $grupi_id; ?>" required>
 				</div>
 				<div class="form-group">
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
-					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" <?php if($retrieved_data->aktiivne == 'Jah') echo 'checked';?>>
+					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" <?php if($aktiivne == 'Jah') echo 'checked';?>>
 				</div>
 				<input type="number" name="id" value=<?php echo $gid; ?> hidden>
 				<input value="Muuda" id="edit" type="submit" class="btn btn-info pull-right d-block"> 
@@ -79,19 +85,31 @@ jQuery(document).ready(function() {
 		if ( $("#aktiivne").is(':checked')) { 
 			aktiivne = "Jah";
 		}
-	
-		var andmed = { action: "isik_muuda", id: id, eesnimi: eesnimi, perenimi: perenimi, kuupaev: kuupaev, email: email, saaja_email: saaja_email, grupi_id: grupi_id, aktiivne: aktiivne};
 		
-		$.ajax(ajaxurl, {
-			"data": andmed,
-			"type": "POST"
-		})
-		.done(function () {
-			console.log("done");
-		})
-		.fail(function () {
-			console.log("fail");
-		})
+		if(eesnimi != "" && perenimi != "" && kuupaev != 0000-00-00 && email != "" && grupi_id != ""){
+			var andmed = { 
+							action: "isik_muuda",
+							id: id,
+							eesnimi: eesnimi,
+							perenimi: perenimi,
+							kuupaev: kuupaev,
+							email: email,
+							saaja_email: saaja_email,
+							grupi_id: grupi_id,
+							aktiivne: aktiivne
+			};
+			
+			$.ajax(ajaxurl, {
+				"data": andmed,
+				"type": "POST"
+			})
+			.done(function () {
+				console.log("done");
+			})
+			.fail(function () {
+				console.log("fail");
+			})
+		}
 	});
 })
 </script>

@@ -41,7 +41,7 @@ $id = $_POST['id'];
 				</div>
 				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
-					<input class="form-control" id="grupi_id" type="number" value="<?php echo $id; ?>" placeholder="ID">
+					<input class="form-control" id="grupi_id" type="number" value="<?php echo $id; ?>" placeholder="ID"  required>
 				</div>
 				<div class="form-group">
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
@@ -57,19 +57,19 @@ $id = $_POST['id'];
 <script>
 jQuery(document).ready(function() {
 	jQuery("#add").click(function() {
-			var eesnimi = jQuery("#eesnimi").val();
-			var perenimi = jQuery("#perenimi").val();
-			var kuupaev = jQuery("#kuupaev").val();
-			var email = jQuery("#email").val();
-			var saaja_email = jQuery("#saaja_email").val();
-			var grupi_id = jQuery("#grupi_id").val();
-			var aktiivne = "Ei";
-	
-			if ( $("#aktiivne").is(':checked')) { 
-				aktiivne = "Jah";
-			}
-			
-			if(eesnimi != "" && perenimi != "" && kuupaev != 0000-00-00 && email != ""){ 
+		var eesnimi = jQuery("#eesnimi").val();
+		var perenimi = jQuery("#perenimi").val();
+		var kuupaev = jQuery("#kuupaev").val();
+		var email = jQuery("#email").val();
+		var saaja_email = jQuery("#saaja_email").val();
+		var grupi_id = jQuery("#grupi_id").val();
+		var aktiivne = "Ei";
+
+		if ( $("#aktiivne").is(':checked')) { 
+			aktiivne = "Jah";
+		}
+		
+		if(eesnimi != "" && perenimi != "" && kuupaev != 0000-00-00 && email != "" && grupi_id != ""){ 
 			var andmed = { 
 							action: "isik_lisa",
 							eesnimi: eesnimi,
@@ -91,7 +91,7 @@ jQuery(document).ready(function() {
 			.fail(function () {
 				console.log("fail");
 			})
-			}
+		}
 	});
 })
 </script>
