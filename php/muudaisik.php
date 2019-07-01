@@ -25,7 +25,7 @@ global $wpdb;
 		<div class="col">
 			<form method="post" action=<?php echo $url;?>>
 					<input type="number" name="id" value="<?php echo $gid; ?>" hidden>
-					<input value="Tagasi" type="submit" class="btn btn-danger btn-sm">
+					<input value="Tagasi" type="submit" class="btn btn-danger my-3">
 			</form>
 			
 			<?php echo '<form action=' . $url . ' method="post">';?>

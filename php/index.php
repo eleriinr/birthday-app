@@ -31,7 +31,7 @@ global $wpdb;
 				</thead>
 				<tbody>
 					<?php foreach ($retrieve_data as $retrieved_data){
-						echo '<tr';
+						echo '<tr id="rida' . $retrieved_data->id . '"';
 						if($retrieved_data->aktiivne == 'Ei') echo ' class="table-danger"';
 						echo '>
 						<td class="p-2">' . $retrieved_data->id . '</td>
@@ -67,6 +67,7 @@ global $wpdb;
 <script>
 jQuery(document).ready(function() {
 	jQuery(".delete").click(function() {
+			$(<?php echo '"#rida' . $retrieved_data->id . '"';?>).remove();
 			var id = this.parentElement.id;
 		
 			var andmed = { action: "grupp_kustuta", id: id};

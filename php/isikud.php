@@ -38,7 +38,7 @@ global $wpdb;
 				</thead>
 				<tbody>
 				<?php foreach($retrieve_data as $retrieved_data){
-					echo '<tr';
+					echo '<tr id="rida' . $retrieved_data->id . '"';
 					if($retrieved_data->aktiivne == 'Ei') echo ' class="table-danger"';
 					echo '>
 						<td class="p-2">' . $retrieved_data->eesnimi . '</td>
@@ -64,7 +64,7 @@ global $wpdb;
 			</table>
 			<form method="post" action=<?php echo $lisaisik_url;?>>
 				<input type="number" name="id" value="<?php echo $id; ?>" hidden>
-				<input value="+ Lisa isik" type="submit" class="btn btn-info btn-sm pull-right">
+				<input value="+ Lisa isik" type="submit" class="btn btn-info pull-right">
 			</form>
 		</div>
 		<div class="col"></div>
@@ -73,8 +73,9 @@ global $wpdb;
 <script>
 jQuery(document).ready(function() {
 	jQuery(".delete").click(function() {
+			$(<?php echo '"#rida' . $retrieved_data->id . '"';?>).remove();
 			var id = this.parentElement.id;
-		
+			
 			var andmed = { action: "isik_kustuta", id: id};
 			
 			$.ajax(ajaxurl, {
