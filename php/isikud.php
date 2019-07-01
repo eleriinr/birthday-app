@@ -37,7 +37,7 @@ global $wpdb;
 				<tbody>
 				<?php foreach($retrieve_data as $retrieved_data){
 					echo '<tr';
-					if($retrieved_data->aktiivne == 'Ei') echo 'class="table-danger"';
+					if($retrieved_data->aktiivne == 'Ei') echo ' class="table-danger"';
 					echo '>
 						<td class="p-2">' . $retrieved_data->eesnimi . '</td>
 						<td class="p-2">' . $retrieved_data->perenimi . '</td>
