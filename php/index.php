@@ -109,7 +109,7 @@ jQuery(document).ready(function() {
 			var kast = $("#kast" + id);
 			var aktiivne = "Ei";
 	
-			if ( kast.is(':checked')) { 
+			if ( kast.is(':checked') ) { 
 				aktiivne = "Jah";
 				rida.classList.remove("table-danger");
 			}

@@ -125,7 +125,6 @@ jQuery(document).ready(function() {
 				rida.classList.add("table-danger");
 			}
 			
-			console.log(aktiivne);
 			var andmed = { 
 							action: "isik_muuda_aktiivsust",
 							id: id,
@@ -139,8 +138,8 @@ jQuery(document).ready(function() {
 			.done(function () {
 				console.log("done");
 			})
-			.fail(function() {
-				console-log("fail");
+			.fail(function () {
+				console.log("fail");
 			})
 	});
 })
