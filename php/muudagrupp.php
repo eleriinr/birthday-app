@@ -1,9 +1,13 @@
-<?php 
+<?php
+//Destination url
 $url = str_replace('muudagrupp', 'sunnipaevaplugin',$url);
 
+//Acquiring the necessary data from the 'grupid' table
 global $wpdb;
 	
 	$table_name = $wpdb->prefix . 'grupid';
+	
+	//ID of the group
 	$id = $_POST['id'];
 	
 	$retrieve_data = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id");

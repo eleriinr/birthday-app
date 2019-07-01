@@ -1,8 +1,10 @@
 <?php 
+//Destination urls 
 $isikud_url = str_replace('sunnipaevaplugin','isikud',$url);
 $muudagrupp_url = str_replace('sunnipaevaplugin','muudagrupp',$url);
 $lisagrupp_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
 
+//Acquiring the data from the 'grupid' table
 global $wpdb;
 	
 	$table_name = $wpdb->prefix . 'grupid';
@@ -11,6 +13,7 @@ global $wpdb;
 ?>
 
 <h1 class="h1 text-center my-4">Grupid</h1>
+
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col"></div>
@@ -33,10 +36,10 @@ global $wpdb;
 						echo '>
 						<td class="p-2">' . $retrieved_data->id . '</td>
 						<td class="p-2">
-								<form method="post" action=' . $isikud_url . '>
-									<input type="number" value="' . $retrieved_data->id . '" name="id" hidden>
-									<input value="' . $retrieved_data->nimi . '" type="submit" class="btn btn-info btn-sm">
-								</form>
+							<form method="post" action=' . $isikud_url . '>
+								<input type="number" value="' . $retrieved_data->id . '" name="id" hidden>
+								<input value="' . $retrieved_data->nimi . '" type="submit" class="btn btn-info btn-sm">
+							</form>
 						</td>
 						<td class="p-2">' . $retrieved_data->struktuuri_id . '</td>
 						<td class="p-2">' . $retrieved_data->uldmeil . '</td>
@@ -50,14 +53,13 @@ global $wpdb;
 								<button class="btn btn-danger btn-sm delete">Kustuta</button>
 							</div>
 						</td>
-					</tr>';}?>
+					</tr>';
+					}?>
 				</tbody>
 			</table>
-			<div  class="text-right">
 				<a  href=<?php echo $lisagrupp_url;?>>
-					<button class="btn btn-info">+ Lisa grupp</button>
+					<button class="btn btn-info pull-right">+ Lisa grupp</button>
 				</a>
-			</div>
 		</div>
 		<div class="col"></div>
 	</div>

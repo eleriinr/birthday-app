@@ -1,8 +1,10 @@
 <?php
+//Destination url
 $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
 ?>
 
 <h1 class="h1 text-center my-4" >Lisa grupp</h1>
+
 <div class="container">
 	<div class="row">
 		<div class="col"></div>

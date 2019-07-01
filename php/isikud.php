@@ -1,10 +1,13 @@
-<?php 
+<?php
+//Destination urls
 $lisaisik_url = str_replace('isikud','lisaisik',$url);
 $muudaisik_url = str_replace('isikud','muudaisik',$url);
 $url = str_replace('isikud', 'sunnipaevaplugin',$url);
 
+//ID of the group
 $id = $_POST['id'];
 
+//Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
 	$table_name = $wpdb->prefix . 'isikud';
@@ -13,15 +16,14 @@ global $wpdb;
 ?>
 
 <h1 class="h1 text-center my-4">Isikud</h1>
+
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col"></div>
 		<div class="col col-md-auto">
-			<div class="text-left">
-				<a href=<?php echo $url; ?>>
-					<button class="btn btn-danger">Tagasi</button>
-				</a>
-			</div>
+			<a href=<?php echo $url; ?>>
+				<button class="btn btn-danger">Tagasi</button>
+			</a>
 			<table class="table-striped table-hover border-0 mx-auto text-center my-3">
 				<thead>
 					<tr>
@@ -60,12 +62,10 @@ global $wpdb;
 				}?>
 				</tbody>
 			</table>
-			<div class="text-right">
-				<form method="post" action=<?php echo $lisaisik_url;?>>
-					<input type="number" name="id" value="<?php echo $id; ?>" hidden>
-					<input value="+ Lisa isik" type="submit" class="btn btn-info btn-sm">
-				</form>
-			</div>
+			<form method="post" action=<?php echo $lisaisik_url;?>>
+				<input type="number" name="id" value="<?php echo $id; ?>" hidden>
+				<input value="+ Lisa isik" type="submit" class="btn btn-info btn-sm pull-right">
+			</form>
 		</div>
 		<div class="col"></div>
 	</div>

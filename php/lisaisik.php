@@ -1,19 +1,23 @@
 <?php 
+//Destination url
 $url = str_replace('lisaisik', 'isikud',$url);
+
+//ID of the group
 $id = $_POST['id'];
 ?>
 
 <h1 class="h1 text-center my-4">Lisa isik</h1>
+
 <div class="container">
 	<div class="row">
 		<div class="col"></div>
 		<div class="col">
-		
+			
 			<form method="post" action=<?php echo $url;?>>
 					<input type="number" name="id" value="<?php echo $id; ?>" hidden>
 					<input value="Tagasi" type="submit" class="btn btn-danger btn-sm">
 			</form>
-
+			
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
 					<label for="eesnimi">Eesnimi: </label>

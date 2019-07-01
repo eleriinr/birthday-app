@@ -1,17 +1,24 @@
 <?php 
+//Destination url
 $url = str_replace('muudaisik', 'isikud',$url);
 
+//ID of the group
+$gid = $_POST['gid'];
+
+//Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
 	$table_name = $wpdb->prefix . 'isikud';
+	
+	//ID of the person
 	$id = $_POST['id'];
-	$gid = $_POST['gid'];
 	
 	$retrieve_data = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id");
 	$retrieved_data = $retrieve_data[0];
 ?>
 
 <h1 class="h1 text-center my-4" >Muuda isik</h1>
+
 <div class="container">
 	<div class="row">
 		<div class="col"></div>
@@ -22,9 +29,6 @@ global $wpdb;
 			</form>
 			
 			<?php echo '<form action=' . $url . ' method="post">';?>
-				<div class="form-group" hidden>
-					<input class="form-control" id="id" type="number" value="<?php echo $retrieved_data->id; ?>">
-				</div>
 				<div class="form-group">
 					<label for="eesnimi">Eesnimi: </label>
 					<input class="form-control" id="eesnimi" type="text" value="<?php echo $retrieved_data->eesnimi; ?>">
@@ -63,7 +67,7 @@ global $wpdb;
 <script>
 jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
-		var id = jQuery("#id").val();
+		var id = <?php echo $id;?> ;
 		var eesnimi = jQuery("#eesnimi").val();
 		var perenimi = jQuery("#perenimi").val();
 		var kuupaev = jQuery("#kuupaev").val();
