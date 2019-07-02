@@ -7,9 +7,16 @@ $lisagrupp_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
 //Acquiring the data from the 'grupid' table
 global $wpdb;
 	
-	$table_name = $wpdb->prefix . 'grupid';
-	
-	$retrieve_data = $wpdb->get_results( "SELECT * FROM $table_name" );
+$grupid = $wpdb->prefix . 'grupid';
+
+$retrieve_data = $wpdb->get_results( "SELECT * FROM $grupid" );
+/*
+$to = 'eleriinr@ut.ee';
+$subject = 'Tähtis meil';
+$message = 'hei';
+
+$result = wp_mail( $to, $subject, $message );
+echo $result;*/
 ?>
 
 <h1 class="h1 text-center my-4">Grupid</h1>

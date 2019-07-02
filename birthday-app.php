@@ -161,6 +161,7 @@ function grupp_muuda(){
 add_action( 'wp_ajax_grupp_muuda', 'grupp_muuda' );
 
 function grupp_muuda_aktiivsust(){
+	
 	global $wpdb;
 
 	$aktiivne = $_POST['aktiivne'];
@@ -268,4 +269,20 @@ function grupp_kustuta(){
 }
 
 add_action( 'wp_ajax_grupp_kustuta', 'grupp_kustuta' );
+
+// show wp_mail() errors
+add_action( 'wp_mail_failed', 'onMailError', 10, 1 );
+function onMailError( $wp_error ) {
+    echo "<p>";
+    print_r($wp_error);
+    echo "</p>";
+}    
+function mailer_config(PHPMailer $mailer){
+  $mailer->IsSMTP();
+  $mailer->Host = "mailhost.ut.ee"; // your SMTP server
+  $mailer->Port = 25;
+  $mailer->SMTPDebug = 2; // write 0 if you don't want to see client/server communication in page
+  $mailer->CharSet  = "utf-8";
+}
+add_action( 'phpmailer_init', 'mailer_config', 10, 1);
 ?>
