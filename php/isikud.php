@@ -32,7 +32,6 @@ global $wpdb;
 						<th class="p-2">Kuupäev</th>
 						<th class="p-2">Email</th>
 						<th class="p-2">Emaili saaja</th>
-						<th class="p-2"><nobr>Grupi ID</nobr></th>
 						<th class="p-2">Aktiivne</th>
 					</tr>
 				</thead>
@@ -59,8 +58,6 @@ global $wpdb;
 						<td class="p-2"><nobr>' . $email . '<nobr></td>
 						
 						<td class="p-2">' . $saaja_email . '</td>
-						
-						<td class="p-2">' . $gid . '</td>	
 						
 						<td class="p-2">
 							<input type="checkbox" class="aktiivne" id="kast' . $isiku_id . '" ';
