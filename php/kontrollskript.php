@@ -36,28 +36,31 @@ foreach ($retrieve_data2 as $retrieved_data){
 			$saajad = $wpdb->get_results("SELECT uldmeil from $grupid WHERE id=$grupi_id");
 			$saajagrupp = $saajad[0];
 			$saajameil = $saajagrupp->uldmeil;
-			$alamgrupp['uldmeil'] = $saajameil;
+			$alamgrupp1['uldmeil'] = $saajameil;
 			
 			$tana['isik1'] = array('nimi' => $nimi, 'email' => $email);
 		
-			$alamgrupp['tana'] = $tana;
+			$alamgrupp1['tana'] = $tana;
 				
-			$maingrupp[$grupi_nimi] = $alamgrupp;
+			$maingrupp[$grupi_nimi] = $alamgrupp1;
 		}
-		else if (!array_key_exists('tana', $alamgrupp)){
+		else if (!array_key_exists('tana', $alamgrupp1)){
 			$tana['isik1'] = array('nimi' => $nimi, 'email' => $email);
 			
-			$alamgrupp = $maingrupp[$grupi_nimi];
+			$alamgrupp1 = $maingrupp[$grupi_nimi];
 			
-			$alamgrupp['tana'] = $tana;
+			$alamgrupp1['tana'] = $tana;
 		}
 		else{
-			$alamgrupp = $maingrupp[$grupi_nimi];
+			$alamgrupp1 = $maingrupp[$grupi_nimi];
 			
-			$tana = $alamgrupp['tana'];
+			$tana = $alamgrupp1['tana'];
 			
 			$arv = count($tana) + 1;
 			$tana['isik' . $arv] = array('nimi' => $nimi, 'email' => $email);
+			
+			$alamgrupp1['tana'] = $tana;
+			$maingrupp[$grupi_nimi] = $alamgrupp1;
 		}
 	}
 	else if($homme_kuupaev == $sunni_kuupaev && $aktiivne == 'Jah'){
@@ -65,28 +68,31 @@ foreach ($retrieve_data2 as $retrieved_data){
 			$saajad = $wpdb->get_results("SELECT uldmeil from $grupid WHERE id=$grupi_id");
 			$saajagrupp = $saajad[0];
 			$saajameil = $saajagrupp->uldmeil;
-			$alamgrupp['uldmeil'] = $saajameil;
+			$alamgrupp2['uldmeil'] = $saajameil;
 			
 			$homme['isik1'] = array('nimi' => $nimi, 'email' => $email);
 		
-			$alamgrupp['homme'] = $homme;
+			$alamgrupp2['homme'] = $homme;
 				
-			$maingrupp[$grupi_nimi] = $alamgrupp;
+			$maingrupp[$grupi_nimi] = $alamgrupp2;
 		}
-		else if (!array_key_exists('homme', $alamgrupp)){
+		else if (!array_key_exists('homme', $alamgrupp2)){
 			$homme['isik1'] = array('nimi' => $nimi, 'email' => $email);
 			
-			$alamgrupp = $maingrupp[$grupi_nimi];
+			$alamgrupp2 = $maingrupp[$grupi_nimi];
 			
-			$alamgrupp['homme'] = $homme;
+			$alamgrupp2['homme'] = $homme;
 		}
 		else{
-			$alamgrupp = $maingrupp[$grupi_nimi];
+			$alamgrupp2 = $maingrupp[$grupi_nimi];
 			
-			$homme = $alamgrupp['homme'];
+			$homme = $alamgrupp2['homme'];
 			
 			$arv = count($homme) + 1;
 			$homme['isik' . $arv] = array('nimi' => $nimi, 'email' => $email);
+			
+			$alamgrupp2['homme'] = $tana;
+			$maingrupp[$grupi_nimi] = $alamgrupp2;
 		}
 	}
 	else if($juubel_kuupaev == $sunni_kuupaev && (intval($aasta) - intval($sunni_aasta))%5 == 0 && $aktiivne == 'Jah'){		
@@ -94,41 +100,43 @@ foreach ($retrieve_data2 as $retrieved_data){
 			$saajad = $wpdb->get_results("SELECT uldmeil from $grupid WHERE id=$grupi_id");
 			$saajagrupp = $saajad[0];
 			$saajameil = $saajagrupp->uldmeil;
-			$alamgrupp['uldmeil'] = $saajameil;
+			$alamgrupp3['uldmeil'] = $saajameil;
 			
 			$juubel['isik1'] = array('nimi' => $nimi, 'email' => $email);
 		
-			$alamgrupp['juubel'] = $juubel;
-			$maingrupp[$grupi_nimi] = $alamgrupp;
+			$alamgrupp3['juubel'] = $juubel;
+			$maingrupp[$grupi_nimi] = $alamgrupp3;
 		}
-		else if (!array_key_exists('juubel', $alamgrupp)){
+		else if (!array_key_exists('juubel', $alamgrupp3)){
 			$juubel['isik1'] = array('nimi' => $nimi, 'email' => $email);
 			
-			$alamgrupp = $maingrupp[$grupi_nimi];
+			$alamgrupp3 = $maingrupp[$grupi_nimi];
 			
-			$alamgrupp['juubel'] = $juubel;
+			$alamgrupp3['juubel'] = $juubel;
 		}
 		else{
-			$alamgrupp = $maingrupp[$grupi_nimi];
+			$alamgrupp3 = $maingrupp[$grupi_nimi];
 			
-			$juubel = $alamgrupp['juubel'];
+			$juubel = $alamgrupp3['juubel'];
 			
 			$arv = count($juubel) + 1;
 			$juubel['isik' . $arv] = array('nimi' => $nimi, 'email' => $email);
-		}
-	}
-}
-/*foreach(array_keys($maingrupp) as $grupi_nimi){
-	foreach(array_keys($maingrupp[$grupi_nimi]) as $paev){
-		if($paev != 'uldmeil'){
-			foreach($maingrupp[$grupi_nimi][$paev] as $isik){
-				echo 'Grupp: ' . $grupi_nimi . ', Sünnipäev: ' . $paev . ', Nimi: ' . $isik['nimi'] . ', Email: ' . $isik['email'] . '<br><br>';	
-			}
+			
+			$alamgrupp3['juubel'] = $tana;
+			$maingrupp[$grupi_nimi] = $alamgrupp3;
 		}
 	}
 }
 
-echo 'esimeses: ' . count($maingrupp['grupp3']);
-echo '<br>teises: ' . count($maingrupp['grupp4']);
-echo '<br> kolmandas: ' . count($maingrupp['grupp5']);*/
+/*foreach(array_keys($maingrupp) as $grupi_nimi){
+	echo 'GRUPP: ' . $grupi_nimi . '<br>';
+	foreach(array_keys($maingrupp[$grupi_nimi]) as $paev){
+		if($paev != 'uldmeil'){
+			echo 'PAEV: ' . $paev . '<br>';
+			foreach($maingrupp[$grupi_nimi][$paev] as $isik){
+				echo 'Nimi: ' . $isik['nimi'] . ', Email: ' . $isik['email'] . '<br><br>';	
+			}
+		}
+	}
+}*/
 ?>
