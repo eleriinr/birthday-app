@@ -17,6 +17,7 @@ $message = 'hei';
 
 $result = wp_mail( $to, $subject, $message );
 echo $result;*/
+include('../wp-content/plugins/birthday-app/php/kontrollskript.php'); 
 ?>
 
 <h1 class="h1 text-center my-4">Grupid</h1>
