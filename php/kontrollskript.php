@@ -1,6 +1,4 @@
 <?php
-global $wpdb;
-
 $tanaaeg = new DateTime('today');
 $tanadate = substr($tanaaeg->format('Y-m-d'), 0,10);
 $tana_kuupaev = substr($tanadate, 5, 5);
@@ -13,6 +11,7 @@ $juubel_kuupaev = substr($juubeldate, 5, 5);
 
 $aasta = substr($tanadate, 0, 4);
 
+global $wpdb;
 $isikud = $wpdb->prefix . 'isikud';
 
 $isikute_andmed = $wpdb->get_results("SELECT * FROM $isikud");
@@ -34,7 +33,6 @@ foreach ($isikute_andmed as $andmed){
 	$saajagrupp = $saajagrupp[0];	
 	$saajameil = $saajagrupp->uldmeil;
 	$struktuuri_id = $saajagrupp->struktuuri_id;
-
 
 	$grupi_nimi = 'grupp' . $grupi_id;
 	$nimi = $eesnimi . ' ' . $perenimi;
@@ -82,13 +80,10 @@ foreach ($isikute_andmed as $andmed){
 }
 
 function uldmeilile($paev, $grupi_nimi, $saajameil, $maingrupp, $info){
-
 	if (!array_key_exists($grupi_nimi, $maingrupp)){
 		$maingrupp[$grupi_nimi]['uldmeil'] = $saajameil;
 	}
-	
 	$arv = 1;
-	
 	if(array_key_exists($paev, $maingrupp[$grupi_nimi])){
 		$arv = count($maingrupp[$grupi_nimi][$paev]) + 1;
 	}
@@ -100,7 +95,6 @@ function uldmeilile($paev, $grupi_nimi, $saajameil, $maingrupp, $info){
 
 function erameilile($paev, $saaja_email, $saajad, $info){
 	$arv = 1;
-	
 	if(array_key_exists($saaja_email, $saajad) && array_key_exists($paev, $saajad[$saaja_email])){
 		$arv = count($saajad[$saaja_email][$paev]) + 1;
 	}
