@@ -2,7 +2,7 @@
 global $wpdb;
 
 $tanaaeg = new DateTime('today');
-$tanadate = substr($tanaaeg->format('Y-m-d H:i:s'), 0,10);
+$tanadate = substr($tanaaeg->format('Y-m-d'), 0,10);
 $hommedate = date('Y-m-d', strtotime("+1 day", strtotime($tanadate)));
 $juubeldate = date('Y-m-d', strtotime("+1 month", strtotime($tanadate)));
 
@@ -20,7 +20,7 @@ $saajad = array();
 
 foreach ($retrieve_data2 as $retrieved_data){
 	$kuupaev = $retrieved_data->kuupaev;
-	$iluskuupaev = substr($kuupaev,8,2) . '.' . substr($kuupaev,5,2) . '.' . substr($kuupaev,0,4);
+	$iluskuupaev = date('d.m.Y', strtotime($kuupaev));
 	$eesnimi = $retrieved_data->eesnimi;
 	$perenimi = $retrieved_data->perenimi;
 	$email = $retrieved_data->email;
@@ -36,234 +36,80 @@ foreach ($retrieve_data2 as $retrieved_data){
 
 	$grupi_nimi = 'grupp' . $grupi_id;
 	$nimi = $eesnimi . ' ' . $perenimi;
+	$tana = 'Tana' . $grupi_id;
+	$homme = 'Homme' . $grupi_id;
+	$juubel = 'Juubel' . $grupi_id;
 	
 	$sunni_kuupaev = substr($kuupaev, 5, 5);
 	$sunni_aasta = substr($kuupaev, 0, 4);
 	
+	$info = array(
+					'nimi' => $nimi,
+					'email' => $email,
+					'struktuuri_id' => $struktuuri_id,
+					'kuupaev' => $iluskuupaev
+	);
+	
 	//TÄNA SÜNNIPÄEV
 	if($tana_kuupaev == $sunni_kuupaev){
-		//LÄHEB ÜLDMEILILE
 		if($aktiivne == 'Jah'){
-			if (!array_key_exists($grupi_nimi, $maingrupp)){
-				$alamgrupp1['uldmeil'] = $saajameil;
-				
-				$tana['isik1'] = array(
-										'nimi' => $nimi,
-										'email' => $email,
-										'kuupaev' => $iluskuupaev
-				);
-			}
-			else if (!array_key_exists('Tana' . $grupi_id, $maingrupp[$grupi_nimi])){
-				$alamgrupp1 = $maingrupp[$grupi_nimi];
-				$tana['isik1'] = array(
-										'nimi' => $nimi,
-										'email' => $email,
-										'kuupaev' => $iluskuupaev
-				);
-			}
-			else{
-				$alamgrupp1 = $maingrupp[$grupi_nimi];
-				$tana = $alamgrupp1['Tana' . $grupi_id];
-				
-				$arv = count($tana) + 1;
-				$tana['isik' . $arv] = array(
-												'nimi' => $nimi,
-												'email' => $email,
-												'kuupaev' => $iluskuupaev
-				);
-			}
-				$alamgrupp1['Tana' . $grupi_id] = $tana;	
-				$maingrupp[$grupi_nimi] = $alamgrupp1;
+			$maingrupp = uldmeilile($tana, $grupi_nimi, $saajameil, $maingrupp, $info);
 		}
-		//LÄHEB ERAMEILILE
 		if($saaja_email != ''){
-			if(!array_key_exists($saaja_email, $saajad)){
-				$tana['isik1'] = array(
-										'nimi' => $nimi,
-										'email' => $email,
-										'struktuuri_id' => $struktuuri_id,
-										'kuupaev' => $iluskuupaev
-				);
-				$saajad[$saaja_email]['Tana' . $grupi_id] = $tana;
-			}
-			else if (!array_key_exists('Tana' . $grupi_id, $saajad[$saaja_email])){
-				$saaja = $saajad[$saaja_email];
-				$tana['isik1'] = array(
-										'nimi' => $nimi,
-										'email' => $email,
-										'struktuuri_id' => $struktuuri_id,
-										'kuupaev' => $iluskuupaev
-				);
-				$saaja['Tana' . $grupi_id] = $tana;
-				$saajad[$saaja_email] = $saaja;
-			}
-			else{
-				$saaja = $saajad[$saaja_email];
-				$tana = $saaja['Tana' . $grupi_id];
-				
-				$arv = count($tana) + 1;
-				$tana['isik' . $arv] = array(
-												'nimi' => $nimi,
-												'email' => $email,
-										'struktuuri_id' => $struktuuri_id,
-												'kuupaev' => $iluskuupaev
-				);
-				$saaja['Tana' . $grupi_id] = $tana;
-				$saajad[$saaja_email] = $saaja;
-			}
+			$saajad = erameilile($tana, $saaja_email, $saajad, $info);
 		}
 	}
 	//HOMME SÜNNIPÄEV
 	else if($homme_kuupaev == $sunni_kuupaev){
-			//LÄHEB ÜLDMEILILE
-			if($aktiivne == 'Jah'){
-				if (!array_key_exists($grupi_nimi, $maingrupp)){
-					$alamgrupp2['uldmeil'] = $saajameil;
-					
-					$homme['isik1'] = array(
-											'nimi' => $nimi,
-											'email' => $email,
-											'kuupaev' => $iluskuupaev
-					);
-				}
-				else if (!array_key_exists('Homme' . $grupi_id, $maingrupp[$grupi_nimi])){
-					$alamgrupp2 = $maingrupp[$grupi_nimi];
-					$homme['isik1'] = array(
-											'nimi' => $nimi,
-											'email' => $email,
-											'kuupaev' => $iluskuupaev
-					);
-				}
-				else{
-					$alamgrupp2 = $maingrupp[$grupi_nimi];
-					$homme = $alamgrupp2['Homme' . $grupi_id];
-					
-					$arv = count($homme) + 1;
-					$homme['isik' . $arv] = array(
-													'nimi' => $nimi,
-													'email' => $email,
-													'kuupaev' => $iluskuupaev
-					);
-				}
-					$alamgrupp2['Homme' . $grupi_id] = $homme;	
-					$maingrupp[$grupi_nimi] = $alamgrupp2;
+		if($aktiivne == 'Jah'){
+			$maingrupp = uldmeilile($homme, $grupi_nimi, $saajameil, $maingrupp, $info);
 		}
-		//LÄHEB ERAMEILILE
 		if($saaja_email != ''){
-			if(!array_key_exists($saaja_email, $saajad)){
-				$homme['isik1'] = array(
-										'nimi' => $nimi,
-										'email' => $email,
-										'struktuuri_id' => $struktuuri_id,
-										'kuupaev' => $iluskuupaev
-				);
-				$saajad[$saaja_email]['Homme' . $grupi_id] = $homme;
-			}
-			else if (!array_key_exists('Homme' . $grupi_id, $saajad[$saaja_email])){
-				$saaja = $saajad[$saaja_email];
-				$homme['isik1'] = array(
-										'nimi' => $nimi,
-										'email' => $email,
-										'struktuuri_id' => $struktuuri_id,
-										'kuupaev' => $iluskuupaev
-				);
-				$saaja['Homme' . $grupi_id] = $homme;
-				$saajad[$saaja_email] = $saaja;
-			}
-			else{
-				$saaja = $saajad[$saaja_email];
-				$homme = $saaja['Homme' . $grupi_id];
-				
-				$arv = count($homme) + 1;
-				$homme['isik' . $arv] = array(
-												'nimi' => $nimi,
-												'email' => $email,
-										'struktuuri_id' => $struktuuri_id,
-												'kuupaev' => $iluskuupaev
-				);
-				$saaja['Homme' . $grupi_id] = $homme;
-				$saajad[$saaja_email] = $saaja;
-			}
+			$saajad = erameilile($homme, $saaja_email, $saajad, $info);
 		}
 	}
 	//JUUBEL
 	else if($juubel_kuupaev == $sunni_kuupaev && (intval($aasta) - intval($sunni_aasta)) % 5 == 0){
-			//LÄHEB ÜLDMEILILE
-			if($aktiivne == 'Jah'){
-				if (!array_key_exists($grupi_nimi, $maingrupp)){
-					$alamgrupp3['uldmeil'] = $saajameil;
-					
-					$juubel['isik1'] = array(
-												'nimi' => $nimi,
-												'email' => $email,
-												'kuupaev' => $iluskuupaev
-					);
-				}
-				else if (!array_key_exists('Juubel' . $grupi_id, $maingrupp[$grupi_nimi])){
-					$alamgrupp3 = $maingrupp[$grupi_nimi];
-					$juubel['isik1'] = array(
-												'nimi' => $nimi,
-												'email' => $email,
-												'kuupaev' => $iluskuupaev
-					);
-				}
-				else{
-					$alamgrupp3 = $maingrupp[$grupi_nimi];
-					$juubel = $alamgrupp3['Juubel' . $grupi_id];
-					
-					$arv = count($juubel) + 1;
-					$juubel['isik' . $arv] = array(
-													'nimi' => $nimi,
-													'email' => $email,
-													'kuupaev' => $iluskuupaev
-					);
-				}
-					$alamgrupp3['Juubel' . $grupi_id] = $juubel;	
-					$maingrupp[$grupi_nimi] = $alamgrupp3;
+		if($aktiivne == 'Jah'){
+			$maingrupp = uldmeilile($juubel, $grupi_nimi, $saajameil, $maingrupp, $info);
 		}
-		//LÄHEB ERAMEILILE
 		if($saaja_email != ''){
-			if(!array_key_exists($saaja_email, $saajad)){
-				$juubel['isik1'] = array(
-											'nimi' => $nimi,
-											'email' => $email,
-										'struktuuri_id' => $struktuuri_id,
-											'kuupaev' => $iluskuupaev
-				);
-				$saajad[$saaja_email]['Juubel' . $grupi_id] = $juubel;
-			}
-			else if (!array_key_exists('Juubel' . $grupi_id, $saajad[$saaja_email])){
-				$saaja = $saajad[$saaja_email];
-				$juubel['isik1'] = array(
-											'nimi' => $nimi,
-											'email' => $email,
-										'struktuuri_id' => $struktuuri_id,
-											'kuupaev' => $iluskuupaev
-				);
-				$saaja['Juubel' . $grupi_id] = $juubel;
-				$saajad[$saaja_email] = $saaja;
-			}
-			else{
-				$saaja = $saajad[$saaja_email];
-				$juubel = $saaja['Juubel' . $grupi_id];
-				
-				$arv = count($juubel) + 1;
-				$juubel['isik' . $arv] = array(
-												'nimi' => $nimi,
-												'email' => $email,
-										'struktuuri_id' => $struktuuri_id,
-												'kuupaev' => $iluskuupaev
-				);
-				$saaja['Juubel' . $grupi_id] = $juubel;
-				$saajad[$saaja_email] = $saaja;
-			}
+			$saajad = erameilile($juubel, $saaja_email, $saajad, $info);
 		}
 	}
 }
 
-echo '---------------------------------------------------------------------';
+function uldmeilile($paev, $grupi_nimi, $saajameil, $maingrupp, $info){
+
+	if (!array_key_exists($grupi_nimi, $maingrupp)){
+		$maingrupp[$grupi_nimi]['uldmeil'] = $saajameil;
+	}
+	
+	$arv = 1;
+	
+	if(array_key_exists($paev, $maingrupp[$grupi_nimi])){
+		$arv = count($maingrupp[$grupi_nimi][$paev]) + 1;
+	}
+	
+	$maingrupp[$grupi_nimi][$paev]['isik' . $arv] = $info;
+
+	return $maingrupp;
+}
+
+function erameilile($paev, $saaja_email, $saajad, $info){
+	$arv = 1;
+	
+	if(array_key_exists($saaja_email, $saajad) && array_key_exists($paev, $saajad[$saaja_email])){
+		$arv = count($saajad[$saaja_email][$paev]) + 1;
+	}
+	
+	$saajad[$saaja_email][$paev]['isik' . $arv] =  $info;
+
+	return $saajad;
+}
+
 foreach(array_keys($maingrupp) as $grupi_nimi){
-	echo '<br><br><br>Lp. <a href="mailto:' . $maingrupp[$grupi_nimi]['uldmeil'] . '">' . $maingrupp[$grupi_nimi]['uldmeil'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
+	echo '<br>Lp. <a href="mailto:' . $maingrupp[$grupi_nimi]['uldmeil'] . '">' . $maingrupp[$grupi_nimi]['uldmeil'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
 	foreach(array_keys($maingrupp[$grupi_nimi]) as $paev){
 		if($paev != 'uldmeil'){
 			if(substr($paev, 0, 4) == 'Tana'){
@@ -284,7 +130,7 @@ echo '---------------------------------------------------------------------';
 }
 
 foreach(array_keys($saajad) as $saaja){
-	echo '<br><br><br>Lp. <a href="mailto:' . $saaja . '">' . $saaja . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
+	echo '<br>Lp. <a href="mailto:' . $saaja . '">' . $saaja . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
 	foreach(array_keys($saajad[$saaja]) as $paev) {
 		if(substr($paev, 0, 4) == 'Tana'){
 			echo 'Täna: ';
@@ -300,7 +146,7 @@ foreach(array_keys($saajad) as $saaja){
 		}
 	}
 }
-echo '---------------------------------------------------------------------';
+
 /*
 $to = 'eleriinr@ut.ee';
 $subject = 'Tähtis meil';
