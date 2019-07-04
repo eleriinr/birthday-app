@@ -3,30 +3,32 @@ global $wpdb;
 
 $tanaaeg = new DateTime('today');
 $tanadate = substr($tanaaeg->format('Y-m-d'), 0,10);
+$tana_kuupaev = substr($tanadate, 5, 5);
+
 $hommedate = date('Y-m-d', strtotime("+1 day", strtotime($tanadate)));
+$homme_kuupaev = substr($hommedate, 5, 5);
+
 $juubeldate = date('Y-m-d', strtotime("+1 month", strtotime($tanadate)));
+$juubel_kuupaev = substr($juubeldate, 5, 5);
+
+$aasta = substr($tanadate, 0, 4);
 
 $isikud = $wpdb->prefix . 'isikud';
 
-$retrieve_data2 = $wpdb->get_results("SELECT * FROM $isikud");
-
-$aasta = substr($tanadate, 0, 4);
-$tana_kuupaev = substr($tanadate, 5, 5);
-$homme_kuupaev = substr($hommedate, 5, 5);
-$juubel_kuupaev = substr($juubeldate, 5, 5); 
+$isikute_andmed = $wpdb->get_results("SELECT * FROM $isikud");
 
 $maingrupp = array();
 $saajad = array();
 
-foreach ($retrieve_data2 as $retrieved_data){
-	$kuupaev = $retrieved_data->kuupaev;
+foreach ($isikute_andmed as $andmed){
+	$kuupaev = $andmed->kuupaev;
 	$iluskuupaev = date('d.m.Y', strtotime($kuupaev));
-	$eesnimi = $retrieved_data->eesnimi;
-	$perenimi = $retrieved_data->perenimi;
-	$email = $retrieved_data->email;
-	$saaja_email = $retrieved_data->saaja_email;
-	$aktiivne = $retrieved_data->aktiivne;
-	$grupi_id = $retrieved_data->grupi_id;
+	$eesnimi = $andmed->eesnimi;
+	$perenimi = $andmed->perenimi;
+	$email = $andmed->email;
+	$saaja_email = $andmed->saaja_email;
+	$aktiivne = $andmed->aktiivne;
+	$grupi_id = $andmed->grupi_id;
 	
 	$saajagrupp = $wpdb->get_results("SELECT uldmeil, struktuuri_id from $grupid WHERE id=$grupi_id");
 	$saajagrupp = $saajagrupp[0];	
@@ -109,49 +111,52 @@ function erameilile($paev, $saaja_email, $saajad, $info){
 }
 
 foreach(array_keys($maingrupp) as $grupi_nimi){
-	echo '<br>Lp. <a href="mailto:' . $maingrupp[$grupi_nimi]['uldmeil'] . '">' . $maingrupp[$grupi_nimi]['uldmeil'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
+	$sonum = "";
+	$sonum = $sonum . '<br>Lp. <a href="mailto:' . $maingrupp[$grupi_nimi]['uldmeil'] . '">' . $maingrupp[$grupi_nimi]['uldmeil'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
 	foreach(array_keys($maingrupp[$grupi_nimi]) as $paev){
 		if($paev != 'uldmeil'){
 			if(substr($paev, 0, 4) == 'Tana'){
-				echo 'Täna: ';
+				$sonum = $sonum . 'Täna: ';
 			}
 			else if(substr($paev, 0, 5) == 'Homme'){
-				echo 'Homme: ';
+				$sonum = $sonum . 'Homme: ';
 			}
 			else{
-				echo 'Juubel tulekul: ';
+				$sonum = $sonum . 'Juubel tulekul: ';
 			}
 			foreach($maingrupp[$grupi_nimi][$paev] as $isik){
-				echo $isik['nimi'] . ' (' . $isik['kuupaev'] . '), email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
+				$sonum = $sonum . $isik['nimi'] . ' (' . $isik['kuupaev'] . '), email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
 			}
 		}
 	}
-echo '---------------------------------------------------------------------';
+	$to = 'eleriinr@ut.ee'; //$to = $maingrupp[$grupi_nimi]['uldmeil'];
+	$subject = 'Tähtis meil';
+
+	$result = wp_mail( $to, $subject, $sonum );
+	echo $result;
 }
 
 foreach(array_keys($saajad) as $saaja){
-	echo '<br>Lp. <a href="mailto:' . $saaja . '">' . $saaja . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
+	$sonum = "";
+	$sonum = $sonum . '<br>Lp. <a href="mailto:' . $saaja . '">' . $saaja . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
 	foreach(array_keys($saajad[$saaja]) as $paev) {
 		if(substr($paev, 0, 4) == 'Tana'){
-			echo 'Täna: ';
+			$sonum = $sonum . 'Täna: ';
 		}
 		else if(substr($paev, 0, 5) == 'Homme'){
-			echo 'Homme: ';
+			$sonum = $sonum . 'Homme: ';
 		}
 		else{
-			echo 'Juubel tulekul: ';
+			$sonum = $sonum . 'Juubel tulekul: ';
 		}
 		foreach($saajad[$saaja][$paev] as $isik){
-			echo $isik['nimi'] . ' (' . $isik['kuupaev'] . '), Osakond: ' . $isik['struktuuri_id'] . ', email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
+			$sonum = $sonum . $isik['nimi'] . ' (' . $isik['kuupaev'] . '), Osakond: ' . $isik['struktuuri_id'] . ', email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
 		}
 	}
+	$to = 'eleriinr@ut.ee'; //$to = $saaja;
+	$subject = 'Tähtis meil';
+
+	$result = wp_mail( $to, $subject, $sonum );
+	echo $result;
 }
-
-/*
-$to = 'eleriinr@ut.ee';
-$subject = 'Tähtis meil';
-$message = 'hei';
-
-$result = wp_mail( $to, $subject, $message );
-echo $result;*/
 ?>
