@@ -43,7 +43,7 @@ echo '</script>';
 				<?php foreach($retrieve_data as $retrieved_data){
 					$eesnimi = $retrieved_data->eesnimi;
 					$perenimi = $retrieved_data->perenimi;
-					$kuupaev = $retrieved_data->kuupaev;
+					$kuupaev = date('d.m.Y', strtotime($retrieved_data->kuupaev));
 					$email = $retrieved_data->email;
 					$saaja_email = $retrieved_data->saaja_email;
 					$isiku_id = $retrieved_data->id;
