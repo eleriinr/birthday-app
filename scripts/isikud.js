@@ -1,16 +1,57 @@
-function getValues(){
-	for( var i = 1; i < $("tr").length; i++){
-		$("#formfname" + i).val($("#fname" + i).text());
-		$("#formlname" + i).val($("#lname" + i).text());
-		var kp = $("#kp" + i).text().split(".");
-		$("#formkp" + i).val(kp[2] + "-" + kp[1] + "-" + kp[0]);
-		$("#formemail" + i).val($("#email" + i).text());
-		$("#formemails" + i).val($("#emails" + i).text());
-		$("#formgid" + i).val(parseInt($("#gid" + i).text(),10));
-		$("#formakt" + i).val($("#akt" + i).text());
-	}
-}
+jQuery(document).ready(function() {
+	jQuery(".delete").click(function() {
+			var id = this.parentElement.parentElement.parentElement.id;
+			$("tr#" + id).remove();
+			
+			var andmed = { 
+							action: "kustuta",
+							id: id,
+							tabel: "isikud"
+			};
+			
+			$.ajax(ajaxurl, {
+				"data": andmed,
+				"type": "POST"
+			})
+			.done(function (result, status, xhr) {
+				console.log(status);
+			})
+			.fail(function () {
+				console.log("fail");
+			});
+	});
+	
+	jQuery(".aktiivne").click(function() {
 
-$(document).ready(function() {
-	getValues();
-});
+			var rida = this.parentElement.parentElement;
+			var id = rida.id;
+			var kast = $("#kast" + id);
+			var aktiivne = "Ei";
+	
+			if ( kast.is(':checked') ) {
+				aktiivne = "Jah";
+				rida.classList.remove("table-danger");
+			}
+			else{
+				rida.classList.add("table-danger");
+			}
+			
+			var andmed = { 
+							action: "muuda_aktiivsust",
+							id: id,
+							aktiivne: aktiivne,
+							tabel: "isikud"
+			};
+			
+			$.ajax(ajaxurl, {
+				"data": andmed,
+				"type": "POST"
+			})
+			.done(function () {
+				console.log("done");
+			})
+			.fail(function () {
+				console.log("fail");
+			})
+	});
+})

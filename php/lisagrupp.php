@@ -1,6 +1,10 @@
 <?php
 //Destination url
 $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
+
+echo '<script>';
+include('../wp-content/plugins/birthday-app/scripts/lisagrupp.js');   
+echo '</script>';
 ?>
 
 <h1 class="h1 text-center my-4" >Lisa grupp</h1>
@@ -36,37 +40,3 @@ $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
 		<div class="col"></div>
 	</div>
 </div>
-<script>
-jQuery(document).ready(function() {
-	jQuery("#add").click(function() {
-		var andmed = {};
-		andmed['nimi'] = jQuery("#nimi").val();
-		andmed['struktuuri_id'] = jQuery("#struktuuri_id").val();
-		andmed['uldmeil'] = jQuery("#email").val();
-		andmed['aktiivne'] = "Ei";
-	
-		if ( $("#aktiivne").is(':checked')) { 
-			andmed['aktiivne'] = "Jah";
-		}
-			
-		if(andmed['nimi'] != "" && andmed['struktuuri_id'] != "" && andmed['uldmeil'] != ""){
-			var andmed = { 
-							action: "lisa",
-							tabel: "grupid",
-							andmed: andmed
-			};
-			
-			$.ajax(ajaxurl, {
-				"data": andmed,
-				"type": "POST"
-			})
-			.done(function () {
-				console.log("done");
-			})
-			.fail(function () {
-				console.log("fail");
-			})
-		}
-	});
-})
-</script>

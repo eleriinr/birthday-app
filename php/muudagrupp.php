@@ -18,6 +18,10 @@ $id = $retrieved_data->id;
 $nimi = $retrieved_data->nimi;
 $struktuuri_id = $retrieved_data->struktuuri_id;
 $uldmeil = $retrieved_data->uldmeil;
+
+echo '<script>';
+include('../wp-content/plugins/birthday-app/scripts/muudagrupp.js');   
+echo '</script>';
 ?>
 
 <h1 class="h1 text-center my-4" >Muuda gruppi</h1>
@@ -52,34 +56,3 @@ $uldmeil = $retrieved_data->uldmeil;
 		<div class="col"></div>
 	</div>
 </div>
-<script>
-jQuery(document).ready(function() {
-	jQuery("#edit").click(function() {
-		var id = <?php echo $id;?> ;
-		var andmed = {};
-		andmed['nimi'] = jQuery("#nimi").val();
-		andmed['struktuuri_id'] = jQuery("#struktuuri_id").val();
-		andmed['uldmeil'] = jQuery("#email").val();
-	
-		if(andmed['nimi'] != "" && andmed['struktuuri_id'] != "" && andmed['uldmeil'] != ""){
-			var andmed = { 
-							action: "muuda",
-							id: id,
-							tabel: "grupid",
-							andmed: andmed
-			};
-			
-			$.ajax(ajaxurl, {
-				"data": andmed,
-				"type": "POST"
-			})
-			.done(function () {
-				console.log("done");
-			})
-			.fail(function () {
-				console.log("fail");
-			})
-		}
-	});
-})
-</script>

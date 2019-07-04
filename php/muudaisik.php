@@ -21,6 +21,10 @@ $email = $retrieved_data->email;
 $saaja_email = $retrieved_data->saaja_email;
 $kommentaar = $retrieved_data->kommentaar;
 $grupi_id = $retrieved_data->grupi_id;
+
+echo '<script>';
+include('../wp-content/plugins/birthday-app/scripts/muudaisik.js');   
+echo '</script>';
 ?>
 
 <h1 class="h1 text-center my-4" >Muuda isik</h1>
@@ -70,39 +74,3 @@ $grupi_id = $retrieved_data->grupi_id;
 		<div class="col"></div>
 	</div>
 </div>
-<script>
-jQuery(document).ready(function() {
-	jQuery("#edit").click(function() {
-		
-		var id = <?php echo $id;?> ;
-		var andmed = {};
-		andmed['eesnimi'] = jQuery("#eesnimi").val();
-		andmed['perenimi'] = jQuery("#perenimi").val();
-		andmed['kuupaev'] = jQuery("#kuupaev").val();
-		andmed['email'] = jQuery("#email").val();
-		andmed['saaja_email'] = jQuery("#saaja_email").val();
-		andmed['kommentaar'] = jQuery("#kommentaar").val();
-		andmed['grupi_id'] = jQuery("#grupi_id").val();
-	
-		if(andmed['eesnimi'] != "" && andmed['perenimi'] != "" && andmed['kuupaev'] != 0000-00-00 && andmed['email'] != "" && andmed['grupi_id'] != ""){
-			var andmed = { 
-							action: "muuda",
-							id: id,
-							tabel: "isikud",
-							andmed: andmed
-			};
-			
-			$.ajax(ajaxurl, {
-				"data": andmed,
-				"type": "POST"
-			})
-			.done(function () {
-				console.log("done");
-			})
-			.fail(function () {
-				console.log("fail");
-			})
-		}
-	});
-})
-</script>
