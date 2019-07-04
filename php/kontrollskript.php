@@ -28,6 +28,12 @@ foreach ($retrieve_data2 as $retrieved_data){
 	$aktiivne = $retrieved_data->aktiivne;
 	$grupi_id = $retrieved_data->grupi_id;
 	
+	$saajagrupp = $wpdb->get_results("SELECT uldmeil, struktuuri_id from $grupid WHERE id=$grupi_id");
+	$saajagrupp = $saajagrupp[0];	
+	$saajameil = $saajagrupp->uldmeil;
+	$struktuuri_id = $saajagrupp->struktuuri_id;
+
+
 	$grupi_nimi = 'grupp' . $grupi_id;
 	$nimi = $eesnimi . ' ' . $perenimi;
 	
@@ -39,9 +45,6 @@ foreach ($retrieve_data2 as $retrieved_data){
 		//LÄHEB ÜLDMEILILE
 		if($aktiivne == 'Jah'){
 			if (!array_key_exists($grupi_nimi, $maingrupp)){
-				$saajagrupp = $wpdb->get_results("SELECT uldmeil from $grupid WHERE id=$grupi_id");
-				$saajagrupp = $saajagrupp[0];
-				$saajameil = $saajagrupp->uldmeil;
 				$alamgrupp1['uldmeil'] = $saajameil;
 				
 				$tana['isik1'] = array(
@@ -73,11 +76,12 @@ foreach ($retrieve_data2 as $retrieved_data){
 				$maingrupp[$grupi_nimi] = $alamgrupp1;
 		}
 		//LÄHEB ERAMEILILE
-		else if($saaja_email != ''){
+		if($saaja_email != ''){
 			if(!array_key_exists($saaja_email, $saajad)){
 				$tana['isik1'] = array(
 										'nimi' => $nimi,
 										'email' => $email,
+										'struktuuri_id' => $struktuuri_id,
 										'kuupaev' => $iluskuupaev
 				);
 				$saajad[$saaja_email]['Tana' . $grupi_id] = $tana;
@@ -87,6 +91,7 @@ foreach ($retrieve_data2 as $retrieved_data){
 				$tana['isik1'] = array(
 										'nimi' => $nimi,
 										'email' => $email,
+										'struktuuri_id' => $struktuuri_id,
 										'kuupaev' => $iluskuupaev
 				);
 				$saaja['Tana' . $grupi_id] = $tana;
@@ -100,6 +105,7 @@ foreach ($retrieve_data2 as $retrieved_data){
 				$tana['isik' . $arv] = array(
 												'nimi' => $nimi,
 												'email' => $email,
+										'struktuuri_id' => $struktuuri_id,
 												'kuupaev' => $iluskuupaev
 				);
 				$saaja['Tana' . $grupi_id] = $tana;
@@ -108,13 +114,10 @@ foreach ($retrieve_data2 as $retrieved_data){
 		}
 	}
 	//HOMME SÜNNIPÄEV
-		if($homme_kuupaev == $sunni_kuupaev){
+	else if($homme_kuupaev == $sunni_kuupaev){
 			//LÄHEB ÜLDMEILILE
 			if($aktiivne == 'Jah'){
 				if (!array_key_exists($grupi_nimi, $maingrupp)){
-					$saajagrupp = $wpdb->get_results("SELECT uldmeil from $grupid WHERE id=$grupi_id");
-					$saajagrupp = $saajagrupp[0];
-					$saajameil = $saajagrupp->uldmeil;
 					$alamgrupp2['uldmeil'] = $saajameil;
 					
 					$homme['isik1'] = array(
@@ -145,12 +148,13 @@ foreach ($retrieve_data2 as $retrieved_data){
 					$alamgrupp2['Homme' . $grupi_id] = $homme;	
 					$maingrupp[$grupi_nimi] = $alamgrupp2;
 		}
-		//HOMME SÜNNIPÄEV JA LÄHEB ERAMEILILE
-		else if($saaja_email != ''){
+		//LÄHEB ERAMEILILE
+		if($saaja_email != ''){
 			if(!array_key_exists($saaja_email, $saajad)){
 				$homme['isik1'] = array(
 										'nimi' => $nimi,
 										'email' => $email,
+										'struktuuri_id' => $struktuuri_id,
 										'kuupaev' => $iluskuupaev
 				);
 				$saajad[$saaja_email]['Homme' . $grupi_id] = $homme;
@@ -160,6 +164,7 @@ foreach ($retrieve_data2 as $retrieved_data){
 				$homme['isik1'] = array(
 										'nimi' => $nimi,
 										'email' => $email,
+										'struktuuri_id' => $struktuuri_id,
 										'kuupaev' => $iluskuupaev
 				);
 				$saaja['Homme' . $grupi_id] = $homme;
@@ -173,6 +178,7 @@ foreach ($retrieve_data2 as $retrieved_data){
 				$homme['isik' . $arv] = array(
 												'nimi' => $nimi,
 												'email' => $email,
+										'struktuuri_id' => $struktuuri_id,
 												'kuupaev' => $iluskuupaev
 				);
 				$saaja['Homme' . $grupi_id] = $homme;
@@ -185,9 +191,6 @@ foreach ($retrieve_data2 as $retrieved_data){
 			//LÄHEB ÜLDMEILILE
 			if($aktiivne == 'Jah'){
 				if (!array_key_exists($grupi_nimi, $maingrupp)){
-					$saajagrupp = $wpdb->get_results("SELECT uldmeil from $grupid WHERE id=$grupi_id");
-					$saajagrupp = $saajagrupp[0];
-					$saajameil = $saajagrupp->uldmeil;
 					$alamgrupp3['uldmeil'] = $saajameil;
 					
 					$juubel['isik1'] = array(
@@ -219,11 +222,12 @@ foreach ($retrieve_data2 as $retrieved_data){
 					$maingrupp[$grupi_nimi] = $alamgrupp3;
 		}
 		//LÄHEB ERAMEILILE
-		else if($saaja_email != ''){
+		if($saaja_email != ''){
 			if(!array_key_exists($saaja_email, $saajad)){
 				$juubel['isik1'] = array(
 											'nimi' => $nimi,
 											'email' => $email,
+										'struktuuri_id' => $struktuuri_id,
 											'kuupaev' => $iluskuupaev
 				);
 				$saajad[$saaja_email]['Juubel' . $grupi_id] = $juubel;
@@ -233,6 +237,7 @@ foreach ($retrieve_data2 as $retrieved_data){
 				$juubel['isik1'] = array(
 											'nimi' => $nimi,
 											'email' => $email,
+										'struktuuri_id' => $struktuuri_id,
 											'kuupaev' => $iluskuupaev
 				);
 				$saaja['Juubel' . $grupi_id] = $juubel;
@@ -246,6 +251,7 @@ foreach ($retrieve_data2 as $retrieved_data){
 				$juubel['isik' . $arv] = array(
 												'nimi' => $nimi,
 												'email' => $email,
+										'struktuuri_id' => $struktuuri_id,
 												'kuupaev' => $iluskuupaev
 				);
 				$saaja['Juubel' . $grupi_id] = $juubel;
@@ -289,7 +295,8 @@ foreach(array_keys($saajad) as $saaja){
 			echo 'Juubel tulekul: ';
 		}
 		foreach($saajad[$saaja][$paev] as $isik){
-			echo $isik['nimi'] . ' (' . $isik['kuupaev'] . '), email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
+			echo '<br>LOOP<br>';
+			echo $isik['nimi'] . ' (' . $isik['kuupaev'] . '), Osakond: ' . $isik['struktuuri_id'] . ', email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
 		}
 	}
 }

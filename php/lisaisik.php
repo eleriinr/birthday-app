@@ -40,6 +40,10 @@ $id = $_POST['id'];
 					<input class="form-control" id="saaja_email" type="email" placeholder="Saaja Email">
 				</div>
 				<div class="form-group">
+					<label for="kommentaar">Kommentaar: </label>
+					<input class="form-control" id="kommentaar" type="text" placeholder="Kommentaar">
+				</div>
+				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
 					<input class="form-control" id="grupi_id" type="number" value="<?php echo $id; ?>" placeholder="ID"  required>
 				</div>
@@ -62,6 +66,7 @@ jQuery(document).ready(function() {
 		var kuupaev = jQuery("#kuupaev").val();
 		var email = jQuery("#email").val();
 		var saaja_email = jQuery("#saaja_email").val();
+		var kommentaar = jQuery("#kommentaar").val();
 		var grupi_id = jQuery("#grupi_id").val();
 		var aktiivne = "Ei";
 
@@ -77,6 +82,7 @@ jQuery(document).ready(function() {
 							kuupaev: kuupaev,
 							email: email,
 							saaja_email: saaja_email,
+							kommentaar: kommentaar,
 							grupi_id: grupi_id,
 							aktiivne: aktiivne
 			};

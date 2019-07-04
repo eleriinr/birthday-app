@@ -70,6 +70,7 @@ function create_birthday_database(){
 			kuupaev date NOT NULL,
 			email varchar(40) NOT NULL,
 			saaja_email varchar(40),
+			kommentaar varchar(140),
 			grupi_id mediumint(9) NOT NULL,
 			aktiivne varchar(3) NOT NULL,
 			PRIMARY KEY  (id)
@@ -111,6 +112,7 @@ function isik_lisa(){
 	$kuupaev = $_POST['kuupaev'];
 	$email = $_POST['email'];
 	$saaja_email = $_POST['saaja_email'];
+	$kommentaar = $_POST['kommentaar'];
 	$grupi_id = $_POST['grupi_id'];
 	$aktiivne = $_POST['aktiivne'];
 	
@@ -124,6 +126,7 @@ function isik_lisa(){
 				'kuupaev' => $kuupaev,
 				'email' => $email,
 				'saaja_email' => $saaja_email,
+				'kommentaar' => $kommentaar,
 				'grupi_id' => $grupi_id,
 				'aktiivne' => $aktiivne
 			)
@@ -215,6 +218,7 @@ function isik_muuda(){
 	$kuupaev = $_POST['kuupaev'];
 	$email = $_POST['email'];
 	$saaja_email = $_POST['saaja_email'];
+	$kommentaar = $_POST['kommentaar'];
 	$grupi_id = $_POST['grupi_id'];
 	
 	$id = $_POST['id'];
@@ -229,6 +233,7 @@ function isik_muuda(){
 				'kuupaev' => $kuupaev,
 				'email' => $email,
 				'saaja_email' => $saaja_email,
+				'kommentaar' => $kommentaar,
 				'grupi_id' => $grupi_id
 			),
 			array(
