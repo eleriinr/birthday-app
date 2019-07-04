@@ -18,32 +18,26 @@ function test_plugin_setup_menu(){
 }
 function test_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
-	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/index.php'); 
 }
 function lisaisik_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
-	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/lisaisik.php'); 
 }
 function lisagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
-	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/lisagrupp.php'); 
 } 
 function isikud_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
-	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/isikud.php'); 
 }
 function muudaisik_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
-	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/muudaisik.php'); 
 }
 function muudagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
-	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/muudagrupp.php'); 
 }
 function create_birthday_tables(){
