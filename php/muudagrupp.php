@@ -55,7 +55,6 @@ $uldmeil = $retrieved_data->uldmeil;
 <script>
 jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
-		
 		var id = <?php echo $id;?> ;
 		var andmed = {};
 		andmed['nimi'] = jQuery("#nimi").val();

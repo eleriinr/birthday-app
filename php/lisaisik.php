@@ -61,30 +61,25 @@ $id = $_POST['id'];
 <script>
 jQuery(document).ready(function() {
 	jQuery("#add").click(function() {
-		var eesnimi = jQuery("#eesnimi").val();
-		var perenimi = jQuery("#perenimi").val();
-		var kuupaev = jQuery("#kuupaev").val();
-		var email = jQuery("#email").val();
-		var saaja_email = jQuery("#saaja_email").val();
-		var kommentaar = jQuery("#kommentaar").val();
-		var grupi_id = jQuery("#grupi_id").val();
-		var aktiivne = "Ei";
-
+		var andmed = {};
+		andmed['eesnimi'] = jQuery("#eesnimi").val();
+		andmed['perenimi'] = jQuery("#perenimi").val();
+		andmed['kuupaev'] = jQuery("#kuupaev").val();
+		andmed['email'] = jQuery("#email").val();
+		andmed['saaja_email'] = jQuery("#saaja_email").val();
+		andmed['kommentaar'] = jQuery("#kommentaar").val();
+		andmed['grupi_id'] = jQuery("#grupi_id").val();
+		andmed['aktiivne'] = "Ei";
+	
 		if ( $("#aktiivne").is(':checked')) { 
-			aktiivne = "Jah";
+			andmed['aktiivne'] = "Jah";
 		}
 		
-		if(eesnimi != "" && perenimi != "" && kuupaev != 0000-00-00 && email != "" && grupi_id != ""){ 
+		if(andmed['eesnimi'] != "" && andmed['perenimi'] != "" && andmed['kuupaev'] != 0000-00-00 && andmed['email'] != "" && andmed['grupi_id'] != ""){
 			var andmed = { 
-							action: "isik_lisa",
-							eesnimi: eesnimi,
-							perenimi: perenimi,
-							kuupaev: kuupaev,
-							email: email,
-							saaja_email: saaja_email,
-							kommentaar: kommentaar,
-							grupi_id: grupi_id,
-							aktiivne: aktiivne
+							action: "lisa",
+							tabel: "isikud",
+							andmed: andmed
 			};
 			
 			$.ajax(ajaxurl, {

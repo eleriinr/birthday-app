@@ -98,62 +98,23 @@ function delete_birthday_tables(){
 
 register_deactivation_hook( __FILE__, 'delete_birthday_tables' );
 
-function grupp_lisa(){
+function lisa(){
 	global $wpdb;
 	
-	$nimi = $_POST['nimi'];
-	$struktuuri_id = $_POST['struktuuri_id'];
-	$uldmeil = $_POST['uldmeil'];
-	$aktiivne = $_POST['aktiivne'];
+	$andmed = $_POST['andmed'];
+	$tabel = $_POST['tabel'];
 	
-	$grupid = $wpdb->prefix . 'grupid';
+	$tabel = $wpdb->prefix . $tabel;
 	
 	$wpdb->insert(
-			$grupid,
-			array(
-				'nimi' => $nimi,
-				'struktuuri_id' => $struktuuri_id,
-				'uldmeil' => $uldmeil,
-				'aktiivne' => $aktiivne
-			)
+			$tabel,
+			$andmed
 	);
 	wp_die();
 }
 
-add_action( 'wp_ajax_grupp_lisa', 'grupp_lisa' );
+add_action( 'wp_ajax_lisa', 'lisa' );
 
-function isik_lisa(){
-	global $wpdb;
-	
-	$eesnimi = $_POST['eesnimi'];
-	$perenimi = $_POST['perenimi'];
-	$kuupaev = $_POST['kuupaev'];
-	$email = $_POST['email'];
-	$saaja_email = $_POST['saaja_email'];
-	$kommentaar = $_POST['kommentaar'];
-	$grupi_id = $_POST['grupi_id'];
-	$aktiivne = $_POST['aktiivne'];
-	
-	$isikud = $wpdb->prefix . 'isikud';
-	
-	$wpdb->insert(
-			$isikud,
-			array(
-				'eesnimi' => $eesnimi,
-				'perenimi' => $perenimi,
-				'kuupaev' => $kuupaev,
-				'email' => $email,
-				'saaja_email' => $saaja_email,
-				'kommentaar' => $kommentaar,
-				'grupi_id' => $grupi_id,
-				'aktiivne' => $aktiivne
-			)
-	);
-	wp_die();
-}
-	
-	add_action( 'wp_ajax_isik_lisa', 'isik_lisa' );
-	
 function muuda(){
 	global $wpdb;
 	
