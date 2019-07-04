@@ -19,6 +19,7 @@ $perenimi = $retrieved_data->perenimi;
 $kuupaev = $retrieved_data->kuupaev;
 $email = $retrieved_data->email;
 $saaja_email = $retrieved_data->saaja_email;
+$kommentaar = $retrieved_data->kommentaar;
 $grupi_id = $retrieved_data->grupi_id;
 ?>
 
@@ -55,6 +56,10 @@ $grupi_id = $retrieved_data->grupi_id;
 					<input class="form-control" id="saaja_email" type="email" value="<?php echo $saaja_email; ?>">
 				</div>
 				<div class="form-group">
+					<label for="kommentaar">Kommentaar: </label>
+					<input class="form-control" id="kommentaar" type="text" value="<?php echo $kommentaar; ?>">
+				</div>
+				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
 					<input class="form-control" id="grupi_id" type="number" value="<?php echo $grupi_id; ?>" required>
 				</div>
@@ -74,6 +79,7 @@ jQuery(document).ready(function() {
 		var kuupaev = jQuery("#kuupaev").val();
 		var email = jQuery("#email").val();
 		var saaja_email = jQuery("#saaja_email").val();
+		var kommentaar = jQuery("#kommentaar").val();
 		var grupi_id = jQuery("#grupi_id").val();
 		
 		if(eesnimi != "" && perenimi != "" && kuupaev != 0000-00-00 && email != "" && grupi_id != ""){
@@ -85,6 +91,7 @@ jQuery(document).ready(function() {
 							kuupaev: kuupaev,
 							email: email,
 							saaja_email: saaja_email,
+							kommentaar: kommentaar,
 							grupi_id: grupi_id
 			};
 			
