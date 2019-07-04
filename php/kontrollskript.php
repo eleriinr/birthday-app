@@ -260,7 +260,7 @@ foreach ($retrieve_data2 as $retrieved_data){
 		}
 	}
 }
-/*
+
 echo '---------------------------------------------------------------------';
 foreach(array_keys($maingrupp) as $grupi_nimi){
 	echo '<br><br><br>Lp. <a href="mailto:' . $maingrupp[$grupi_nimi]['uldmeil'] . '">' . $maingrupp[$grupi_nimi]['uldmeil'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
@@ -296,11 +296,10 @@ foreach(array_keys($saajad) as $saaja){
 			echo 'Juubel tulekul: ';
 		}
 		foreach($saajad[$saaja][$paev] as $isik){
-			echo '<br>LOOP<br>';
 			echo $isik['nimi'] . ' (' . $isik['kuupaev'] . '), Osakond: ' . $isik['struktuuri_id'] . ', email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
 		}
 	}
 }
 echo '---------------------------------------------------------------------';
-*/
+
 ?>
