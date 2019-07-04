@@ -126,8 +126,8 @@ foreach(array_keys($maingrupp) as $grupi_nimi){
 	$to = 'eleriinr@ut.ee'; //$to = $maingrupp[$grupi_nimi]['uldmeil'];
 	$subject = 'Tähtis meil';
 
-	$result = wp_mail( $to, $subject, $sonum );
-	echo $result;
+	//$result = wp_mail( $to, $subject, $sonum );
+	//echo $result;
 }
 
 foreach(array_keys($saajad) as $saaja){
@@ -150,7 +150,7 @@ foreach(array_keys($saajad) as $saaja){
 	$to = 'eleriinr@ut.ee'; //$to = $saaja;
 	$subject = 'Tähtis meil';
 
-	$result = wp_mail( $to, $subject, $sonum );
-	echo $result;
+	//$result = wp_mail( $to, $subject, $sonum );
+	//echo $result;
 }
 ?>
