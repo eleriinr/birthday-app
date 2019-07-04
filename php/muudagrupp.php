@@ -4,17 +4,16 @@ $url = str_replace('muudagrupp', 'sunnipaevaplugin',$url);
 
 //Acquiring the necessary data from the 'grupid' table
 global $wpdb;
-	
-	$table_name = $wpdb->prefix . 'grupid';
-	
-	//ID of the group
-	$id = $_POST['id'];
-	
-	$retrieve_data = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id");
-	$retrieved_data = $retrieve_data[0];
+
+$grupid = $wpdb->prefix . 'grupid';
+
+//ID of the group
+$id = $_POST['id'];
+
+$retrieve_data = $wpdb->get_results("SELECT * FROM $grupid WHERE id=$id");
+$retrieved_data = $retrieve_data[0];
 
 //Data
-$id = $retrieved_data->id;
 $nimi = $retrieved_data->nimi;
 $struktuuri_id = $retrieved_data->struktuuri_id;
 $uldmeil = $retrieved_data->uldmeil;

@@ -10,13 +10,7 @@ global $wpdb;
 $grupid = $wpdb->prefix . 'grupid';
 
 $retrieve_data = $wpdb->get_results( "SELECT * FROM $grupid" );
-/*
-$to = 'eleriinr@ut.ee';
-$subject = 'Tähtis meil';
-$message = 'hei';
 
-$result = wp_mail( $to, $subject, $message );
-echo $result;*/
 include('../wp-content/plugins/birthday-app/php/kontrollskript.php'); 
 
 echo '<script>';

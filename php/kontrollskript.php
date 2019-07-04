@@ -301,5 +301,11 @@ foreach(array_keys($saajad) as $saaja){
 	}
 }
 echo '---------------------------------------------------------------------';
+/*
+$to = 'eleriinr@ut.ee';
+$subject = 'Tähtis meil';
+$message = 'hei';
 
+$result = wp_mail( $to, $subject, $message );
+echo $result;*/
 ?>

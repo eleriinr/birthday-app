@@ -5,12 +5,12 @@ $url = str_replace('muudaisik', 'isikud',$url);
 //Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
-$table_name = $wpdb->prefix . 'isikud';
+$isikud = $wpdb->prefix . 'isikud';
 	
 //ID of the person
 $id = $_POST['id'];
 	
-$retrieve_data = $wpdb->get_results("SELECT * FROM $table_name WHERE id=$id");
+$retrieve_data = $wpdb->get_results("SELECT * FROM $isikud WHERE id=$id");
 $retrieved_data = $retrieve_data[0];
 	
 //Data

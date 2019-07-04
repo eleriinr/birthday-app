@@ -10,9 +10,9 @@ $id = $_POST['id'];
 //Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
-	$table_name = $wpdb->prefix . 'isikud';
+$isikud = $wpdb->prefix . 'isikud';
 	
-	$retrieve_data = $wpdb->get_results( "SELECT * FROM $table_name WHERE grupi_id=$id" );
+$retrieve_data = $wpdb->get_results( "SELECT * FROM $isikud WHERE grupi_id=$id" );
 
 echo '<script>';
 include('../wp-content/plugins/birthday-app/scripts/isikud.js');   
