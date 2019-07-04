@@ -97,7 +97,11 @@ jQuery(document).ready(function() {
 			var id = this.parentElement.parentElement.parentElement.id;
 			$("tr#" + id).remove();
 		
-			var andmed = { action: "grupp_kustuta", id: id};
+			var andmed = {
+							action: "kustuta",
+							id: id,
+							tabel: "grupid"
+			};
 			
 			$.ajax(ajaxurl, {
 				"data": andmed,
@@ -126,9 +130,10 @@ jQuery(document).ready(function() {
 			}
 			
 			var andmed = { 
-							action: "grupp_muuda_aktiivsust",
+							action: "muuda_aktiivsust",
 							id: id,
-							aktiivne: aktiivne
+							aktiivne: aktiivne,
+							tabel: "grupid"
 			};
 			
 			$.ajax(ajaxurl, {

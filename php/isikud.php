@@ -42,7 +42,6 @@ global $wpdb;
 					$kuupaev = $retrieved_data->kuupaev;
 					$email = $retrieved_data->email;
 					$saaja_email = $retrieved_data->saaja_email;
-					$gid = $retrieved_data->grupi_id;
 					$isiku_id = $retrieved_data->id;
 					
 					echo '<tr id="' . $isiku_id . '"';
@@ -81,7 +80,7 @@ global $wpdb;
 				</tbody>
 			</table>
 			<form method="post" action=<?php echo $lisaisik_url;?>>
-				<input type="number" name="id" value="<?php echo $gid; ?>" hidden>
+				<input type="number" name="id" value="<?php echo $id; ?>" hidden>
 				<input value="+ Lisa isik" type="submit" class="btn btn-info pull-right">
 			</form>
 		</div>
@@ -94,7 +93,11 @@ jQuery(document).ready(function() {
 			var id = this.parentElement.parentElement.parentElement.id;
 			$("tr#" + id).remove();
 			
-			var andmed = { action: "isik_kustuta", id: id};
+			var andmed = { 
+							action: "kustuta",
+							id: id,
+							tabel: "isikud"
+			};
 			
 			$.ajax(ajaxurl, {
 				"data": andmed,
@@ -123,9 +126,10 @@ jQuery(document).ready(function() {
 			}
 			
 			var andmed = { 
-							action: "isik_muuda_aktiivsust",
+							action: "muuda_aktiivsust",
 							id: id,
-							aktiivne: aktiivne
+							aktiivne: aktiivne,
+							tabel: "isikud"
 			};
 			
 			$.ajax(ajaxurl, {

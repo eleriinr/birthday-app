@@ -46,15 +46,15 @@ function muudagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/url_function.php');
 	include('../wp-content/plugins/birthday-app/php/muudagrupp.php'); 
 }
-function create_birthday_database(){
+function create_birthday_tables(){
 	global $wpdb;
 	
-	$table_name1 = $wpdb->prefix . 'grupid';
-	$table_name2 = $wpdb->prefix . 'isikud';
+	$grupid = $wpdb->prefix . 'grupid';
+	$isikud = $wpdb->prefix . 'isikud';
 	
 	$charset_collate = $wpdb->get_charset_collate();
 	
-	$sql1 = "CREATE TABLE $table_name1 (
+	$sql1 = "CREATE TABLE $grupid (
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
 			nimi varchar(40) NOT NULL,
 			struktuuri_id varchar(20) NOT NULL,
@@ -63,7 +63,7 @@ function create_birthday_database(){
 			PRIMARY KEY  (id)
 	) $charset_collate;";
 	
-	$sql2 = "CREATE TABLE $table_name2 (
+	$sql2 = "CREATE TABLE $isikud (
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
 			eesnimi varchar(30) NOT NULL,
 			perenimi varchar(30) NOT NULL,
@@ -80,6 +80,24 @@ function create_birthday_database(){
 	dbDelta( $sql1 );
 	dbDelta( $sql2 );
 }
+
+register_activation_hook( __FILE__, 'create_birthday_tables' );
+
+function delete_birthday_tables(){
+	global $wpdb;
+	
+	$grupid = $wpdb->prefix . 'grupid';
+	$isikud = $wpdb->prefix . 'isikud';
+	
+	$sql1 = "DROP TABLE IF EXISTS $grupid;";
+	$sql2 = "DROP TABLE IF EXISTS $isikud;";
+	
+	$wpdb->query($sql1);
+	$wpdb->query($sql2);
+}
+
+register_deactivation_hook( __FILE__, 'delete_birthday_tables' );
+
 function grupp_lisa(){
 	global $wpdb;
 	
@@ -88,10 +106,10 @@ function grupp_lisa(){
 	$uldmeil = $_POST['uldmeil'];
 	$aktiivne = $_POST['aktiivne'];
 	
-	$table_name = $wpdb->prefix . 'grupid';
+	$grupid = $wpdb->prefix . 'grupid';
 	
 	$wpdb->insert(
-			$table_name,
+			$grupid,
 			array(
 				'nimi' => $nimi,
 				'struktuuri_id' => $struktuuri_id,
@@ -116,10 +134,10 @@ function isik_lisa(){
 	$grupi_id = $_POST['grupi_id'];
 	$aktiivne = $_POST['aktiivne'];
 	
-	$table_name = $wpdb->prefix . 'isikud';
+	$isikud = $wpdb->prefix . 'isikud';
 	
 	$wpdb->insert(
-			$table_name,
+			$isikud,
 			array(
 				'eesnimi' => $eesnimi,
 				'perenimi' => $perenimi,
@@ -145,10 +163,10 @@ function grupp_muuda(){
 	
 	$id = $_POST['id'];
 	
-	$table_name = $wpdb->prefix . 'grupid';
+	$grupid = $wpdb->prefix . 'grupid';
 	
 	$wpdb->update(
-			$table_name,
+			$grupid,
 			array(
 				'nimi' => $nimi,
 				'struktuuri_id' => $struktuuri_id,
@@ -162,53 +180,6 @@ function grupp_muuda(){
 }
 
 add_action( 'wp_ajax_grupp_muuda', 'grupp_muuda' );
-
-function grupp_muuda_aktiivsust(){
-	
-	global $wpdb;
-
-	$aktiivne = $_POST['aktiivne'];
-	
-	$id = $_POST['id'];
-	
-	$table_name = $wpdb->prefix . 'grupid';
-	
-	$wpdb->update(
-			$table_name,
-			array(
-				'aktiivne' => $aktiivne
-			),
-			array(
-				'id' => $id
-			)
-	);
-	wp_die();
-}
-
-add_action( 'wp_ajax_grupp_muuda_aktiivsust', 'grupp_muuda_aktiivsust' );
-
-function isik_muuda_aktiivsust(){
-	global $wpdb;
-
-	$aktiivne = $_POST['aktiivne'];
-	
-	$id = $_POST['id'];
-	
-	$table_name = $wpdb->prefix . 'isikud';
-	
-	$wpdb->update(
-			$table_name,
-			array(
-				'aktiivne' => $aktiivne
-			),
-			array(
-				'id' => $id
-			)
-	);
-	wp_die();
-}
-
-add_action( 'wp_ajax_isik_muuda_aktiivsust', 'isik_muuda_aktiivsust' );
 
 function isik_muuda(){
 	global $wpdb;
@@ -245,35 +216,45 @@ function isik_muuda(){
 
 add_action( 'wp_ajax_isik_muuda', 'isik_muuda' );
 
-function isik_kustuta(){
-
-	if (!empty($_POST['id'])){
-		
-		global $wpdb;
-		
-		$table = $wpdb->prefix . 'isikud';
-		$id = $_POST['id'];
-		$wpdb->delete( $table, array( 'id' => $id ) );
-	}
-	wp_die();
-}
-
-add_action( 'wp_ajax_isik_kustuta', 'isik_kustuta' );
-
-function grupp_kustuta(){
+function muuda_aktiivsust(){
 	
+	global $wpdb;
+
+	$aktiivne = $_POST['aktiivne'];
+	$tabel = $_POST['tabel'];	
+	$id = $_POST['id'];
+	
+	$table_name = $wpdb->prefix . $tabel;
+	
+	$wpdb->update(
+			$table_name,
+			array(
+				'aktiivne' => $aktiivne
+			),
+			array(
+				'id' => $id
+			)
+	);
+	wp_die();
+}
+
+add_action( 'wp_ajax_muuda_aktiivsust', 'muuda_aktiivsust' );
+
+function kustuta(){
+
 	if (!empty($_POST['id'])){
 		
 		global $wpdb;
 		
-		$table = $wpdb->prefix . 'grupid';
+		$tabel = $_POST['tabel'];
+		$table = $wpdb->prefix . $tabel;
 		$id = $_POST['id'];
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
 	wp_die();
 }
 
-add_action( 'wp_ajax_grupp_kustuta', 'grupp_kustuta' );
+add_action( 'wp_ajax_kustuta', 'kustuta' );
 
 // show wp_mail() errors
 add_action( 'wp_mail_failed', 'onMailError', 10, 1 );

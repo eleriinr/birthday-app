@@ -260,6 +260,7 @@ foreach ($retrieve_data2 as $retrieved_data){
 		}
 	}
 }
+/*
 echo '---------------------------------------------------------------------';
 foreach(array_keys($maingrupp) as $grupi_nimi){
 	echo '<br><br><br>Lp. <a href="mailto:' . $maingrupp[$grupi_nimi]['uldmeil'] . '">' . $maingrupp[$grupi_nimi]['uldmeil'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
@@ -301,5 +302,5 @@ foreach(array_keys($saajad) as $saaja){
 	}
 }
 echo '---------------------------------------------------------------------';
-
+*/
 ?>
