@@ -55,18 +55,19 @@ $uldmeil = $retrieved_data->uldmeil;
 <script>
 jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
-		var id = jQuery("#grupi_id").val();
-		var nimi = jQuery("#nimi").val();
-		var struktuuri_id = jQuery("#struktuuri_id").val();
-		var uldmeil = jQuery("#email").val();
 		
-		if(nimi != "" && struktuuri_id != "" && uldmeil != ""){
+		var id = <?php echo $id;?> ;
+		var andmed = {};
+		andmed['nimi'] = jQuery("#nimi").val();
+		andmed['struktuuri_id'] = jQuery("#struktuuri_id").val();
+		andmed['uldmeil'] = jQuery("#email").val();
+	
+		if(andmed['nimi'] != "" && andmed['struktuuri_id'] != "" && andmed['uldmeil'] != ""){
 			var andmed = { 
-							action: "grupp_muuda",
+							action: "muuda",
 							id: id,
-							nimi: nimi,
-							struktuuri_id: struktuuri_id,
-							uldmeil: uldmeil
+							tabel: "grupid",
+							andmed: andmed
 			};
 			
 			$.ajax(ajaxurl, {

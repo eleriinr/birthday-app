@@ -154,24 +154,18 @@ function isik_lisa(){
 	
 	add_action( 'wp_ajax_isik_lisa', 'isik_lisa' );
 	
-function grupp_muuda(){
+function muuda(){
 	global $wpdb;
 	
-	$nimi = $_POST['nimi'];
-	$struktuuri_id = $_POST['struktuuri_id'];
-	$uldmeil = $_POST['uldmeil'];
-	
+	$andmed = $_POST['andmed'];
 	$id = $_POST['id'];
-	
-	$grupid = $wpdb->prefix . 'grupid';
+	$tabel = $_POST['tabel'];
+			
+	$tabel = $wpdb->prefix . $tabel;
 	
 	$wpdb->update(
-			$grupid,
-			array(
-				'nimi' => $nimi,
-				'struktuuri_id' => $struktuuri_id,
-				'uldmeil' => $uldmeil
-			),
+			$tabel,
+			$andmed,
 			array(
 				'id' => $id
 			)
@@ -179,42 +173,7 @@ function grupp_muuda(){
 	wp_die();
 }
 
-add_action( 'wp_ajax_grupp_muuda', 'grupp_muuda' );
-
-function isik_muuda(){
-	global $wpdb;
-	
-	$eesnimi = $_POST['eesnimi'];
-	$perenimi = $_POST['perenimi'];
-	$kuupaev = $_POST['kuupaev'];
-	$email = $_POST['email'];
-	$saaja_email = $_POST['saaja_email'];
-	$kommentaar = $_POST['kommentaar'];
-	$grupi_id = $_POST['grupi_id'];
-	
-	$id = $_POST['id'];
-				
-	$table_name = $wpdb->prefix . 'isikud';
-	
-	$wpdb->update(
-			$table_name,
-			array(
-				'eesnimi' => $eesnimi,
-				'perenimi' => $perenimi,
-				'kuupaev' => $kuupaev,
-				'email' => $email,
-				'saaja_email' => $saaja_email,
-				'kommentaar' => $kommentaar,
-				'grupi_id' => $grupi_id
-			),
-			array(
-				'id' => $id
-			)
-	);
-	wp_die();
-}
-
-add_action( 'wp_ajax_isik_muuda', 'isik_muuda' );
+add_action( 'wp_ajax_muuda', 'muuda' );
 
 function muuda_aktiivsust(){
 	
