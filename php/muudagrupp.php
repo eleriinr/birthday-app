@@ -17,11 +17,8 @@ $retrieved_data = $retrieve_data[0];
 $nimi = $retrieved_data->nimi;
 $struktuuri_id = $retrieved_data->struktuuri_id;
 $uldmeil = $retrieved_data->uldmeil;
-
-echo '<script>';
-include('../wp-content/plugins/birthday-app/scripts/muudagrupp.js');   
-echo '</script>';
 ?>
+<head><script src="../wp-content/plugins/birthday-app/scripts/muudagrupp.js"></script></head>
 
 <h1 class="h1 text-center my-4" >Muuda gruppi</h1>
 <div class="container">

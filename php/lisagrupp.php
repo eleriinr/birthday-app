@@ -1,11 +1,8 @@
 <?php
 //Destination url
 $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
-
-echo '<script>';
-include('../wp-content/plugins/birthday-app/scripts/lisagrupp.js');   
-echo '</script>';
 ?>
+<head><script src="../wp-content/plugins/birthday-app/scripts/lisagrupp.js"></script></head>
 
 <h1 class="h1 text-center my-4" >Lisa grupp</h1>
 

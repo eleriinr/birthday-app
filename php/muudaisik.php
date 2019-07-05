@@ -21,11 +21,8 @@ $email = $retrieved_data->email;
 $saaja_email = $retrieved_data->saaja_email;
 $kommentaar = $retrieved_data->kommentaar;
 $grupi_id = $retrieved_data->grupi_id;
-
-echo '<script>';
-include('../wp-content/plugins/birthday-app/scripts/muudaisik.js');   
-echo '</script>';
 ?>
+<head><script src="../wp-content/plugins/birthday-app/scripts/muudaisik.js"></script></head>
 
 <h1 class="h1 text-center my-4" >Muuda isik</h1>
 

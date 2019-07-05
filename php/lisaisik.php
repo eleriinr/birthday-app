@@ -4,11 +4,8 @@ $url = str_replace('lisaisik', 'isikud',$url);
 
 //ID of the group
 $id = $_POST['id'];
-
-echo '<script>';
-include('../wp-content/plugins/birthday-app/scripts/lisaisik.js');   
-echo '</script>'; 
 ?>
+<head><script src="../wp-content/plugins/birthday-app/scripts/lisaisik.js"></script></head>
 
 <h1 class="h1 text-center my-4">Lisa isik</h1>
 

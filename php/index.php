@@ -12,12 +12,8 @@ $grupid = $wpdb->prefix . 'grupid';
 $retrieve_data = $wpdb->get_results( "SELECT * FROM $grupid" );
 
 include('../wp-content/plugins/birthday-app/php/kontrollskript.php'); 
-
-echo '<script>';
-include('../wp-content/plugins/birthday-app/scripts/index.js');   
-echo '</script>';
-
 ?>
+<head><script src="../wp-content/plugins/birthday-app/scripts/index.js"></script></head>
 
 <h1 class="h1 text-center my-4">Grupid</h1>
 

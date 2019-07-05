@@ -13,11 +13,8 @@ global $wpdb;
 $isikud = $wpdb->prefix . 'isikud';
 	
 $retrieve_data = $wpdb->get_results( "SELECT * FROM $isikud WHERE grupi_id=$id" );
-
-echo '<script>';
-include('../wp-content/plugins/birthday-app/scripts/isikud.js');   
-echo '</script>';
 ?>
+<head><script src="../wp-content/plugins/birthday-app/scripts/isikud.js"></script></head>
 
 <h1 class="h1 text-center my-4">Isikud</h1>
 
