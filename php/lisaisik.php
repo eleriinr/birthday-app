@@ -50,7 +50,7 @@ $id = $_POST['id'];
 				</div>
 				<div class="form-group">
 					<label class="form-check-label" for="aktiivne">Aktiivne</label>
-					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne">
+					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" checked>
 				</div>
 				<input type="number" name="id" value="<?php echo $id; ?>" hidden>
 				<input value="Lisa" id="add" type="submit" class="btn btn-info pull-right mb-3 d-block"> 
