@@ -147,7 +147,7 @@ foreach(array_keys($saajad) as $saaja){
 			$sonum = $sonum . $isik['nimi'] . ' (' . $isik['kuupaev'] . '), Osakond: ' . $isik['struktuuri_id'] . ', email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
 		}
 	}
-	$to = 'eleriin.r@gmail.com'; //$to = $saaja;
+	$to = 'eleriinr@ut.ee'; //$to = $saaja;
 	$subject = 'Tähtis meil';
 
 	//$result = wp_mail( $to, $subject, $sonum );
