@@ -21,6 +21,7 @@ $uldmeil = $retrieved_data->uldmeil;
 <head><script src="../wp-content/plugins/birthday-app/scripts/muudagrupp.js"></script></head>
 
 <h1 class="h1 text-center my-4" >Muuda gruppi</h1>
+
 <div class="container">
 	<div class="row">
 		<div class="col"></div>
@@ -32,7 +33,7 @@ $uldmeil = $retrieved_data->uldmeil;
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
 					<label for="grupi_id">Grupi ID: </label>
-					<input class="form-control" id="grupi_id" type="number" value="<?php echo $id; ?>" readonly>
+					<?php echo '<input class="form-control" id="grupi_id" type="number" value="' . $id . '" readonly>';?>
 				</div>
 				<div class="form-group">
 					<label for="nimi">Nimi: </label>
