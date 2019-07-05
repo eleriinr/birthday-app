@@ -21,6 +21,7 @@ $email = $retrieved_data->email;
 $saaja_email = $retrieved_data->saaja_email;
 $kommentaar = $retrieved_data->kommentaar;
 $grupi_id = $retrieved_data->grupi_id;
+$isiku_id = $retrieved_data->id;
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/muudaisik.js"></script></head>
 
@@ -36,6 +37,7 @@ $grupi_id = $retrieved_data->grupi_id;
 			</form>
 			
 			<?php echo '<form action=' . $url . ' method="post">';?>
+					<input class="form-control" id="isiku_id" type="number" value="<?php echo $isiku_id; ?>" hidden>
 				<div class="form-group">
 					<label for="eesnimi">Eesnimi: </label>
 					<input class="form-control" id="eesnimi" type="text" value="<?php echo $eesnimi; ?>" required>

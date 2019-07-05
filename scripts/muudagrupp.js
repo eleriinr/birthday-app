@@ -1,17 +1,17 @@
 jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
-		var id = <?php echo $id;?> ;
-		var andmed = {};
-		andmed['nimi'] = jQuery("#nimi").val();
-		andmed['struktuuri_id'] = jQuery("#struktuuri_id").val();
-		andmed['uldmeil'] = jQuery("#email").val();
+		var id = jQuery("#grupi_id").val();
+		var grupp = {};
+		grupp['nimi'] = jQuery("#nimi").val();
+		grupp['struktuuri_id'] = jQuery("#struktuuri_id").val();
+		grupp['uldmeil'] = jQuery("#email").val();
 	
-		if(andmed['nimi'] != "" && andmed['struktuuri_id'] != "" && andmed['uldmeil'] != ""){
+		if(grupp['nimi'] != "" && grupp['struktuuri_id'] != "" && grupp['uldmeil'] != ""){
 			var andmed = { 
 							action: "muuda",
 							id: id,
 							tabel: "grupid",
-							andmed: andmed
+							andmed: grupp
 			};
 			
 			$.ajax(ajaxurl, {

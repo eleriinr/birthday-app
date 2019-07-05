@@ -1,5 +1,5 @@
 jQuery(document).ready(function() {
-	jQuery("#add").click(function() {
+	jQuery("#add").click(function() 
 		var andmed = {};
 		andmed['nimi'] = jQuery("#nimi").val();
 		andmed['struktuuri_id'] = jQuery("#struktuuri_id").val();
