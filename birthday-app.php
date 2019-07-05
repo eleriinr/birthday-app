@@ -171,12 +171,13 @@ function kustuta(){
 add_action( 'wp_ajax_kustuta', 'kustuta' );
 
 // show wp_mail() errors
-add_action( 'wp_mail_failed', 'onMailError', 10, 1 );
 function onMailError( $wp_error ) {
     echo "<p>";
     print_r($wp_error);
     echo "</p>";
-}    
+}
+add_action( 'wp_mail_failed', 'onMailError', 10, 1 );
+
 function mailer_config(PHPMailer $mailer){
   $mailer->IsSMTP();
   $mailer->Host = "mailhost.ut.ee"; // your SMTP server
