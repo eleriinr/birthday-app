@@ -1,21 +1,21 @@
 jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
-		var id = jQuery("#grupi_id").val();
-		var grupp = {};
-		grupp['nimi'] = jQuery("#nimi").val();
-		grupp['struktuuri_id'] = jQuery("#struktuuri_id").val();
-		grupp['uldmeil'] = jQuery("#email").val();
+		var id = jQuery("#group_id").val();
+		var info = {};
+		info['name'] = jQuery("#name").val();
+		info['str_id'] = jQuery("#str_id").val();
+		info['email'] = jQuery("#email").val();
 	
-		if(grupp['nimi'] != "" && grupp['struktuuri_id'] != "" && grupp['uldmeil'] != ""){
-			var andmed = { 
-							action: "muuda",
+		if(info['name'] != "" && info['str_id'] != "" && info['email'] != ""){
+			var data = { 
+							action: "edit_element",
 							id: id,
-							tabel: "grupid",
-							andmed: grupp
+							table: "groups",
+							data: info
 			};
 			
 			$.ajax(ajaxurl, {
-				"data": andmed,
+				"data": data,
 				"type": "POST"
 			})
 			.done(function () {

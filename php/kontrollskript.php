@@ -1,156 +1,156 @@
 <?php
-$tanaaeg = new DateTime('today');
-$tanadate = substr($tanaaeg->format('Y-m-d'), 0,10);
-$tana_kuupaev = substr($tanadate, 5, 5);
+$todays_date = new DateTime('today');
+$todays_date = substr($todays_date->format('Y-m-d'), 0,10);
+$today = substr($todays_date, 5, 5);
 
-$hommedate = date('Y-m-d', strtotime("+1 day", strtotime($tanadate)));
-$homme_kuupaev = substr($hommedate, 5, 5);
+$tomorrow = date('Y-m-d', strtotime("+1 day", strtotime($todays_date)));
+$tomorrow = substr($tomorrow, 5, 5);
 
-$juubeldate = date('Y-m-d', strtotime("+1 month", strtotime($tanadate)));
-$juubel_kuupaev = substr($juubeldate, 5, 5);
+$jubilee = date('Y-m-d', strtotime("+1 month", strtotime($todays_date)));
+$jubilee = substr($jubilee, 5, 5);
 
-$aasta = substr($tanadate, 0, 4);
+$current_year = substr($todays_date, 0, 4);
 
 global $wpdb;
-$isikud = $wpdb->prefix . 'isikud';
+$people = $wpdb->prefix . 'people';
 
-$isikute_andmed = $wpdb->get_results("SELECT * FROM $isikud");
+$peoples_data = $wpdb->get_results("SELECT * FROM $people");
 
-$maingrupp = array();
-$saajad = array();
+$group = array();
+$recipients = array();
 
-foreach ($isikute_andmed as $andmed){
-	$kuupaev = $andmed->kuupaev;
-	$iluskuupaev = date('d.m.Y', strtotime($kuupaev));
-	$eesnimi = $andmed->eesnimi;
-	$perenimi = $andmed->perenimi;
-	$email = $andmed->email;
-	$saaja_email = $andmed->saaja_email;
-	$aktiivne = $andmed->aktiivne;
-	$grupi_id = $andmed->grupi_id;
+foreach ($peoples_data as $data){
+	$birthday = $data->birthday;
+	$formatted_date = date('d.m.Y', strtotime($birthday));
+	$first_name = $data->first_name;
+	$last_name = $data->last_name;
+	$email = $data->email;
+	$recipients_email = $data->recipients_email;
+	$active = $data->active;
+	$group_id = $data->group_id;
 	
-	$saajagrupp = $wpdb->get_results("SELECT uldmeil, struktuuri_id from $grupid WHERE id=$grupi_id");
-	$saajagrupp = $saajagrupp[0];	
-	$saajameil = $saajagrupp->uldmeil;
-	$struktuuri_id = $saajagrupp->struktuuri_id;
+	$persons_group = $wpdb->get_results("SELECT email, str_id from $groups WHERE id=$group_id");
+	$persons_group = $persons_group[0];	
+	$group_email = $persons_group->email;
+	$str_id = $persons_group->str_id;
 
-	$grupi_nimi = 'grupp' . $grupi_id;
-	$nimi = $eesnimi . ' ' . $perenimi;
-	$tana = 'Tana' . $grupi_id;
-	$homme = 'Homme' . $grupi_id;
-	$juubel = 'Juubel' . $grupi_id;
+	$group_name = 'group' . $group_id;
+	$name = $first_name . ' ' . $last_name;
+	$today_ = 'Today_' . $group_id;
+	$tomorrow_ = 'Tomorrow_' . $group_id;
+	$jubilee_ = 'Jubilee_' . $group_id;
 	
-	$sunni_kuupaev = substr($kuupaev, 5, 5);
-	$sunni_aasta = substr($kuupaev, 0, 4);
+	$birth_date = substr($birthday, 5, 5);
+	$birth_year = substr($birthday, 0, 4);
 	
 	$info = array(
-					'nimi' => $nimi,
+					'name' => $name,
 					'email' => $email,
-					'struktuuri_id' => $struktuuri_id,
-					'kuupaev' => $iluskuupaev
+					'str_id' => $str_id,
+					'birthday' => $formatted_date
 	);
 	
-	//TÄNA SÜNNIPÄEV
-	if($tana_kuupaev == $sunni_kuupaev){
-		if($aktiivne == 'Jah'){
-			$maingrupp = uldmeilile($tana, $grupi_nimi, $saajameil, $maingrupp, $info);
+	//Birthday today
+	if($today == $birth_date){
+		if($active == 'Yes'){
+			$group = general_email($today_, $group_name, $group_email, $group, $info);
 		}
-		if($saaja_email != ''){
-			$saajad = erameilile($tana, $saaja_email, $saajad, $info);
-		}
-	}
-	//HOMME SÜNNIPÄEV
-	else if($homme_kuupaev == $sunni_kuupaev){
-		if($aktiivne == 'Jah'){
-			$maingrupp = uldmeilile($homme, $grupi_nimi, $saajameil, $maingrupp, $info);
-		}
-		if($saaja_email != ''){
-			$saajad = erameilile($homme, $saaja_email, $saajad, $info);
+		if($recipients_email != ''){
+			$recipients = private_email($today_, $recipients_email, $recipients, $info);
 		}
 	}
-	//JUUBEL
-	else if($juubel_kuupaev == $sunni_kuupaev && (intval($aasta) - intval($sunni_aasta)) % 5 == 0){
-		if($aktiivne == 'Jah'){
-			$maingrupp = uldmeilile($juubel, $grupi_nimi, $saajameil, $maingrupp, $info);
+	//Birthday tomorrow
+	else if($tomorrow == $birth_date){
+		if($active == 'Yes'){
+			$group = general_email($tomorrow_, $group_name, $group_email, $group, $info);
 		}
-		if($saaja_email != ''){
-			$saajad = erameilile($juubel, $saaja_email, $saajad, $info);
+		if($recipients_email != ''){
+			$recipients = private_email($tomorrow_, $recipients_email, $recipients, $info);
+		}
+	}
+	//Jubilee in a month
+	else if($jubilee == $sunni_kuupaev && (intval($current_year) - intval($birth_year)) % 5 == 0){
+		if($active == 'Yes'){
+			$group = general_email($jubilee_, $group_name, $group_email, $group, $info);
+		}
+		if($recipients_email != ''){
+			$recipients = private_email($jubilee_, $recipients_email, $recipients, $info);
 		}
 	}
 }
 
-function uldmeilile($paev, $grupi_nimi, $saajameil, $maingrupp, $info){
-	if (!array_key_exists($grupi_nimi, $maingrupp)){
-		$maingrupp[$grupi_nimi]['uldmeil'] = $saajameil;
+function general_email($day, $group_name, $group_email, $group, $info){
+	if (!array_key_exists($group_name, $group)){
+		$group[$group_name]['email'] = $group_email;
 	}
-	$arv = 1;
-	if(array_key_exists($paev, $maingrupp[$grupi_nimi])){
-		$arv = count($maingrupp[$grupi_nimi][$paev]) + 1;
+	$nr = 1;
+	if(array_key_exists($day, $group[$group_name])){
+		$nr = count($group[$group_name][$day]) + 1;
 	}
 	
-	$maingrupp[$grupi_nimi][$paev]['isik' . $arv] = $info;
+	$group[$group_name][$day]['person_' . $nr] = $info;
 
-	return $maingrupp;
+	return $group;
 }
 
-function erameilile($paev, $saaja_email, $saajad, $info){
-	$arv = 1;
-	if(array_key_exists($saaja_email, $saajad) && array_key_exists($paev, $saajad[$saaja_email])){
-		$arv = count($saajad[$saaja_email][$paev]) + 1;
+function private_email($day, $recipients_email, $recipients, $info){
+	$nr = 1;
+	if(array_key_exists($recipients_email, $recipients) && array_key_exists($day, $recipients[$recipients_email])){
+		$nr = count($recipients[$recipients_email][$day]) + 1;
 	}
 	
-	$saajad[$saaja_email][$paev]['isik' . $arv] =  $info;
+	$recipients[$recipients_email][$day]['person_' . $nr] =  $info;
 
-	return $saajad;
+	return $recipients;
 }
 
-foreach(array_keys($maingrupp) as $grupi_nimi){
-	$sonum = "";
-	$sonum = $sonum . '<br>Lp. <a href="mailto:' . $maingrupp[$grupi_nimi]['uldmeil'] . '">' . $maingrupp[$grupi_nimi]['uldmeil'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
-	foreach(array_keys($maingrupp[$grupi_nimi]) as $paev){
-		if($paev != 'uldmeil'){
-			if(substr($paev, 0, 4) == 'Tana'){
-				$sonum = $sonum . 'Täna: ';
+foreach(array_keys($group) as $group_name){
+	$message = "";
+	$message = $message . '<br>Lp. <a href="mailto:' . $group[$group_name]['email'] . '">' . $group[$group_name]['email'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
+	foreach(array_keys($group[$group_name]) as $day){
+		if($day != 'email'){
+			if(substr($day, 0, 4) == 'Today_'){
+				$message = $message . 'Täna: ';
 			}
-			else if(substr($paev, 0, 5) == 'Homme'){
-				$sonum = $sonum . 'Homme: ';
+			else if(substr($day, 0, 5) == 'Tomorrow_'){
+				$message = $message . 'Homme: ';
 			}
 			else{
-				$sonum = $sonum . 'Juubel tulekul: ';
+				$message = $message . 'Juubel tulekul: ';
 			}
-			foreach($maingrupp[$grupi_nimi][$paev] as $isik){
-				$sonum = $sonum . $isik['nimi'] . ' (' . $isik['kuupaev'] . '), email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
+			foreach($group[$group_name][$day] as $person){
+				$message = $message . $person['name'] . ' (' . $person['birthday'] . '), email: <a href="mailto:' . $person['email'] . '">' . $person['email'] . '</a><br>';	
 			}
 		}
 	}
-	$to = 'eleriinr@ut.ee'; //$to = $maingrupp[$grupi_nimi]['uldmeil'];
+	$to = 'eleriinr@ut.ee'; //$to = $group[$group_name]['email'];
 	$subject = 'Tähtis meil';
 
-	//$result = wp_mail( $to, $subject, $sonum );
+	//$result = wp_mail( $to, $subject, $message );
 	//echo $result;
 }
 
-foreach(array_keys($saajad) as $saaja){
-	$sonum = "";
-	$sonum = $sonum . '<br>Lp. <a href="mailto:' . $saaja . '">' . $saaja . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
-	foreach(array_keys($saajad[$saaja]) as $paev) {
-		if(substr($paev, 0, 4) == 'Tana'){
-			$sonum = $sonum . 'Täna: ';
+foreach(array_keys($recipients) as $recipient){
+	$message = "";
+	$message = $message . '<br>Lp. <a href="mailto:' . $recipient . '">' . $recipient . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
+	foreach(array_keys($recipients[$recipient]) as $day) {
+		if(substr($day, 0, 4) == 'Today_'){
+			$message = $message . 'Täna: ';
 		}
-		else if(substr($paev, 0, 5) == 'Homme'){
-			$sonum = $sonum . 'Homme: ';
+		else if(substr($day, 0, 5) == 'Tomorrow_'){
+			$message = $message . 'Homme: ';
 		}
 		else{
-			$sonum = $sonum . 'Juubel tulekul: ';
+			$message = $message . 'Juubel tulekul: ';
 		}
-		foreach($saajad[$saaja][$paev] as $isik){
-			$sonum = $sonum . $isik['nimi'] . ' (' . $isik['kuupaev'] . '), Osakond: ' . $isik['struktuuri_id'] . ', email: <a href="mailto:' . $isik['email'] . '">' . $isik['email'] . '</a><br>';	
+		foreach($recipients[$recipient][$day] as $person){
+			$message = $message . $person['name'] . ' (' . $person['birthday'] . '), Osakond: ' . $person['str_id'] . ', email: <a href="mailto:' . $person['email'] . '">' . $person['email'] . '</a><br>';	
 		}
 	}
-	$to = 'eleriinr@ut.ee'; //$to = $saaja;
+	$to = 'eleriinr@ut.ee'; //$to = $recipient;
 	$subject = 'Tähtis meil';
 
-	//$result = wp_mail( $to, $subject, $sonum );
-	//echo $result;
+	$result = wp_mail( $to, $subject, $message );
+	echo $result;
 }
 ?>

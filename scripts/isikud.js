@@ -3,47 +3,47 @@ jQuery(document).ready(function() {
 		var id = this.parentElement.parentElement.parentElement.id;
 		$("tr#" + id).remove();
 		
-		var andmed = { 
-						action: "kustuta",
+		var data = { 
+						action: "delete_element",
 						id: id,
-						tabel: "isikud"
+						table: "people"
 		};
 		
 		$.ajax(ajaxurl, {
-			"data": andmed,
+			"data": data,
 			"type": "POST"
 		})
-		.done(function (result, status, xhr) {
-			console.log(status);
+		.done(function () {
+			console.log("done");
 		})
 		.fail(function () {
 			console.log("fail");
 		});
 	});
 	
-	jQuery(".aktiivne").click(function() {
-		var rida = this.parentElement.parentElement;
-		var id = rida.id;
-		var kast = $("#kast" + id);
-		var aktiivne = "Ei";
+	jQuery(".active").click(function() {
+		var row = this.parentElement.parentElement;
+		var id = row.id;
+		var box = $("#box" + id);
+		var active = "No";
 
-		if ( kast.is(':checked') ) {
-			aktiivne = "Jah";
-			rida.classList.remove("table-danger");
+		if ( box.is(':checked') ) {
+			active = "Yes";
+			row.classList.remove("table-danger");
 		}
 		else{
-			rida.classList.add("table-danger");
+			row.classList.add("table-danger");
 		}
 		
-		var andmed = { 
-						action: "muuda_aktiivsust",
+		var data = { 
+						action: "change_activity",
 						id: id,
-						aktiivne: aktiivne,
-						tabel: "isikud"
+						active: active,
+						table: "people"
 		};
 		
 		$.ajax(ajaxurl, {
-			"data": andmed,
+			"data": data,
 			"type": "POST"
 		})
 		.done(function () {

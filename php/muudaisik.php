@@ -14,14 +14,14 @@ $retrieve_data = $wpdb->get_results("SELECT * FROM $isikud WHERE id=$id");
 $retrieved_data = $retrieve_data[0];
 	
 //Data
-$eesnimi = $retrieved_data->eesnimi;
-$perenimi = $retrieved_data->perenimi;
-$kuupaev = $retrieved_data->kuupaev;
+$first_name = $retrieved_data->first_name;
+$last_name = $retrieved_data->last_name;
+$bithday = $retrieved_data->birthday;
 $email = $retrieved_data->email;
-$saaja_email = $retrieved_data->saaja_email;
-$kommentaar = $retrieved_data->kommentaar;
-$grupi_id = $retrieved_data->grupi_id;
-$isiku_id = $retrieved_data->id;
+$recipients_email = $retrieved_data->recipients_email;
+$comment = $retrieved_data->comment;
+$group_id = $retrieved_data->group_id;
+$id = $retrieved_data->id;
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/muudaisik.js"></script></head>
 
@@ -37,36 +37,36 @@ $isiku_id = $retrieved_data->id;
 			</form>
 			
 			<?php echo '<form action=' . $url . ' method="post">';?>
-					<input class="form-control" id="isiku_id" type="number" value="<?php echo $isiku_id; ?>" hidden>
+					<input class="form-control" id="id" type="number" value="<?php echo $id; ?>" hidden>
 				<div class="form-group">
-					<label for="eesnimi">Eesnimi: </label>
-					<input class="form-control" id="eesnimi" type="text" value="<?php echo $eesnimi; ?>" required>
+					<label for="first_name">Eesnimi: </label>
+					<input class="form-control" id="first_name" type="text" value="<?php echo $first_name; ?>" required>
 				</div>
 				<div class="form-group">
 					<label for="perenimi">Perenimi: </label>
-					<input class="form-control" id="perenimi" type="text" value="<?php echo $perenimi; ?>" required>
+					<input class="form-control" id="perenimi" type="text" value="<?php echo $last_name; ?>" required>
 				</div>
 				<div class="form-group">
-					<label for="kuupaev">Kuupäev: </label>
-					<input class="form-control" id="kuupaev" type="date" value="<?php echo $kuupaev; ?>" required>
+					<label for="birthday">Kuupäev: </label>
+					<input class="form-control" id="birthday" type="date" value="<?php echo $birthday; ?>" required>
 				</div>
 				<div class="form-group">
 					<label for="email">Email: </label>
 					<input class="form-control" id="email" type="email" value="<?php echo $email; ?>" required>
 				</div>
 				<div class="form-group">
-					<label for="email">Meili saaja: </label>
-					<input class="form-control" id="saaja_email" type="email" value="<?php echo $saaja_email; ?>">
+					<label for="recipients_email">Meili saaja: </label>
+					<input class="form-control" id="recipients_email" type="email" value="<?php echo $recipients_email; ?>">
 				</div>
 				<div class="form-group">
-					<label for="kommentaar">Kommentaar: </label>
-					<input class="form-control" id="kommentaar" type="text" value="<?php echo $kommentaar; ?>">
+					<label for="comment">Kommentaar: </label>
+					<input class="form-control" id="comment" type="text" value="<?php echo $comment; ?>">
 				</div>
 				<div class="form-group">
-					<label for="grupi_id">Grupi ID: </label>
-					<input class="form-control" id="grupi_id" type="number" value="<?php echo $grupi_id; ?>" required>
+					<label for="group_id">Grupi ID: </label>
+					<input class="form-control" id="group_id" type="number" value="<?php echo $group_id; ?>" required>
 				</div>
-				<input type="number" name="id" value="<?php echo $grupi_id; ?>" hidden>
+				<input type="number" name="id" value="<?php echo $group_id; ?>" hidden>
 				<input value="Muuda" id="edit" type="submit" class="btn btn-info pull-right d-block"> 
 			</form>
 		</div>
