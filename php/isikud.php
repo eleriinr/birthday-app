@@ -7,7 +7,7 @@ $url = str_replace('isikud', 'sunnipaevaplugin',$url);
 //ID of the group
 $group_id = $_POST['id'];
 
-//Acquiring the necessary data from the 'isikud' table
+//Acquiring the necessary data from the 'people' table
 global $wpdb;
 	
 $people = $wpdb->prefix . 'people';

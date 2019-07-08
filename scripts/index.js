@@ -27,7 +27,7 @@ jQuery(document).ready(function() {
 		var box = $("#box" + id);
 		var active = "No";
 
-		if ( box.is(':checked') ) { 
+		if ( box.is(':checked') ) {
 			active = "Yes";
 			row.classList.remove("table-danger");
 		}
@@ -35,7 +35,7 @@ jQuery(document).ready(function() {
 			row.classList.add("table-danger");
 		}
 		
-		var data = { 
+		var data = {
 						action: "change_activity",
 						id: id,
 						active: active,

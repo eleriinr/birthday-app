@@ -8,7 +8,7 @@ jQuery(document).ready(function() {
 	
 		if(info['name'] != "" && info['str_id'] != "" && info['email'] != ""){
 			var data = { 
-							action: "edit_element",
+							action: "change_element",
 							id: id,
 							table: "groups",
 							data: info

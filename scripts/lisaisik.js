@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
 		if(info['first_name'] != "" && info['last_name'] != "" && info['birthday'] != 0000-00-00 && info['email'] != "" && info['group_id'] != ""){
 			var data = { 
 							action: "add_element",
-							tabel: "people",
+							table: "people",
 							data: info
 			};
 			

@@ -5,23 +5,22 @@ $url = str_replace('muudaisik', 'isikud',$url);
 //Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
-$isikud = $wpdb->prefix . 'isikud';
+$people = $wpdb->prefix . 'people';
 	
 //ID of the person
 $id = $_POST['id'];
 	
-$retrieve_data = $wpdb->get_results("SELECT * FROM $isikud WHERE id=$id");
+$retrieve_data = $wpdb->get_results("SELECT * FROM $people WHERE id=$id");
 $retrieved_data = $retrieve_data[0];
 	
 //Data
 $first_name = $retrieved_data->first_name;
 $last_name = $retrieved_data->last_name;
-$bithday = $retrieved_data->birthday;
+$birthday = $retrieved_data->birthday;
 $email = $retrieved_data->email;
 $recipients_email = $retrieved_data->recipients_email;
 $comment = $retrieved_data->comment;
 $group_id = $retrieved_data->group_id;
-$id = $retrieved_data->id;
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/muudaisik.js"></script></head>
 
@@ -32,7 +31,7 @@ $id = $retrieved_data->id;
 		<div class="col"></div>
 		<div class="col">
 			<form method="post" action=<?php echo $url;?>>
-					<input type="number" name="id" value="<?php echo $grupi_id; ?>" hidden>
+					<input type="number" name="id" value="<?php echo $group_id; ?>" hidden>
 					<input value="Tagasi" type="submit" class="btn btn-danger my-3">
 			</form>
 			
@@ -43,8 +42,8 @@ $id = $retrieved_data->id;
 					<input class="form-control" id="first_name" type="text" value="<?php echo $first_name; ?>" required>
 				</div>
 				<div class="form-group">
-					<label for="perenimi">Perenimi: </label>
-					<input class="form-control" id="perenimi" type="text" value="<?php echo $last_name; ?>" required>
+					<label for="last_name">Perenimi: </label>
+					<input class="form-control" id="last_name" type="text" value="<?php echo $last_name; ?>" required>
 				</div>
 				<div class="form-group">
 					<label for="birthday">Kuupäev: </label>

@@ -134,9 +134,9 @@ function change_activity(){
 	
 	global $wpdb;
 
+	$id = $_POST['id'];
 	$active = $_POST['active'];
 	$table = $_POST['table'];	
-	$id = $_POST['id'];
 	
 	$table = $wpdb->prefix . $table;
 	
