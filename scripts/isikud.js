@@ -16,8 +16,8 @@ jQuery(document).ready(function() {
 		.done(function (result, status, xhr) {
 			console.log(status);
 		})
-		.fail(function () {
-			console.log("fail");
+		.fail(function (result, status, xhr) {
+			console.log('fail: ' + status);
 		});
 	});
 	

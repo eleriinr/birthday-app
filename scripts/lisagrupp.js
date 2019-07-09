@@ -1,5 +1,7 @@
 jQuery(document).ready(function() {
-	jQuery("#add").click(function() 
+	alert('loaded');
+	jQuery("#add").click(function() {
+		alert('add');
 		var andmed = {};
 		andmed['nimi'] = jQuery("#nimi").val();
 		andmed['struktuuri_id'] = jQuery("#struktuuri_id").val();
@@ -18,15 +20,15 @@ jQuery(document).ready(function() {
 			};
 			
 			$.ajax(ajaxurl, {
-				"data": andmed,
-				"type": "POST"
-			})
-			.done(function () {
-				console.log("done");
-			})
-			.fail(function () {
-				console.log("fail");
-			})
+			"data": andmed,
+			"type": "POST"
+		})
+		.done(function (result, status, xhr) {
+			console.log(status);
+		})
+		.fail(function (result, status, xhr) {
+			console.log('fail: ' + status);
+		});
 		}
 	});
 })
