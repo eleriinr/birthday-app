@@ -6,7 +6,7 @@ jQuery(document).ready(function() {
 		var data = {
 						action: "delete_element",
 						id: id,
-						table: "grupid"
+						table: "groups"
 		};
 		
 		$.ajax(ajaxurl, {
@@ -25,10 +25,10 @@ jQuery(document).ready(function() {
 		var row = this.parentElement.parentElement;
 		var id = row.id;
 		var box = $("#box" + id);
-		var active = "Ei";
+		var active = "No";
 
 		if ( box.is(':checked') ) { 
-			active = "Jah";
+			active = "Yes";
 			row.classList.remove("table-danger");
 		}
 		else{
@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
 						action: "edit_activity",
 						id: id,
 						active: active,
-						table: "grupid"
+						table: "groups"
 		};
 		
 		$.ajax(ajaxurl, {

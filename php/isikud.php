@@ -7,10 +7,10 @@ $url = str_replace('isikud', 'sunnipaevaplugin',$url);
 //ID of the group
 $group_id = $_POST['id'];
 
-//Acquiring the necessary data from the 'isikud' table
+//Acquiring the necessary data from the 'people' table
 global $wpdb;
 	
-$people = $wpdb->prefix . 'isikud';
+$people = $wpdb->prefix . 'people';
 	
 $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$group_id" );
 ?>
@@ -38,15 +38,15 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$grou
 				</thead>
 				<tbody>
 				<?php foreach($retrieve_data as $retrieved_data){
-					$first_name = $retrieved_data->eesnimi;
-					$last_name = $retrieved_data->perenimi;
-					$birthday = date('d.m.Y', strtotime($retrieved_data->kuupaev));
+					$first_name = $retrieved_data->first_name;
+					$last_name = $retrieved_data->last_name;
+					$birthday = date('d.m.Y', strtotime($retrieved_data->birthday));
 					$email = $retrieved_data->email;
-					$recipients_email = $retrieved_data->saaja_email;
+					$recipients_email = $retrieved_data->recipients_email;
 					$id = $retrieved_data->id;
 					
 					echo '<tr id="' . $id . '"';
-					if($retrieved_data->aktiivne == 'Ei') echo ' class="table-danger"';
+					if($retrieved_data->active == 'No') echo ' class="table-danger"';
 					echo '>
 					
 						<td class="p-2">' . $first_name . '</td>
@@ -61,7 +61,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$grou
 						
 						<td class="p-2">
 							<input type="checkbox" class="active" id="box' . $id . '" ';
-							if($retrieved_data->aktiivne == "Jah") {echo 'checked';}
+							if($retrieved_data->active == "Yes") {echo 'checked';}
 							echo '>
 						</td>
 						

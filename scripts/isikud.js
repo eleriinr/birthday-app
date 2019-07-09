@@ -6,18 +6,18 @@ jQuery(document).ready(function() {
 		var andmed = { 
 						action: "delete_element",
 						id: id,
-						table: "isikud"
+						table: "people"
 		};
 		
 		$.ajax(ajaxurl, {
 			"data": andmed,
 			"type": "POST"
 		})
-		.done(function (result, status, xhr) {
-			console.log(status);
+		.done(function () {
+			console.log('done');
 		})
-		.fail(function (result, status, xhr) {
-			console.log('fail: ' + status);
+		.fail(function () {
+			console.log('fail');
 		});
 	});
 	
@@ -25,10 +25,10 @@ jQuery(document).ready(function() {
 		var row = this.parentElement.parentElement;
 		var id = row.id;
 		var box = $("#box" + id);
-		var active = "Ei";
+		var active = "No";
 
 		if ( box.is(':checked') ) {
-			active = "Jah";
+			active = "Yes";
 			row.classList.remove("table-danger");
 		}
 		else{
@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
 						action: "edit_activity",
 						id: id,
 						active: active,
-						table: "isikud"
+						table: "people"
 		};
 		
 		$.ajax(ajaxurl, {
