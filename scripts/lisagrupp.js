@@ -13,7 +13,7 @@ jQuery(document).ready(function() {
 		if(info['name'] != "" && info['str_id'] != "" && info['group_email'] != ""){
 			var data = { 
 							action: "add_element",
-							table: "grupid",
+							table: "groups",
 							data: info
 			};
 			
@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
 			console.log("done");
 		})
 		.fail(function () {
-			console.log("fail");
+			console.log("failed");
 		});
 		}
 	});

@@ -12,7 +12,7 @@ global $wpdb;
 	
 $people = $wpdb->prefix . 'people';
 	
-$retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$group_id" );
+$retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$group_id" );
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/isikud.js"></script></head>
 
