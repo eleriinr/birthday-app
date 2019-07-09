@@ -1,33 +1,31 @@
 jQuery(document).ready(function() {
-	alert('loaded');
 	jQuery("#add").click(function() {
-		alert('add');
-		var andmed = {};
-		andmed['nimi'] = jQuery("#nimi").val();
-		andmed['struktuuri_id'] = jQuery("#struktuuri_id").val();
-		andmed['uldmeil'] = jQuery("#email").val();
-		andmed['aktiivne'] = "Ei";
+		var info = {};
+		info['nimi'] = jQuery("#name").val();
+		info['struktuuri_id'] = jQuery("#str_id").val();
+		info['uldmeil'] = jQuery("#group_email").val();
+		info['aktiivne'] = "Ei";
 	
-		if ( $("#aktiivne").is(':checked')) { 
-			andmed['aktiivne'] = "Jah";
+		if ( $("#active").is(':checked')) { 
+			info['aktiivne'] = "Jah";
 		}
 			
-		if(andmed['nimi'] != "" && andmed['struktuuri_id'] != "" && andmed['uldmeil'] != ""){
-			var andmed = { 
-							action: "lisa",
-							tabel: "grupid",
-							andmed: andmed
+		if(info['nimi'] != "" && info['struktuuri_id'] != "" && info['uldmeil'] != ""){
+			var data = { 
+							action: "add_element",
+							table: "grupid",
+							data: info
 			};
 			
 			$.ajax(ajaxurl, {
-			"data": andmed,
+			"data": data,
 			"type": "POST"
 		})
-		.done(function (result, status, xhr) {
-			console.log(status);
+		.done(function () {
+			console.log("done");
 		})
-		.fail(function (result, status, xhr) {
-			console.log('fail: ' + status);
+		.fail(function () {
+			console.log("fail");
 		});
 		}
 	});

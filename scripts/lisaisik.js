@@ -1,28 +1,28 @@
 jQuery(document).ready(function() {
 	jQuery("#add").click(function() {
-		var andmed = {};
-		andmed['eesnimi'] = jQuery("#eesnimi").val();
-		andmed['perenimi'] = jQuery("#perenimi").val();
-		andmed['kuupaev'] = jQuery("#kuupaev").val();
-		andmed['email'] = jQuery("#email").val();
-		andmed['saaja_email'] = jQuery("#saaja_email").val();
-		andmed['kommentaar'] = jQuery("#kommentaar").val();
-		andmed['grupi_id'] = jQuery("#grupi_id").val();
-		andmed['aktiivne'] = "Ei";
+		var info = {};
+		info['eesnimi'] = jQuery("#first_name").val();
+		info['perenimi'] = jQuery("#last_name").val();
+		info['kuupaev'] = jQuery("#birthday").val();
+		info['email'] = jQuery("#email").val();
+		info['saaja_email'] = jQuery("#recipients_email").val();
+		info['kommentaar'] = jQuery("#comment").val();
+		info['grupi_id'] = jQuery("#group_id").val();
+		info['aktiivne'] = "Ei";
 	
-		if ( $("#aktiivne").is(':checked')) { 
-			andmed['aktiivne'] = "Jah";
+		if ( $("#active").is(':checked')) { 
+			info['aktiivne'] = "Jah";
 		}
 		
-		if(andmed['eesnimi'] != "" && andmed['perenimi'] != "" && andmed['kuupaev'] != 0000-00-00 && andmed['email'] != "" && andmed['grupi_id'] != ""){
-			var andmed = { 
-							action: "lisa",
-							tabel: "isikud",
-							andmed: andmed
+		if(info['eesnimi'] != "" && info['perenimi'] != "" && info['kuupaev'] != 0000-00-00 && info['email'] != "" && info['grupi_id'] != ""){
+			var data = { 
+							action: "add_element",
+							table: "isikud",
+							data: info
 			};
 			
 			$.ajax(ajaxurl, {
-				"data": andmed,
+				"data": data,
 				"type": "POST"
 			})
 			.done(function () {
