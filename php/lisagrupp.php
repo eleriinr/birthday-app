@@ -16,20 +16,20 @@ $url = str_replace('lisagrupp', 'sunnipaevaplugin',$url);
 
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
-					<label for="name">Nimi: </label>
-					<input class="form-control" id="name" type="text" placeholder="Nimi" required>
+					<label for="nimi">Nimi: </label>
+					<input class="form-control" id="nimi" type="text" placeholder="Nimi" required>
 				</div>
 				<div class="form-group">
-					<label for="str_id">Struktuuri ID: </label>
-					<input class="form-control" id="str_id" type="text" placeholder="ID" required>
+					<label for="struktuuri_id">Struktuuri ID: </label>
+					<input class="form-control" id="struktuuri_id" type="text" placeholder="ID" required>
 				</div>
 				<div class="form-group">
 					<label for="email">Üldmeil: </label>
 					<input class="form-control" id="email" type="email" placeholder="Email" required>
 				</div>
 				<div class="form-group">
-					<label class="form-check-label" for="active">Aktiivne</label>
-					<input type="checkbox"class="form-check-input mt-2 ml-2" id="active" checked>
+					<label class="form-check-label" for="aktiivne">Aktiivne</label>
+					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" checked>
 				</div>
 				<input value="Lisa" id="add" type="submit" class="btn btn-info pull-right d-block"> 
 			</form>

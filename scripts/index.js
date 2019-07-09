@@ -3,14 +3,14 @@ jQuery(document).ready(function() {
 		var id = this.parentElement.parentElement.parentElement.id;
 		$("tr#" + id).remove();
 	
-		var data = {
-						action: "delete_element",
+		var andmed = {
+						action: "kustuta",
 						id: id,
-						table: "groups"
+						tabel: "grupid"
 		};
 		
 		$.ajax(ajaxurl, {
-			"data": data,
+			"data": andmed,
 			"type": "POST"
 		})
 		.done(function () {
@@ -21,29 +21,29 @@ jQuery(document).ready(function() {
 		});
 	});
 	
-	jQuery(".active").click(function() {
-		var row = this.parentElement.parentElement;
-		var id = row.id;
-		var box = $("#box" + id);
-		var active = "No";
+	jQuery(".aktiivne").click(function() {
+		var rida = this.parentElement.parentElement;
+		var id = rida.id;
+		var kast = $("#kast" + id);
+		var aktiivne = "Ei";
 
-		if ( box.is(':checked') ) {
-			active = "Yes";
-			row.classList.remove("table-danger");
+		if ( kast.is(':checked') ) { 
+			aktiivne = "Jah";
+			rida.classList.remove("table-danger");
 		}
 		else{
-			row.classList.add("table-danger");
+			rida.classList.add("table-danger");
 		}
 		
-		var data = {
-						action: "change_activity",
+		var andmed = { 
+						action: "muuda_aktiivsust",
 						id: id,
-						active: active,
-						table: "groups"
+						aktiivne: aktiivne,
+						tabel: "grupid"
 		};
 		
 		$.ajax(ajaxurl, {
-			"data": data,
+			"data": andmed,
 			"type": "POST"
 		})
 		.done(function () {

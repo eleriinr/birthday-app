@@ -1,32 +1,25 @@
 jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
-		var id = jQuery("#id").val();
-		var info = {};
-		info['first_name'] = jQuery("#first_name").val();
-		alert('fn: ' + info['first_name']);
-		info['last_name'] = jQuery("#last_name").val();
-		alert('ln: ' + info['last_name']);
-		info['birthday'] = jQuery("#birthday").val();
-		alert('bd: ' + info['birthday']);
-		info['email'] = jQuery("#email").val();
-		alert('em: ' + info['email']);
-		info['recipients_email'] = jQuery("#recipients_email").val();
-		alert('rem: ' + info['recipients_email']);
-		info['comment'] = jQuery("#comment").val();
-		alert('cm: ' + info['comment']);
-		info['group_id'] = jQuery("#group_id").val();
-		alert('gid: ' + info['group_id']);
+		var id = jQuery("#isiku_id").val();
+		var isik = {};
+		isik['eesnimi'] = jQuery("#eesnimi").val();
+		isik['perenimi'] = jQuery("#perenimi").val();
+		isik['kuupaev'] = jQuery("#kuupaev").val();
+		isik['email'] = jQuery("#email").val();
+		isik['saaja_email'] = jQuery("#saaja_email").val();
+		isik['kommentaar'] = jQuery("#kommentaar").val();
+		isik['grupi_id'] = jQuery("#grupi_id").val();
 	
-		if(info['first_name'] != "" && info['last_name'] != "" && info['birthday'] != 0000-00-00 && info['email'] != "" && info['group_id'] != ""){
-			var data = { 
-							action: "change_element",
+		if(isik['eesnimi'] != "" && isik['perenimi'] != "" && isik['kuupaev'] != 0000-00-00 && isik['email'] != "" && isik['grupi_id'] != ""){
+			var andmed = { 
+							action: "muuda",
 							id: id,
-							table: "people",
-							data: info
+							tabel: "isikud",
+							andmed: isik
 			};
 			
 			$.ajax(ajaxurl, {
-				"data": data,
+				"data": andmed,
 				"type": "POST"
 			})
 			.done(function () {

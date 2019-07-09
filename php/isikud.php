@@ -1,18 +1,18 @@
 <?php
 //Destination urls
-$addperson_url = str_replace('isikud','lisaisik',$url);
-$changeperson_url = str_replace('isikud','muudaisik',$url);
+$lisaisik_url = str_replace('isikud','lisaisik',$url);
+$muudaisik_url = str_replace('isikud','muudaisik',$url);
 $url = str_replace('isikud', 'sunnipaevaplugin',$url);
 
 //ID of the group
-$group_id = $_POST['id'];
+$id = $_POST['id'];
 
-//Acquiring the necessary data from the 'people' table
+//Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
-$people = $wpdb->prefix . 'people';
+$isikud = $wpdb->prefix . 'isikud';
 	
-$retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$group_id" );
+$retrieve_data = $wpdb->get_results( "SELECT * FROM $isikud WHERE grupi_id=$id" );
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/isikud.js"></script></head>
 
@@ -38,38 +38,38 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$grou
 				</thead>
 				<tbody>
 				<?php foreach($retrieve_data as $retrieved_data){
-					$first_name = $retrieved_data->first_name;
-					$last_name = $retrieved_data->last_name;
-					$birthday = date('d.m.Y', strtotime($retrieved_data->birthday));
+					$eesnimi = $retrieved_data->eesnimi;
+					$perenimi = $retrieved_data->perenimi;
+					$kuupaev = date('d.m.Y', strtotime($retrieved_data->kuupaev));
 					$email = $retrieved_data->email;
-					$recipients_email = $retrieved_data->recipients_email;
-					$id = $retrieved_data->id;
+					$saaja_email = $retrieved_data->saaja_email;
+					$isiku_id = $retrieved_data->id;
 					
-					echo '<tr id="' . $id . '"';
-					if($retrieved_data->active == 'No') echo ' class="table-danger"';
+					echo '<tr id="' . $isiku_id . '"';
+					if($retrieved_data->aktiivne == 'Ei') echo ' class="table-danger"';
 					echo '>
 					
-						<td class="p-2">' . $first_name . '</td>
+						<td class="p-2">' . $eesnimi . '</td>
 						
-						<td class="p-2">' . $last_name . '</td>
+						<td class="p-2">' . $perenimi . '</td>
 						
-						<td class="p-2">' . $birthday . '</td>
+						<td class="p-2">' . $kuupaev . '</td>
 						
 						<td class="p-2"><nobr>' . $email . '<nobr></td>
 						
-						<td class="p-2">' . $recipients_email . '</td>
+						<td class="p-2">' . $saaja_email . '</td>
 						
 						<td class="p-2">
-							<input type="checkbox" class="active" id="box' . $id . '" ';
-							if($retrieved_data->active == "Yes") {echo 'checked';}
+							<input type="checkbox" class="aktiivne" id="kast' . $isiku_id . '" ';
+							if($retrieved_data->aktiivne == "Jah") {echo 'checked';}
 							echo '>
 						</td>
 						
 						<td class="p-2">
 							<div class="btn-group">
 							
-								<form method="post" action=' . $changeperson_url . '>
-									<input type="number" name="id" value="' . $id . '" hidden>
+								<form method="post" action=' . $muudaisik_url . '>
+									<input type="number" name="id" value="' . $isiku_id . '" hidden>
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
 							
@@ -80,8 +80,8 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$grou
 				}?>
 				</tbody>
 			</table>
-			<form method="post" action=<?php echo $addperson_url;?>>
-				<input type="number" name="id" value="<?php echo $group_id; ?>" hidden>
+			<form method="post" action=<?php echo $lisaisik_url;?>>
+				<input type="number" name="id" value="<?php echo $id; ?>" hidden>
 				<input value="+ Lisa isik" type="submit" class="btn btn-info pull-right">
 			</form>
 		</div>

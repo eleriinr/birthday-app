@@ -21,36 +21,36 @@ $id = $_POST['id'];
 						
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
-					<label for="first_name">Eesnimi: </label>
-					<input class="form-control" id="first_name" type="text" placeholder="Eesnimi" required>
+					<label for="eesnimi">Eesnimi: </label>
+					<input class="form-control" id="eesnimi" type="text" placeholder="Eesnimi" required>
 				</div>
 				<div class="form-group">
-					<label for="last_name">Perenimi: </label>
-					<input class="form-control" id="last_name" type="text" placeholder="Perenimi" required>
+					<label for="perenimi">Perenimi: </label>
+					<input class="form-control" id="perenimi" type="text" placeholder="Perenimi" required>
 				</div>
 				<div class="form-group">
-					<label for="birthday">Kuupäev: </label>
-					<input class="form-control" id="birthday" type="date" required>
+					<label for="kuupaev">Kuupäev: </label>
+					<input class="form-control" id="kuupaev" type="date" required>
 				</div>
 				<div class="form-group">
 					<label for="email">Email: </label>
 					<input class="form-control" id="email" type="email" placeholder="Email" required>
 				</div>
 				<div class="form-group">
-					<label for="recipients_email">Meili saaja: </label>
-					<input class="form-control" id="recipients_email" type="email" placeholder="Saaja Email">
+					<label for="emails">Meili saaja: </label>
+					<input class="form-control" id="saaja_email" type="email" placeholder="Saaja Email">
 				</div>
 				<div class="form-group">
-					<label for="comment">Kommentaar: </label>
-					<input class="form-control" id="comment" type="text" placeholder="Kommentaar">
+					<label for="kommentaar">Kommentaar: </label>
+					<input class="form-control" id="kommentaar" type="text" placeholder="Kommentaar">
 				</div>
 				<div class="form-group">
-					<label for="group_id">Grupi ID: </label>
-					<input class="form-control" id="group_id" type="number" value="<?php echo $id; ?>" placeholder="ID"  required>
+					<label for="grupi_id">Grupi ID: </label>
+					<input class="form-control" id="grupi_id" type="number" value="<?php echo $id; ?>" placeholder="ID"  required>
 				</div>
 				<div class="form-group">
-					<label class="form-check-label" for="active">Aktiivne</label>
-					<input type="checkbox"class="form-check-input mt-2 ml-2" id="active" checked>
+					<label class="form-check-label" for="aktiivne">Aktiivne</label>
+					<input type="checkbox"class="form-check-input mt-2 ml-2" id="aktiivne" checked>
 				</div>
 				<input type="number" name="id" value="<?php echo $id; ?>" hidden>
 				<input value="Lisa" id="add" type="submit" class="btn btn-info pull-right mb-3 d-block"> 

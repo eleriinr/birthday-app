@@ -1,28 +1,28 @@
 jQuery(document).ready(function() {
 	jQuery("#add").click(function() {
-		var info = {};
-		info['first_name'] = jQuery("#first_name").val();
-		info['last_name'] = jQuery("#last_name").val();
-		info['birthday'] = jQuery("#birthday").val();
-		info['email'] = jQuery("#email").val();
-		info['recipients_email'] = jQuery("#recipients_email").val();
-		info['comment'] = jQuery("#comment").val();
-		info['group_id'] = jQuery("#group_id").val();
-		info['active'] = "No";
+		var andmed = {};
+		andmed['eesnimi'] = jQuery("#eesnimi").val();
+		andmed['perenimi'] = jQuery("#perenimi").val();
+		andmed['kuupaev'] = jQuery("#kuupaev").val();
+		andmed['email'] = jQuery("#email").val();
+		andmed['saaja_email'] = jQuery("#saaja_email").val();
+		andmed['kommentaar'] = jQuery("#kommentaar").val();
+		andmed['grupi_id'] = jQuery("#grupi_id").val();
+		andmed['aktiivne'] = "Ei";
 	
-		if ( $("#active").is(':checked')) { 
-			info['active'] = "Yes";
+		if ( $("#aktiivne").is(':checked')) { 
+			andmed['aktiivne'] = "Jah";
 		}
 		
-		if(info['first_name'] != "" && info['last_name'] != "" && info['birthday'] != 0000-00-00 && info['email'] != "" && info['group_id'] != ""){
-			var data = { 
-							action: "add_element",
-							table: "people",
-							data: info
+		if(andmed['eesnimi'] != "" && andmed['perenimi'] != "" && andmed['kuupaev'] != 0000-00-00 && andmed['email'] != "" && andmed['grupi_id'] != ""){
+			var andmed = { 
+							action: "lisa",
+							tabel: "isikud",
+							andmed: andmed
 			};
 			
 			$.ajax(ajaxurl, {
-				"data": data,
+				"data": andmed,
 				"type": "POST"
 			})
 			.done(function () {

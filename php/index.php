@@ -1,15 +1,15 @@
 <?php 
 //Destination urls 
-$people_url = str_replace('sunnipaevaplugin','isikud',$url);
-$changegroup_url = str_replace('sunnipaevaplugin','muudagrupp',$url);
-$addgroup_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
+$isikud_url = str_replace('sunnipaevaplugin','isikud',$url);
+$muudagrupp_url = str_replace('sunnipaevaplugin','muudagrupp',$url);
+$lisagrupp_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
 
 //Acquiring the data from the 'grupid' table
 global $wpdb;
 	
-$groups = $wpdb->prefix . 'groups';
+$grupid = $wpdb->prefix . 'grupid';
 
-$retrieve_data = $wpdb->get_results( "SELECT * FROM $groups" );
+$retrieve_data = $wpdb->get_results( "SELECT * FROM $grupid" );
 
 include('../wp-content/plugins/birthday-app/php/kontrollskript.php'); 
 ?>
@@ -35,38 +35,38 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 				<tbody>
 					<?php foreach ($retrieve_data as $retrieved_data){
 						$gid = $retrieved_data->id;
-						$active = $retrieved_data->active;
-						$name = $retrieved_data->name;
-						$str_id = $retrieved_data->str_id;
-						$email = $retrieved_data->email;
+						$aktiivne = $retrieved_data->aktiivne;
+						$nimi = $retrieved_data->nimi;
+						$struktuuri_id = $retrieved_data->struktuuri_id;
+						$uldmeil = $retrieved_data->uldmeil;
 						
 						echo '<tr id="' . $gid . '"';
-						if($active == 'No') echo ' class="table-danger"';
+						if($aktiivne == 'Ei') echo ' class="table-danger"';
 						echo '>
 						
 						<td class="p-2">' . $gid . '</td>
 						
 						<td class="p-2">
-							<form method="post" action=' . $people_url . '>
+							<form method="post" action=' . $isikud_url . '>
 								<input type="number" value="' . $gid . '" name="id" hidden>
-								<input value="' . $name . '" type="submit" class="btn btn-info btn-sm">
+								<input value="' . $nimi . '" type="submit" class="btn btn-info btn-sm">
 							</form>
 						</td>
 						
-						<td class="p-2">' . $str_id . '</td>
+						<td class="p-2">' . $struktuuri_id . '</td>
 						
-						<td class="p-2">' . $email . '</td>
+						<td class="p-2">' . $uldmeil . '</td>
 						
 						<td class="p-2">
-							<input type="checkbox" class="active" id="box' . $gid . '" ';
-								if($active == "Yes") {echo 'checked';}
+							<input type="checkbox" class="aktiivne" id="kast' . $gid . '" ';
+								if($aktiivne == "Jah") {echo 'checked';}
 							echo '>
 						</td>
 						
 						<td class="p-2">
 							<div class="btn-group">
 								
-								<form method="post" action=' . $changegroup_url . '>
+								<form method="post" action=' . $muudagrupp_url . '>
 									<input type="number" value="' . $gid . '" name="id" hidden>
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
@@ -79,7 +79,7 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 					}?>
 				</tbody>
 			</table>
-				<a  href=<?php echo $addgroup_url;?>>
+				<a  href=<?php echo $lisagrupp_url;?>>
 					<button class="btn btn-info pull-right">+ Lisa grupp</button>
 				</a>
 		</div>

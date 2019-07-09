@@ -1,22 +1,24 @@
 jQuery(document).ready(function() {
-	jQuery("#add").click(function() {
-		var info = {};
-		info['name'] = jQuery("#name").val();
-		info['str_id'] = jQuery("#str_id").val();
-		info['email'] = jQuery("#email").val();
-		info['active'] = "No";
-		if ( $("#active").is(':checked')) { 
-			info['active'] = "Yes";
+	jQuery("#add").click(function() 
+		var andmed = {};
+		andmed['nimi'] = jQuery("#nimi").val();
+		andmed['struktuuri_id'] = jQuery("#struktuuri_id").val();
+		andmed['uldmeil'] = jQuery("#email").val();
+		andmed['aktiivne'] = "Ei";
+	
+		if ( $("#aktiivne").is(':checked')) { 
+			andmed['aktiivne'] = "Jah";
 		}
-		if(info['name'] != "" && info['str_id'] != "" && info['email'] != ""){
-			var data = { 
-							action: "add_element",
-							table: "groups",
-							data: info
+			
+		if(andmed['nimi'] != "" && andmed['struktuuri_id'] != "" && andmed['uldmeil'] != ""){
+			var andmed = { 
+							action: "lisa",
+							tabel: "grupid",
+							andmed: andmed
 			};
 			
 			$.ajax(ajaxurl, {
-				"data": data,
+				"data": andmed,
 				"type": "POST"
 			})
 			.done(function () {

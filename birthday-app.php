@@ -10,63 +10,63 @@
  
 function test_plugin_setup_menu(){
     add_menu_page( 'Sünnipäevaplugin', 'Sünnipäevaplugin', 'manage_options', 'sunnipaevaplugin', 'test_init' );
-	add_submenu_page( '', 'Lisa isik', 'Lisa isik', 'manage_options', 'lisaisik', 'addperson_init' );
-	add_submenu_page( '', 'Lisa grupp', 'Lisa grupp', 'manage_options', 'lisagrupp', 'addgroup_init' );
-	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', 'isikud', 'people_init' );
-	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', 'muudaisik', 'changeperson_init' );
-	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'muudagrupp', 'changegroup_init' );
+	add_submenu_page( 'sunnipaevaplgin', 'Lisa isik', 'Lisa isik', 'manage_options', 'lisaisik', 'lisaisik_init' );
+	add_submenu_page( 'sunnipaevaplgin', 'Lisa grupp', 'Lisa grupp', 'manage_options', 'lisagrupp', 'lisagrupp_init' );
+	add_submenu_page( 'sunnipaevaplgin', 'Isikud', 'Isikud', 'manage_options', 'isikud', 'isikud_init' );
+	add_submenu_page( 'sunnipaevaplgin', 'Muuda isik', 'Muuda isik', 'manage_options', 'muudaisik', 'muudaisik_init' );
+	add_submenu_page( 'sunnipaevaplgin', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'muudagrupp', 'muudagrupp_init' );
 }
 function test_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include('../wp-content/plugins/birthday-app/php/index.php'); 
 }
-function addperson_init(){
+function lisaisik_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include('../wp-content/plugins/birthday-app/php/lisaisik.php'); 
 }
-function addgroup_init(){
+function lisagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include('../wp-content/plugins/birthday-app/php/lisagrupp.php'); 
 } 
-function people_init(){
+function isikud_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include('../wp-content/plugins/birthday-app/php/isikud.php'); 
 }
-function changeperson_init(){
+function muudaisik_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include('../wp-content/plugins/birthday-app/php/muudaisik.php'); 
 }
-function changegroup_init(){
+function muudagrupp_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include('../wp-content/plugins/birthday-app/php/muudagrupp.php'); 
 }
 function create_birthday_tables(){
 	global $wpdb;
 	
-	$groups = $wpdb->prefix . 'groups';
-	$people = $wpdb->prefix . 'people';
+	$grupid = $wpdb->prefix . 'grupid';
+	$isikud = $wpdb->prefix . 'isikud';
 	
 	$charset_collate = $wpdb->get_charset_collate();
 	
-	$sql1 = "CREATE TABLE $groups (
+	$sql1 = "CREATE TABLE $grupid (
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			name varchar(40) NOT NULL,
-			str_id varchar(20) NOT NULL,
-			email varchar(40) NOT NULL,
-			active varchar(3) NOT NULL,
+			nimi varchar(40) NOT NULL,
+			struktuuri_id varchar(20) NOT NULL,
+			uldmeil varchar(40) NOT NULL,
+			aktiivne varchar(3) NOT NULL,
 			PRIMARY KEY  (id)
 	) $charset_collate;";
 	
-	$sql2 = "CREATE TABLE $people (
+	$sql2 = "CREATE TABLE $isikud (
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			first_name varchar(30) NOT NULL,
-			last_name varchar(30) NOT NULL,
-			birthday date NOT NULL,
+			eesnimi varchar(30) NOT NULL,
+			perenimi varchar(30) NOT NULL,
+			kuupaev date NOT NULL,
 			email varchar(40) NOT NULL,
-			recipients_email varchar(40),
-			comment varchar(140),
-			group_id mediumint(9) NOT NULL,
-			active varchar(3) NOT NULL,
+			saaja_email varchar(40),
+			kommentaar varchar(140),
+			grupi_id mediumint(9) NOT NULL,
+			aktiivne varchar(3) NOT NULL,
 			PRIMARY KEY  (id)
 	) $charset_collate;";
 	
@@ -80,11 +80,11 @@ register_activation_hook( __FILE__, 'create_birthday_tables' );
 function delete_birthday_tables(){
 	global $wpdb;
 	
-	$groups = $wpdb->prefix . 'groups';
-	$people = $wpdb->prefix . 'people';
+	$grupid = $wpdb->prefix . 'grupid';
+	$isikud = $wpdb->prefix . 'isikud';
 	
-	$sql1 = "DROP TABLE IF EXISTS $groups;";
-	$sql2 = "DROP TABLE IF EXISTS $people;";
+	$sql1 = "DROP TABLE IF EXISTS $grupid;";
+	$sql2 = "DROP TABLE IF EXISTS $isikud;";
 	
 	$wpdb->query($sql1);
 	$wpdb->query($sql2);
@@ -92,35 +92,35 @@ function delete_birthday_tables(){
 
 register_deactivation_hook( __FILE__, 'delete_birthday_tables' );
 
-function add_element(){
+function lisa(){
 	global $wpdb;
 	
-	$data = $_POST['data'];
-	$table = $_POST['table'];
+	$andmed = $_POST['andmed'];
+	$tabel = $_POST['tabel'];
 	
-	$table = $wpdb->prefix . $table;
+	$tabel = $wpdb->prefix . $tabel;
 	
 	$wpdb->insert(
-			$table,
-			$data
+			$tabel,
+			$andmed
 	);
 	wp_die();
 }
 
-add_action( 'wp_ajax_add_element', 'add_element' );
+add_action( 'wp_ajax_lisa', 'lisa' );
 
-function change_element(){
+function muuda(){
 	global $wpdb;
 	
-	$data = $_POST['data'];
+	$andmed = $_POST['andmed'];
 	$id = $_POST['id'];
-	$table = $_POST['table'];
+	$tabel = $_POST['tabel'];
 			
-	$table = $wpdb->prefix . $table;
+	$tabel = $wpdb->prefix . $tabel;
 	
 	$wpdb->update(
-			$table,
-			$data,
+			$tabel,
+			$andmed,
 			array(
 				'id' => $id
 			)
@@ -128,22 +128,22 @@ function change_element(){
 	wp_die();
 }
 
-add_action( 'wp_ajax_change_element', 'change_element' );
+add_action( 'wp_ajax_muuda', 'muuda' );
 
-function change_activity(){
+function muuda_aktiivsust(){
 	
 	global $wpdb;
 
+	$aktiivne = $_POST['aktiivne'];
+	$tabel = $_POST['tabel'];	
 	$id = $_POST['id'];
-	$active = $_POST['active'];
-	$table = $_POST['table'];	
 	
-	$table = $wpdb->prefix . $table;
+	$table_name = $wpdb->prefix . $tabel;
 	
 	$wpdb->update(
-			$table,
+			$table_name,
 			array(
-				'active' => $active
+				'aktiivne' => $aktiivne
 			),
 			array(
 				'id' => $id
@@ -152,26 +152,31 @@ function change_activity(){
 	wp_die();
 }
 
-add_action( 'wp_ajax_change_activity', 'change_activity' );
+add_action( 'wp_ajax_muuda_aktiivsust', 'muuda_aktiivsust' );
 
-function delete_element(){
+function kustuta(){
 
 	if (!empty($_POST['id'])){
 		
 		global $wpdb;
 		
-		$table = $_POST['table'];
-		$table = $wpdb->prefix . $table;
+		$tabel = $_POST['tabel'];
+		$table = $wpdb->prefix . $tabel;
 		$id = $_POST['id'];
-		$wpdb->delete( 
-					$table, 
-					array( 'id' => $id ) 
-		);
+		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
 	wp_die();
 }
 
-add_action( 'wp_ajax_delete_element', 'delete_element' );
+add_action( 'wp_ajax_kustuta', 'kustuta' );
+
+// show wp_mail() errors
+function onMailError( $wp_error ) {
+    echo "<p>";
+    print_r($wp_error);
+    echo "</p>";
+}
+add_action( 'wp_mail_failed', 'onMailError', 10, 1 );
 
 function mailer_config(PHPMailer $mailer){
   $mailer->IsSMTP();
@@ -180,6 +185,5 @@ function mailer_config(PHPMailer $mailer){
   $mailer->SMTPDebug = 2; // write 0 if you don't want to see client/server communication in page
   $mailer->CharSet  = "utf-8";
 }
-
 add_action( 'phpmailer_init', 'mailer_config', 10, 1);
 ?>
