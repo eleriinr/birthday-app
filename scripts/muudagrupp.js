@@ -2,15 +2,15 @@ jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
 		var id = jQuery("#group_id").val();
 		var info = {};
-		info['name'] = jQuery("#name").val();
-		info['str_id'] = jQuery("#str_id").val();
-		info['group_email'] = jQuery("#group_email").val();
+		info['nimi'] = jQuery("#name").val();
+		info['struktuuri_id'] = jQuery("#str_id").val();
+		info['uldmeil'] = jQuery("#group_email").val();
 	
-		if(info['name'] != "" && info['str_id'] != "" && info['group_email'] != ""){
+		if(info['nimi'] != "" && info['struktuuri_id'] != "" && info['uldmeil'] != ""){
 			var data = { 
 							action: "edit_element",
 							id: id,
-							table: "groups",
+							table: "grupid",
 							data: info
 			};
 			
@@ -19,10 +19,10 @@ jQuery(document).ready(function() {
 				"type": "POST"
 			})
 			.done(function () {
-				console.log("done");
+				alert("grupp muudetud: " + info['nimi']);
 			})
 			.fail(function () {
-				console.log("fail");
+				alert("fail, grupp muutmata: " + info['nimi']);
 			})
 		}
 	});

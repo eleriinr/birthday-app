@@ -6,7 +6,7 @@ jQuery(document).ready(function() {
 		var data = {
 						action: "delete_element",
 						id: id,
-						table: "groups"
+						table: "grupid"
 		};
 		
 		$.ajax(ajaxurl, {
@@ -14,10 +14,10 @@ jQuery(document).ready(function() {
 			"type": "POST"
 		})
 		.done(function () {
-			console.log("done");
+			console.log("grupp kustutatud: " + id);
 		})
 		.fail(function () {
-			console.log("fail");
+			console.log("fail, grupp kustutamata: " + id);
 		});
 	});
 	
@@ -25,10 +25,10 @@ jQuery(document).ready(function() {
 		var row = this.parentElement.parentElement;
 		var id = row.id;
 		var box = $("#box" + id);
-		var active = "No";
+		var active = "Ei";
 
 		if ( box.is(':checked') ) { 
-			active = "Yes";
+			active = "Jah";
 			row.classList.remove("table-danger");
 		}
 		else{
@@ -39,7 +39,7 @@ jQuery(document).ready(function() {
 						action: "edit_activity",
 						id: id,
 						active: active,
-						table: "groups"
+						table: "grupid"
 		};
 		
 		$.ajax(ajaxurl, {
@@ -47,10 +47,10 @@ jQuery(document).ready(function() {
 			"type": "POST"
 		})
 		.done(function () {
-			console.log("done");
+			console.log("grupi aktiivsus muudetud");
 		})
 		.fail(function () {
-			console.log("fail");
+			console.log("fail, grupi aktiivsus muutmata");
 		})
 	});
 })

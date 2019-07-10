@@ -43,30 +43,30 @@ function muudagrupp_init(){
 function create_birthday_tables(){
 	global $wpdb;
 	
-	$groups = $wpdb->prefix . 'groups';
-	$people = $wpdb->prefix . 'people';
+	$groups = $wpdb->prefix . 'grupid';
+	$people = $wpdb->prefix . 'isikud';
 	
 	$charset_collate = $wpdb->get_charset_collate();
 	
 	$sql1 = "CREATE TABLE $groups (
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			name varchar(40) NOT NULL,
-			str_id varchar(20) NOT NULL,
-			group_email varchar(40) NOT NULL,
-			active varchar(3) NOT NULL,
+			nimi varchar(40) NOT NULL,
+			struktuuri_id varchar(20) NOT NULL,
+			uldmeil varchar(40) NOT NULL,
+			aktiivne varchar(3) NOT NULL,
 			PRIMARY KEY  (id)
 	) $charset_collate;";
 	
 	$sql2 = "CREATE TABLE $people (
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			first_name varchar(30) NOT NULL,
-			last_name varchar(30) NOT NULL,
-			birthday date NOT NULL,
+			eesnimi varchar(30) NOT NULL,
+			perenimi varchar(30) NOT NULL,
+			kuupaev date NOT NULL,
 			email varchar(40) NOT NULL,
-			recipients_email varchar(40),
-			comment varchar(140),
-			group_id mediumint(9) NOT NULL,
-			active varchar(3) NOT NULL,
+			saaja_email varchar(40),
+			kommentaar varchar(140),
+			grupi_id mediumint(9) NOT NULL,
+			aktiivne varchar(3) NOT NULL,
 			PRIMARY KEY  (id)
 	) $charset_collate;";
 	
@@ -80,8 +80,8 @@ register_activation_hook( __FILE__, 'create_birthday_tables' );
 function delete_birthday_tables(){
 	global $wpdb;
 	
-	$groups = $wpdb->prefix . 'groups';
-	$people = $wpdb->prefix . 'people';
+	$groups = $wpdb->prefix . 'grupid';
+	$people = $wpdb->prefix . 'isikud';
 	
 	$sql1 = "DROP TABLE IF EXISTS $groups;";
 	$sql2 = "DROP TABLE IF EXISTS $people;";
@@ -104,6 +104,7 @@ function add_element(){
 			$table,
 			$data
 	);
+	
 	wp_die();
 }
 
@@ -143,7 +144,7 @@ function edit_activity(){
 	$wpdb->update(
 			$table,
 			array(
-				'active' => $active
+				'aktiivne' => $active
 			),
 			array(
 				'id' => $id

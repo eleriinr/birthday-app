@@ -134,7 +134,7 @@ foreach(array_keys($recipients) as $recipient){
 	}
 	$to = 'eleriinr@ut.ee'; //$to = $recipient;
 	$subject = 'Tähtis meil';
-	//$result = wp_mail( $to, $subject, $message );
-	//echo $result;
+	$result = wp_mail( $to, $subject, $message );
+	echo $result;
 }
 ?>

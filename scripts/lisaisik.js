@@ -1,23 +1,23 @@
 jQuery(document).ready(function() {
 	jQuery("#add").click(function() {
 		var info = {};
-		info['first_name'] = jQuery("#first_name").val();
-		info['last_name'] = jQuery("#last_name").val();
-		info['birthday'] = jQuery("#birthday").val();
+		info['eesnimi'] = jQuery("#first_name").val();
+		info['perenimi'] = jQuery("#last_name").val();
+		info['kuupaev'] = jQuery("#birthday").val();
 		info['email'] = jQuery("#email").val();
-		info['recipients_email'] = jQuery("#recipients_email").val();
-		info['comment'] = jQuery("#comment").val();
-		info['group_id'] = jQuery("#group_id").val();
-		info['active'] = "No";
+		info['saaja_email'] = jQuery("#recipients_email").val();
+		info['kommentaar'] = jQuery("#comment").val();
+		info['grupi_id'] = jQuery("#group_id").val();
+		info['aktiivne'] = "Ei";
 	
 		if ( $("#active").is(':checked')) { 
-			info['active'] = "Yes";
+			info['aktiivne'] = "Jah";
 		}
 		
-		if(info['first_name'] != "" && info['last_name'] != "" && info['birthday'] != 0000-00-00 && info['email'] != "" && info['group_id'] != ""){
+		if(info['eesnimi'] != "" && info['perenimi'] != "" && info['kuupaev'] != 0000-00-00 && info['email'] != "" && info['grupi_id'] != ""){
 			var data = { 
 							action: "add_element",
-							table: "people",
+							table: "isikud",
 							data: info
 			};
 			
@@ -26,10 +26,10 @@ jQuery(document).ready(function() {
 				"type": "POST"
 			})
 			.done(function () {
-				console.log("done");
+				alert("isik lisatud: " + info['eesnimi'] + ' ' + info['perenimi']);
 			})
 			.fail(function () {
-				console.log("fail");
+				alert("fail, isik lisamata: " + info['eesnimi'] + ' ' + info['perenimi']);
 			})
 		}
 	});

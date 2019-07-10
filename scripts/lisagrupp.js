@@ -1,19 +1,20 @@
 jQuery(document).ready(function() {
+	alert('toimib');
 	jQuery("#add").click(function() {
 		var info = {};
-		info['name'] = jQuery("#name").val();
-		info['str_id'] = jQuery("#str_id").val();
-		info['group_email'] = jQuery("#group_email").val();
-		info['active'] = "No";
+		info['nimi'] = jQuery("#name").val();
+		info['struktuuri_id'] = jQuery("#str_id").val();
+		info['uldmeil'] = jQuery("#group_email").val();
+		info['aktiivne'] = "Ei";
 	
 		if ( $("#active").is(':checked')) { 
-			info['active'] = "Yes";
+			info['aktiivne'] = "Jah";
 		}
 			
-		if(info['name'] != "" && info['str_id'] != "" && info['group_email'] != ""){
+		if(info['nimi'] != "" && info['struktuuri_id'] != "" && info['uldmeil'] != ""){
 			var data = { 
 							action: "add_element",
-							table: "groups",
+							table: "grupid",
 							data: info
 			};
 			
@@ -22,10 +23,10 @@ jQuery(document).ready(function() {
 			"type": "POST"
 		})
 		.done(function () {
-			console.log("done");
+			alert("grupp lisatud: " + info['nimi']);
 		})
 		.fail(function () {
-			console.log("failed");
+			alert("fail, grupp lisamata: " + info['nimi']);
 		});
 		}
 	});

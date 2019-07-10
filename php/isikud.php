@@ -7,12 +7,12 @@ $url = str_replace('isikud', 'sunnipaevaplugin',$url);
 //ID of the group
 $group_id = $_POST['id'];
 
-//Acquiring the necessary data from the 'people' table
+//Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
-$people = $wpdb->prefix . 'people';
+$people = $wpdb->prefix . 'isikud';
 	
-$retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$group_id" );
+$retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$group_id" );
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/isikud.js"></script></head>
 
@@ -26,7 +26,9 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$grou
 				<button class="btn btn-danger">Tagasi</button>
 			</a>
 			<table class="table-striped table-hover border-0 mx-auto text-center my-3">
-				<thead>
+				<thead
+				<?php if(sizeof($retrieve_data) == 0) echo ' hidden';?>
+				>
 					<tr>
 						<th class="p-2">Eesnimi</th>
 						<th class="p-2">Perenimi</th>
@@ -36,17 +38,20 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$grou
 						<th class="p-2">Aktiivne</th>
 					</tr>
 				</thead>
+				<h3 id="nopeople" class="h3 mt-4"
+				<?php if(sizeof($retrieve_data) != 0) echo ' hidden';?>
+				>Isikuid pole</h3>
 				<tbody>
 				<?php foreach($retrieve_data as $retrieved_data){
-					$first_name = $retrieved_data->first_name;
-					$last_name = $retrieved_data->last_name;
-					$birthday = date('d.m.Y', strtotime($retrieved_data->birthday));
+					$first_name = $retrieved_data->eesnimi;
+					$last_name = $retrieved_data->perenimi;
+					$birthday = date('d.m.Y', strtotime($retrieved_data->kuupaev));
 					$email = $retrieved_data->email;
-					$recipients_email = $retrieved_data->recipients_email;
+					$recipients_email = $retrieved_data->saaja_email;
 					$id = $retrieved_data->id;
 					
 					echo '<tr id="' . $id . '"';
-					if($retrieved_data->active == 'No') echo ' class="table-danger"';
+					if($retrieved_data->aktiivne == 'Ei') echo ' class="table-danger"';
 					echo '>
 					
 						<td class="p-2">' . $first_name . '</td>
@@ -61,7 +66,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$grou
 						
 						<td class="p-2">
 							<input type="checkbox" class="active" id="box' . $id . '" ';
-							if($retrieved_data->active == "Yes") {echo 'checked';}
+							if($retrieved_data->aktiivne == "Jah") {echo 'checked';}
 							echo '>
 						</td>
 						

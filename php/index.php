@@ -4,10 +4,10 @@ $people_url = str_replace('sunnipaevaplugin','isikud',$url);
 $editgroup_url = str_replace('sunnipaevaplugin','muudagrupp',$url);
 $addgroup_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
 
-//Acquiring the data from the 'groups' table
+//Acquiring the data from the 'grupid' table
 global $wpdb;
 	
-$groups = $wpdb->prefix . 'groups';
+$groups = $wpdb->prefix . 'grupid';
 
 $retrieve_data = $wpdb->get_results( "SELECT * FROM $groups" );
 
@@ -35,13 +35,13 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 				<tbody>
 					<?php foreach ($retrieve_data as $retrieved_data){
 						$gid = $retrieved_data->id;
-						$active = $retrieved_data->active;
-						$name = $retrieved_data->name;
-						$str_id = $retrieved_data->str_id;
-						$group_email = $retrieved_data->group_email;
+						$active = $retrieved_data->aktiivne;
+						$name = $retrieved_data->nimi;
+						$str_id = $retrieved_data->struktuuri_id;
+						$group_email = $retrieved_data->uldmeil;
 						
 						echo '<tr id="' . $gid . '"';
-						if($active == 'No') echo ' class="table-danger"';
+						if($active == 'Ei') echo ' class="table-danger"';
 						echo '>
 						
 						<td class="p-2">' . $gid . '</td>
@@ -59,7 +59,7 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 						
 						<td class="p-2">
 							<input type="checkbox" class="active" id="box' . $gid . '" ';
-								if($active == "Yes") {echo 'checked';}
+								if($active == "Jah") {echo 'checked';}
 							echo '>
 						</td>
 						

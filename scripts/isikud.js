@@ -1,12 +1,25 @@
 jQuery(document).ready(function() {
+	var ridu = $("tr");
+	if(ridu.length == 1){
+			$("#nopeople").removeAttr("hidden");
+	}
+	else{
+		$("thead").removeAttr("hidden");
+	}
 	jQuery(".delete").click(function() {
 		var id = this.parentElement.parentElement.parentElement.id;
 		$("tr#" + id).remove();
 		
+		var ridu = $("tr");
+		if(ridu.length == 1){
+			$("thead").attr("hidden", "hidden");
+			$("#nopeople").removeAttr("hidden");
+		}
+		
 		var andmed = { 
 						action: "delete_element",
 						id: id,
-						table: "people"
+						table: "isikud"
 		};
 		
 		$.ajax(ajaxurl, {
@@ -14,10 +27,10 @@ jQuery(document).ready(function() {
 			"type": "POST"
 		})
 		.done(function () {
-			console.log('done');
+			console.log('isik kustutatud: ' + id);
 		})
 		.fail(function () {
-			console.log('fail');
+			console.log('fail, isik kustutamata: ' + id);
 		});
 	});
 	
@@ -25,21 +38,19 @@ jQuery(document).ready(function() {
 		var row = this.parentElement.parentElement;
 		var id = row.id;
 		var box = $("#box" + id);
-		var active = "No";
+		var active = "Ei";
 
 		if ( box.is(':checked') ) {
-			active = "Yes";
-			row.classList.remove("table-danger");
+			active = "Jah";
 		}
-		else{
-			row.classList.add("table-danger");
-		}
+		
+		row.classList.toggle("table-danger");
 		
 		var data = { 
 						action: "edit_activity",
 						id: id,
 						active: active,
-						table: "people"
+						table: "isikud"
 		};
 		
 		$.ajax(ajaxurl, {
@@ -47,10 +58,10 @@ jQuery(document).ready(function() {
 			"type": "POST"
 		})
 		.done(function () {
-			console.log("done");
+			console.log("isiku aktiivsus muudetud");
 		})
 		.fail(function () {
-			console.log("fail");
+			console.log("fail, isiku aktiivsus pole muudetud");
 		})
 	});
 })
