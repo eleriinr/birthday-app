@@ -22,7 +22,9 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 		<div class="col"></div>
 		<div class="col-md-auto">
 			<table class="table-striped table-hover border-0 mx-auto my-3 text-center">
-				<thead>
+				<thead
+				<?php if(sizeof($retrieve_data) == 0) echo ' hidden';?>
+				>
 					<tr>
 						<th class="p-2">ID</th>
 						<th class="p-2">Nimi</th>
@@ -32,6 +34,9 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 						<th class="p-2"></th>
 					</tr>
 				</thead>
+				<h3 id="nogroups" class="h3 ml-2 mt-4"
+				<?php if(sizeof($retrieve_data) != 0) echo ' hidden';?>
+				>Gruppe pole</h3>
 				<tbody>
 					<?php foreach ($retrieve_data as $retrieved_data){
 						$gid = $retrieved_data->id;
@@ -47,8 +52,9 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 						<td class="p-2">' . $gid . '</td>
 						
 						<td class="p-2">
-							<form method="post" action=' . $people_url . '>
+							<form action=' . esc_url( admin_url('admin-post.php') ) . ' method="post">
 								<input type="number" value="' . $gid . '" name="id" hidden>
+								<input type="hidden" name="action" value="access_peoples_table">
 								<input value="' . $name . '" type="submit" class="btn btn-info btn-sm">
 							</form>
 						</td>
@@ -66,8 +72,9 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 						<td class="p-2">
 							<div class="btn-group">
 								
-								<form method="post" action=' . $editgroup_url . '>
+								<form method="post" action=' . esc_url( admin_url('admin-post.php') ) . '>
 									<input type="number" value="' . $gid . '" name="id" hidden>
+									<input type="hidden" name="action" value="edit_group">
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
 								

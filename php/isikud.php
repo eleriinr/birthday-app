@@ -1,11 +1,9 @@
 <?php
 //Destination urls
-$addperson_url = str_replace('isikud','lisaisik',$url);
-$editperson_url = str_replace('isikud','muudaisik',$url);
-$url = str_replace('isikud', 'sunnipaevaplugin',$url);
-
-//ID of the group
-$group_id = $_POST['id'];
+$jupid = explode("_",$url);
+$group_id = end($jupid);
+$addperson_url = str_replace('isikud_' . $group_id,'lisaisik_' . $group_id,$url);
+$url = str_replace('isikud_' . $group_id, 'sunnipaevaplugin',$url);
 
 //Acquiring the necessary data from the 'isikud' table
 global $wpdb;
@@ -17,7 +15,6 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$grou
 <head><script src="../wp-content/plugins/birthday-app/scripts/isikud.js"></script></head>
 
 <h1 class="h1 text-center my-4">Isikud</h1>
-
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col"></div>
@@ -49,6 +46,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$grou
 					$email = $retrieved_data->email;
 					$recipients_email = $retrieved_data->saaja_email;
 					$id = $retrieved_data->id;
+					$editperson_url = str_replace('isikud_' . $group_id,'muudaisik_' . $id,$url);
 					
 					echo '<tr id="' . $id . '"';
 					if($retrieved_data->aktiivne == 'Ei') echo ' class="table-danger"';
@@ -73,8 +71,9 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$grou
 						<td class="p-2">
 							<div class="btn-group">
 							
-								<form method="post" action=' . $editperson_url . '>
+								<form method="post" action=' . esc_url( admin_url('admin-post.php') ) . '>
 									<input type="number" name="id" value="' . $id . '" hidden>
+									<input type="hidden" name="action" value="edit_person">
 									<input value="Muuda" type="submit" class="btn btn-info btn-sm">
 								</form>
 							
@@ -85,8 +84,9 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$grou
 				}?>
 				</tbody>
 			</table>
-			<form method="post" action=<?php echo $addperson_url;?>>
+			<form method="post" action="<?php echo esc_url( admin_url('admin-post.php') );?>">
 				<input type="number" name="id" value="<?php echo $group_id; ?>" hidden>
+				<input type="hidden" name="action" value="add_person">
 				<input value="+ Lisa isik" type="submit" class="btn btn-info pull-right">
 			</form>
 		</div>

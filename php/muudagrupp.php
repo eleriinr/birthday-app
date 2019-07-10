@@ -1,16 +1,15 @@
 <?php
-//Destination url
-$url = str_replace('muudagrupp', 'sunnipaevaplugin',$url);
-
+$jupid = explode("_",$url);
+$group_id = end($jupid);
 //Acquiring the necessary data from the 'grupid' table
 global $wpdb;
 
 $groups = $wpdb->prefix . 'grupid';
 
-//ID of the group
-$id = $_POST['id'];
+//Destination url
+$url = str_replace('muudagrupp_' . $group_id, 'sunnipaevaplugin',$url);
 
-$retrieve_data = $wpdb->get_results("SELECT * FROM $groups WHERE id=$id");
+$retrieve_data = $wpdb->get_results("SELECT * FROM $groups WHERE id=$group_id");
 $retrieved_data = $retrieve_data[0];
 
 //Data
@@ -21,7 +20,6 @@ $group_email = $retrieved_data->uldmeil;
 <head><script src="../wp-content/plugins/birthday-app/scripts/muudagrupp.js"></script></head>
 
 <h1 class="h1 text-center my-4" >Muuda gruppi</h1>
-
 <div class="container">
 	<div class="row">
 		<div class="col"></div>
@@ -33,7 +31,7 @@ $group_email = $retrieved_data->uldmeil;
 			<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
 					<label for="group_id">Grupi ID: </label>
-					<?php echo '<input class="form-control" id="group_id" type="number" value="' . $id . '" readonly>';?>
+					<?php echo '<input class="form-control" id="group_id" type="number" value="' . $group_id . '" readonly>';?>
 				</div>
 				<div class="form-group">
 					<label for="name">Nimi: </label>

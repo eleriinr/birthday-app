@@ -2,7 +2,13 @@ jQuery(document).ready(function() {
 	jQuery(".delete").click(function() {
 		var id = this.parentElement.parentElement.parentElement.id;
 		$("tr#" + id).remove();
-	
+		
+		var rows = $("tr");
+		if(rows.length == 1){
+			$("thead").attr("hidden", "hidden");
+			$("#nogroups").removeAttr("hidden");
+		}
+		
 		var data = {
 						action: "delete_element",
 						id: id,
@@ -14,10 +20,10 @@ jQuery(document).ready(function() {
 			"type": "POST"
 		})
 		.done(function () {
-			console.log("grupp kustutatud: " + id);
+			console.log("done");
 		})
 		.fail(function () {
-			console.log("fail, grupp kustutamata: " + id);
+			console.log("fail");
 		});
 	});
 	
@@ -47,10 +53,10 @@ jQuery(document).ready(function() {
 			"type": "POST"
 		})
 		.done(function () {
-			console.log("grupi aktiivsus muudetud");
+			console.log("done");
 		})
 		.fail(function () {
-			console.log("fail, grupi aktiivsus muutmata");
+			console.log("fail");
 		})
 	});
 })

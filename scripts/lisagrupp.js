@@ -1,5 +1,4 @@
 jQuery(document).ready(function() {
-	alert('toimib');
 	jQuery("#add").click(function() {
 		var info = {};
 		info['nimi'] = jQuery("#name").val();
@@ -23,10 +22,10 @@ jQuery(document).ready(function() {
 			"type": "POST"
 		})
 		.done(function () {
-			alert("grupp lisatud: " + info['nimi']);
+			console.log("done");
 		})
 		.fail(function () {
-			alert("fail, grupp lisamata: " + info['nimi']);
+			console.log("fail");
 		});
 		}
 	});

@@ -6,16 +6,34 @@
 * Version: 1.0
 * Author: Eleriin Rein
 **/
- add_action('admin_menu', 'test_plugin_setup_menu');
- 
 function test_plugin_setup_menu(){
     add_menu_page( 'Sünnipäevaplugin', 'Sünnipäevaplugin', 'manage_options', 'sunnipaevaplugin', 'test_init' );
-	add_submenu_page( '', 'Lisa isik', 'Lisa isik', 'manage_options', 'lisaisik', 'lisaisik_init' );
 	add_submenu_page( '', 'Lisa grupp', 'Lisa grupp', 'manage_options', 'lisagrupp', 'lisagrupp_init' );
-	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', 'isikud', 'isikud_init' );
-	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', 'muudaisik', 'muudaisik_init' );
-	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'muudagrupp', 'muudagrupp_init' );
 }
+ add_action('admin_menu', 'test_plugin_setup_menu');
+ 
+ function add_urls_new_group(){
+	global $wpdb;
+	$id = $wpdb->get_results("SELECT MAX(id) as id FROM 'grupid'");
+	$id = $id[0];
+	$url = 'isikud_' . $id;
+	$url2 = 'lisaisik_' . $id;
+	$url3 = 'muudagrupp_' . $id;
+	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', $url, 'isikud_init' );
+	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', $url2, 'lisaisik_init' );
+	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', $url3, 'muudagrupp_init');
+ }
+ add_action('admin_menu', 'add_urls_new_group');
+ 
+ function add_urls_new_person(){
+	global $wpdb;
+	$id = $wpdb->get_results("SELECT MAX(id) as id FROM $table");
+	$id = $id[0];
+	$url = 'muudaisik_' . $id;
+	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', $url, 'muudaisik_init' );
+ }
+ add_action('admin_menu', 'add_urls_new_person');
+ 
 function test_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
 	include('../wp-content/plugins/birthday-app/php/index.php'); 
@@ -97,13 +115,18 @@ function add_element(){
 	
 	$data = $_POST['data'];
 	$table = $_POST['table'];
-	
 	$table = $wpdb->prefix . $table;
 	
 	$wpdb->insert(
 			$table,
 			$data
 	);
+	if ($table == $wpdb->prefix . "grupid"){
+		add_urls_new_group();
+	}
+	else if ($table == $wpdb->prefix . "isikud"){
+		add_urls_new_person();
+	}
 	
 	wp_die();
 }
@@ -170,6 +193,42 @@ function delete_element(){
 }
 
 add_action( 'wp_ajax_delete_element', 'delete_element' );
+
+function access_peoples_table(){
+	$group_id = $_POST['id'];
+	$url = 'admin.php?page=isikud_' . $group_id;
+	wp_redirect(admin_url($url));
+	die();
+}
+
+add_action( 'admin_post_access_peoples_table', 'access_peoples_table' );
+
+function add_person(){
+	$group_id = $_POST['id'];
+	$url = 'admin.php?page=lisaisik_' . $group_id;
+	wp_redirect(admin_url($url));
+	die();
+}
+
+add_action( 'admin_post_add_person', 'add_person');
+
+function edit_person(){
+	$group_id = $_POST['id'];
+	$url = 'admin.php?page=muudaisik_' . $group_id;
+	wp_redirect(admin_url($url));
+	die();
+}
+
+add_action( 'admin_post_edit_person', 'edit_person');
+
+function edit_group(){
+	$group_id = $_POST['id'];
+	$url = 'admin.php?page=muudagrupp_' . $group_id;
+	wp_redirect(admin_url($url));
+	die();
+}
+
+add_action( 'admin_post_edit_group', 'edit_group');
 
 function mailer_config(PHPMailer $mailer){
   $mailer->IsSMTP();

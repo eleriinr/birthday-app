@@ -19,10 +19,10 @@ jQuery(document).ready(function() {
 				"type": "POST"
 			})
 			.done(function () {
-				alert("grupp muudetud: " + info['nimi']);
+				console.log("done");
 			})
 			.fail(function () {
-				alert("fail, grupp muutmata: " + info['nimi']);
+				console.log("fail");
 			})
 		}
 	});

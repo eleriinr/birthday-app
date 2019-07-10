@@ -1,36 +1,29 @@
 jQuery(document).ready(function() {
-	var ridu = $("tr");
-	if(ridu.length == 1){
-			$("#nopeople").removeAttr("hidden");
-	}
-	else{
-		$("thead").removeAttr("hidden");
-	}
 	jQuery(".delete").click(function() {
 		var id = this.parentElement.parentElement.parentElement.id;
 		$("tr#" + id).remove();
 		
-		var ridu = $("tr");
-		if(ridu.length == 1){
+		var rows = $("tr");
+		if(rows.length == 1){
 			$("thead").attr("hidden", "hidden");
 			$("#nopeople").removeAttr("hidden");
 		}
 		
-		var andmed = { 
+		var data = { 
 						action: "delete_element",
 						id: id,
 						table: "isikud"
 		};
 		
 		$.ajax(ajaxurl, {
-			"data": andmed,
+			"data": data,
 			"type": "POST"
 		})
 		.done(function () {
-			console.log('isik kustutatud: ' + id);
+			console.log("done");
 		})
 		.fail(function () {
-			console.log('fail, isik kustutamata: ' + id);
+			console.log("fail");
 		});
 	});
 	
@@ -58,10 +51,10 @@ jQuery(document).ready(function() {
 			"type": "POST"
 		})
 		.done(function () {
-			console.log("isiku aktiivsus muudetud");
+			console.log("done");
 		})
 		.fail(function () {
-			console.log("fail, isiku aktiivsus pole muudetud");
+			console.log("fail");
 		})
 	});
 })

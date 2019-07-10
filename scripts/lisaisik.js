@@ -26,10 +26,10 @@ jQuery(document).ready(function() {
 				"type": "POST"
 			})
 			.done(function () {
-				alert("isik lisatud: " + info['eesnimi'] + ' ' + info['perenimi']);
+				console.log("done");
 			})
 			.fail(function () {
-				alert("fail, isik lisamata: " + info['eesnimi'] + ' ' + info['perenimi']);
+				console.log("fail");
 			})
 		}
 	});

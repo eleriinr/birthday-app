@@ -1,9 +1,8 @@
 <?php 
 //Destination url
-$url = str_replace('lisaisik', 'isikud',$url);
-
-//ID of the group
-$group_id = $_POST['id'];
+$jupid = explode("_",$url);
+$group_id = end($jupid);
+$url = str_replace('lisaisik_' . $group_id, 'isikud_' . $group_id,$url);
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/lisaisik.js"></script></head>
 

@@ -23,10 +23,10 @@ jQuery(document).ready(function() {
 				"type": "POST"
 			})
 			.done(function () {
-				alert("isik muudetud: " + info['eesnimi'] + ' ' + info['perenimi']);
+				console.log("done");
 			})
 			.fail(function () {
-				alert("fail, isik muutmata: " + info['eesnimi'] + ' ' + info['perenimi']");
+				console.log("fail");
 			})
 		}
 	});
