@@ -10,9 +10,6 @@ function test_plugin_setup_menu(){
     add_menu_page( 'Sünnipäevaplugin', 'Sünnipäevaplugin', 'manage_options', 'sunnipaevaplugin', 'test_init' );
 	add_submenu_page( '', 'Lisa grupp', 'Lisa grupp', 'manage_options', 'lisagrupp', 'lisagrupp_init' );
 	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', 'isikud_1', 'isikud_init' );
-	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', 'lisaisik_1', 'lisaisik_init' );
-	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'muudagrupp_1', 'muudagrupp_init');
-	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', 'muudaisik_1', 'muudaisik_init' );
 }
  add_action('admin_menu', 'test_plugin_setup_menu');
  
@@ -20,21 +17,20 @@ function test_plugin_setup_menu(){
 	global $wpdb;
 	$id = $wpdb->get_results("SELECT MAX(id) as id FROM groups");
 	$id = $id[0];
-	$url = 'isikud_' . $id;
-	$url2 = 'lisaisik_' . $id;
-	$url3 = 'muudagrupp_' . $id;
+	$url = 'isikud_' . $id->id;
+	$url2 = 'lisaisik_' . $id->id;
+	$url3 = 'muudagrupp_' . $id->id;
 	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', $url, 'isikud_init' );
 	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', $url2, 'lisaisik_init' );
 	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', $url3, 'muudagrupp_init');
  }
  add_action('test_plugin_setup_menu', 'add_urls_new_group');
- 
  function add_urls_new_person(){
 	global $wpdb;
 	$id = $wpdb->get_results("SELECT MAX(id) as id FROM people");
 	$id = $id[0];
-	$url = 'muudaisik_' . $id;
-	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', $url, 'muudaisik_init' );
+	$url = 'muudaisik_' . $id->id;
+	add_submenu_page( 'sunnipaevaplugin', 'Muuda isik', 'Muuda isik', 'manage_options', $url, 'muudaisik_init' );
  }
  add_action('test_plugin_setup_menu', 'add_urls_new_person');
  
@@ -126,7 +122,7 @@ function add_element(){
 			$data
 	);
 	if ($table == $wpdb->prefix . "groups"){
-		do_action('add_urls_new_group');
+		add_urls_new_group();
 	}
 	else if ($table == $wpdb->prefix . "people"){
 		do_action('add_urls_new_person');
@@ -191,6 +187,11 @@ function delete_element(){
 		$table = $_POST['table'];
 		$table = $wpdb->prefix . $table;
 		$id = $_POST['id'];
+		
+		if ($table == $wpdb->prefix . "groups"){
+			$wpdb->delete( "people", array( 'group_id' => $id ) );
+		}
+		
 		$wpdb->delete( $table, array( 'id' => $id ) );
 	}
 	wp_die();
@@ -239,12 +240,14 @@ function onMailError( $wp_error ) {
     echo "</p>";
 }
 add_action( 'wp_mail_failed', 'onMailError', 10, 1 );
+
 function mailer_config(PHPMailer $mailer){
   $mailer->IsSMTP();
-  $mailer->Host = "mailhost.ut.ee"; // your SMTP server
-  $mailer->Port = 25;
-  $mailer->SMTPDebug = 2; // write 0 if you don't want to see client/server communication in page
-  $mailer->CharSet  = "utf-8";
+  $mailer->Host = SMTP_HOST;
+  $mailer->Port = SMTP_PORT;
+  $mailer->SMTPSecure = SMTP_SECURE;
+  $mailer->SMTPDebug = SMTP_DEBUG;
 }
 add_action( 'phpmailer_init', 'mailer_config', 10, 1);
+
 ?>

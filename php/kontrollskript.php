@@ -110,14 +110,14 @@ foreach(array_keys($group) as $group_name){
 	$message = $message . '<br>Lp. <a href="mailto:' . $group[$group_name]['email'] . '">' . $group[$group_name]['email'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
 	foreach(array_keys($group[$group_name]) as $day){
 		if($day != 'email'){
-			if(substr($day, 0, 4) == 'Today_'){
+			if(substr($day, 0, 7) == 'Today_'){
 				$message = $message . 'Täna: ';
 			}
-			else if(substr($day, 0, 5) == 'Tomorrow_'){
+			else if(substr($day, 0, 9) == 'Tomorrow_'){
 				$message = $message . 'Homme: ';
 			}
 			else{
-				$message = $message . 'Juubel tulekul: ';
+			$message = $message . 'Juubel tulekul: ';
 			}
 			foreach($group[$group_name][$day] as $person){
 				$message = $message . $person['name'] . ' (' . $person['birthday'] . '), email: <a href="mailto:' . $person['email'] . '">' . $person['email'] . '</a><br>';	
@@ -133,10 +133,10 @@ foreach(array_keys($recipients) as $recipient){
 	$message = "";
 	$message = $message . '<br>Lp. <a href="mailto:' . $recipient . '">' . $recipient . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
 	foreach(array_keys($recipients[$recipient]) as $day) {
-		if(substr($day, 0, 4) == 'Today_'){
+		if(substr($day, 0, 6) == 'Today_'){
 			$message = $message . 'Täna: ';
 		}
-		else if(substr($day, 0, 5) == 'Tomorrow_'){
+		else if(substr($day, 0, 9) == 'Tomorrow_'){
 			$message = $message . 'Homme: ';
 		}
 		else{
