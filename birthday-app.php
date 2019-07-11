@@ -9,12 +9,16 @@
 function test_plugin_setup_menu(){
     add_menu_page( 'Sünnipäevaplugin', 'Sünnipäevaplugin', 'manage_options', 'sunnipaevaplugin', 'test_init' );
 	add_submenu_page( '', 'Lisa grupp', 'Lisa grupp', 'manage_options', 'lisagrupp', 'lisagrupp_init' );
+	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', 'isikud_1', 'isikud_init' );
+	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', 'lisaisik_1', 'lisaisik_init' );
+	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'muudagrupp_1', 'muudagrupp_init');
+	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', 'muudaisik_1', 'muudaisik_init' );
 }
  add_action('admin_menu', 'test_plugin_setup_menu');
  
  function add_urls_new_group(){
 	global $wpdb;
-	$id = $wpdb->get_results("SELECT MAX(id) as id FROM 'grupid'");
+	$id = $wpdb->get_results("SELECT MAX(id) as id FROM groups");
 	$id = $id[0];
 	$url = 'isikud_' . $id;
 	$url2 = 'lisaisik_' . $id;
@@ -23,16 +27,16 @@ function test_plugin_setup_menu(){
 	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', $url2, 'lisaisik_init' );
 	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', $url3, 'muudagrupp_init');
  }
- add_action('admin_menu', 'add_urls_new_group');
+ add_action('test_plugin_setup_menu', 'add_urls_new_group');
  
  function add_urls_new_person(){
 	global $wpdb;
-	$id = $wpdb->get_results("SELECT MAX(id) as id FROM $table");
+	$id = $wpdb->get_results("SELECT MAX(id) as id FROM people");
 	$id = $id[0];
 	$url = 'muudaisik_' . $id;
 	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', $url, 'muudaisik_init' );
  }
- add_action('admin_menu', 'add_urls_new_person');
+ add_action('test_plugin_setup_menu', 'add_urls_new_person');
  
 function test_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
@@ -61,30 +65,30 @@ function muudagrupp_init(){
 function create_birthday_tables(){
 	global $wpdb;
 	
-	$groups = $wpdb->prefix . 'grupid';
-	$people = $wpdb->prefix . 'isikud';
+	$groups = $wpdb->prefix . 'groups';
+	$people = $wpdb->prefix . 'people';
 	
 	$charset_collate = $wpdb->get_charset_collate();
 	
 	$sql1 = "CREATE TABLE $groups (
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			nimi varchar(40) NOT NULL,
-			struktuuri_id varchar(20) NOT NULL,
-			uldmeil varchar(40) NOT NULL,
-			aktiivne varchar(3) NOT NULL,
+			name varchar(40) NOT NULL,
+			str_id varchar(20) NOT NULL,
+			group_email varchar(40) NOT NULL,
+			element_activity varchar(3) NOT NULL,
 			PRIMARY KEY  (id)
 	) $charset_collate;";
 	
 	$sql2 = "CREATE TABLE $people (
 			id mediumint(9) NOT NULL AUTO_INCREMENT,
-			eesnimi varchar(30) NOT NULL,
-			perenimi varchar(30) NOT NULL,
-			kuupaev date NOT NULL,
+			first_name varchar(30) NOT NULL,
+			last_name varchar(30) NOT NULL,
+			birthday date NOT NULL,
 			email varchar(40) NOT NULL,
-			saaja_email varchar(40),
-			kommentaar varchar(140),
-			grupi_id mediumint(9) NOT NULL,
-			aktiivne varchar(3) NOT NULL,
+			recipients_email varchar(40),
+			comment varchar(140),
+			group_id mediumint(9) NOT NULL,
+			element_activity varchar(3) NOT NULL,
 			PRIMARY KEY  (id)
 	) $charset_collate;";
 	
@@ -98,8 +102,8 @@ register_activation_hook( __FILE__, 'create_birthday_tables' );
 function delete_birthday_tables(){
 	global $wpdb;
 	
-	$groups = $wpdb->prefix . 'grupid';
-	$people = $wpdb->prefix . 'isikud';
+	$groups = $wpdb->prefix . 'groups';
+	$people = $wpdb->prefix . 'people';
 	
 	$sql1 = "DROP TABLE IF EXISTS $groups;";
 	$sql2 = "DROP TABLE IF EXISTS $people;";
@@ -121,11 +125,11 @@ function add_element(){
 			$table,
 			$data
 	);
-	if ($table == $wpdb->prefix . "grupid"){
-		add_urls_new_group();
+	if ($table == $wpdb->prefix . "groups"){
+		do_action('add_urls_new_group');
 	}
-	else if ($table == $wpdb->prefix . "isikud"){
-		add_urls_new_person();
+	else if ($table == $wpdb->prefix . "people"){
+		do_action('add_urls_new_person');
 	}
 	
 	wp_die();
@@ -167,7 +171,7 @@ function edit_activity(){
 	$wpdb->update(
 			$table,
 			array(
-				'aktiivne' => $active
+				'element_activity' => $active
 			),
 			array(
 				'id' => $id
@@ -229,7 +233,12 @@ function edit_group(){
 }
 
 add_action( 'admin_post_edit_group', 'edit_group');
-
+function onMailError( $wp_error ) {
+    echo "<p>";
+    print_r($wp_error);
+    echo "</p>";
+}
+add_action( 'wp_mail_failed', 'onMailError', 10, 1 );
 function mailer_config(PHPMailer $mailer){
   $mailer->IsSMTP();
   $mailer->Host = "mailhost.ut.ee"; // your SMTP server

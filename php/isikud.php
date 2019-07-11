@@ -8,9 +8,9 @@ $url = str_replace('isikud_' . $group_id, 'sunnipaevaplugin',$url);
 //Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
-$people = $wpdb->prefix . 'isikud';
+$people = $wpdb->prefix . 'people';
 	
-$retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$group_id" );
+$retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$group_id" );
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/isikud.js"></script></head>
 
@@ -40,16 +40,17 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$grou
 				>Isikuid pole</h3>
 				<tbody>
 				<?php foreach($retrieve_data as $retrieved_data){
-					$first_name = $retrieved_data->eesnimi;
-					$last_name = $retrieved_data->perenimi;
-					$birthday = date('d.m.Y', strtotime($retrieved_data->kuupaev));
+					$first_name = $retrieved_data->first_name;
+					$last_name = $retrieved_data->last_name;
+					$birthday = date('d.m.Y', strtotime($retrieved_data->birthday));
 					$email = $retrieved_data->email;
-					$recipients_email = $retrieved_data->saaja_email;
+					$recipients_email = $retrieved_data->recipients_email;
 					$id = $retrieved_data->id;
+					$active = $retrieved_data->element_activity;
 					$editperson_url = str_replace('isikud_' . $group_id,'muudaisik_' . $id,$url);
 					
 					echo '<tr id="' . $id . '"';
-					if($retrieved_data->aktiivne == 'Ei') echo ' class="table-danger"';
+					if($active == 'No') echo ' class="table-danger"';
 					echo '>
 					
 						<td class="p-2">' . $first_name . '</td>
@@ -64,7 +65,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE grupi_id=$grou
 						
 						<td class="p-2">
 							<input type="checkbox" class="active" id="box' . $id . '" ';
-							if($retrieved_data->aktiivne == "Jah") {echo 'checked';}
+							if($active == "Yes") {echo 'checked';}
 							echo '>
 						</td>
 						

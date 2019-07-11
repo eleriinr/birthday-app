@@ -4,7 +4,7 @@ $group_id = end($jupid);
 //Acquiring the necessary data from the 'grupid' table
 global $wpdb;
 
-$groups = $wpdb->prefix . 'grupid';
+$groups = $wpdb->prefix . 'groups';
 
 //Destination url
 $url = str_replace('muudagrupp_' . $group_id, 'sunnipaevaplugin',$url);
@@ -13,9 +13,9 @@ $retrieve_data = $wpdb->get_results("SELECT * FROM $groups WHERE id=$group_id");
 $retrieved_data = $retrieve_data[0];
 
 //Data
-$name = $retrieved_data->nimi;
-$str_id = $retrieved_data->struktuuri_id;
-$group_email = $retrieved_data->uldmeil;
+$name = $retrieved_data->name;
+$str_id = $retrieved_data->str_id;
+$group_email = $retrieved_data->group_email;
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/muudagrupp.js"></script></head>
 

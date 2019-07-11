@@ -2,15 +2,15 @@ jQuery(document).ready(function() {
 	jQuery("#edit").click(function() {
 		var id = jQuery("#group_id").val();
 		var info = {};
-		info['nimi'] = jQuery("#name").val();
-		info['struktuuri_id'] = jQuery("#str_id").val();
-		info['uldmeil'] = jQuery("#group_email").val();
+		info['name'] = jQuery("#name").val();
+		info['str_id'] = jQuery("#str_id").val();
+		info['group_email'] = jQuery("#group_email").val();
 	
-		if(info['nimi'] != "" && info['struktuuri_id'] != "" && info['uldmeil'] != ""){
+		if(info['name'] != "" && info['str_id'] != "" && info['group_email'] != ""){
 			var data = { 
 							action: "edit_element",
 							id: id,
-							table: "grupid",
+							table: "groups",
 							data: info
 			};
 			

@@ -6,19 +6,19 @@ $id = end($jupid);
 //Acquiring the necessary data from the 'isikud' table
 global $wpdb;
 	
-$people = $wpdb->prefix . 'isikud';
+$people = $wpdb->prefix . 'people';
 	
 $retrieve_data = $wpdb->get_results("SELECT * FROM $people WHERE id=$id");
 $retrieved_data = $retrieve_data[0];
 	
 //Data
-$first_name = $retrieved_data->eesnimi;
-$last_name = $retrieved_data->perenimi;
-$birthday = $retrieved_data->kuupaev;
+$first_name = $retrieved_data->first_name;
+$last_name = $retrieved_data->last_name;
+$birthday = $retrieved_data->birthday;
 $email = $retrieved_data->email;
-$recipients_email = $retrieved_data->saaja_email;
-$comment = $retrieved_data->kommentaar;
-$group_id = $retrieved_data->grupi_id;
+$recipients_email = $retrieved_data->recipients_email;
+$comment = $retrieved_data->comment;
+$group_id = $retrieved_data->group_id;
 
 $url = str_replace('muudaisik_' . $id, 'isikud_' . $group_id,$url);
 ?>

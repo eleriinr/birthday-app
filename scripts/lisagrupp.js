@@ -1,19 +1,19 @@
 jQuery(document).ready(function() {
 	jQuery("#add").click(function() {
 		var info = {};
-		info['nimi'] = jQuery("#name").val();
-		info['struktuuri_id'] = jQuery("#str_id").val();
-		info['uldmeil'] = jQuery("#group_email").val();
-		info['aktiivne'] = "Ei";
+		info['name'] = jQuery("#name").val();
+		info['str_id'] = jQuery("#str_id").val();
+		info['group_email'] = jQuery("#group_email").val();
+		info['element_activity'] = "No";
 	
 		if ( $("#active").is(':checked')) { 
-			info['aktiivne'] = "Jah";
+			info['element_activity'] = "Yes";
 		}
 			
-		if(info['nimi'] != "" && info['struktuuri_id'] != "" && info['uldmeil'] != ""){
+		if(info['name'] != "" && info['str_id'] != "" && info['group_email'] != ""){
 			var data = { 
 							action: "add_element",
-							table: "grupid",
+							table: "groups",
 							data: info
 			};
 			
