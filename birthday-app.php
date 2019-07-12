@@ -9,30 +9,11 @@
 function test_plugin_setup_menu(){
     add_menu_page( 'Sünnipäevaplugin', 'Sünnipäevaplugin', 'manage_options', 'sunnipaevaplugin', 'test_init' );
 	add_submenu_page( '', 'Lisa grupp', 'Lisa grupp', 'manage_options', 'lisagrupp', 'lisagrupp_init' );
-	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', 'isikud_1', 'isikud_init' );
+	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', 'isikud', 'isikud_init' );
+	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', 'lisaisik', 'lisaisik_init' );
+	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'muudagrupp', 'muudagrupp_init');
 }
  add_action('admin_menu', 'test_plugin_setup_menu');
- 
- function add_urls_new_group(){
-	global $wpdb;
-	$id = $wpdb->get_results("SELECT MAX(id) as id FROM groups");
-	$id = $id[0];
-	$url = 'isikud_' . $id->id;
-	$url2 = 'lisaisik_' . $id->id;
-	$url3 = 'muudagrupp_' . $id->id;
-	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', $url, 'isikud_init' );
-	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', $url2, 'lisaisik_init' );
-	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', $url3, 'muudagrupp_init');
- }
- add_action('test_plugin_setup_menu', 'add_urls_new_group');
- function add_urls_new_person(){
-	global $wpdb;
-	$id = $wpdb->get_results("SELECT MAX(id) as id FROM people");
-	$id = $id[0];
-	$url = 'muudaisik_' . $id->id;
-	add_submenu_page( 'sunnipaevaplugin', 'Muuda isik', 'Muuda isik', 'manage_options', $url, 'muudaisik_init' );
- }
- add_action('test_plugin_setup_menu', 'add_urls_new_person');
  
 function test_init(){
 	include ('../wp-content/plugins/birthday-app/php/header.php');
@@ -72,6 +53,7 @@ function create_birthday_tables(){
 			str_id varchar(20) NOT NULL,
 			group_email varchar(40) NOT NULL,
 			element_activity varchar(3) NOT NULL,
+			current varchar(3) NOT NULL,
 			PRIMARY KEY  (id)
 	) $charset_collate;";
 	
@@ -85,6 +67,7 @@ function create_birthday_tables(){
 			comment varchar(140),
 			group_id mediumint(9) NOT NULL,
 			element_activity varchar(3) NOT NULL,
+			current varchar(3) NOT NULL,			
 			PRIMARY KEY  (id)
 	) $charset_collate;";
 	
@@ -121,12 +104,6 @@ function add_element(){
 			$table,
 			$data
 	);
-	if ($table == $wpdb->prefix . "groups"){
-		add_urls_new_group();
-	}
-	else if ($table == $wpdb->prefix . "people"){
-		do_action('add_urls_new_person');
-	}
 	
 	wp_die();
 }
@@ -153,6 +130,39 @@ function edit_element(){
 }
 
 add_action( 'wp_ajax_edit_element', 'edit_element' );
+
+function edit_current(){
+	
+	global $wpdb;
+	
+	$id = $_POST['id'];
+	$table = $_POST['table'];
+	$table = $wpdb->prefix . $table;
+	
+	$wpdb->update(
+			$table,
+			array(
+				'current' => 'No'
+			),
+			array(
+				'current' => 'Yes'
+			)
+	);
+	
+	$wpdb->update(
+			$table,
+			array(
+				'current' => 'Yes'
+			),
+			array(
+				'id' => $id
+			)
+	);
+	
+	wp_die();
+}
+
+add_action( 'wp_ajax_edit_current', 'edit_current' );
 
 function edit_activity(){
 	
@@ -199,41 +209,6 @@ function delete_element(){
 
 add_action( 'wp_ajax_delete_element', 'delete_element' );
 
-function access_peoples_table(){
-	$group_id = $_POST['id'];
-	$url = 'admin.php?page=isikud_' . $group_id;
-	wp_redirect(admin_url($url));
-	die();
-}
-
-add_action( 'admin_post_access_peoples_table', 'access_peoples_table' );
-
-function add_person(){
-	$group_id = $_POST['id'];
-	$url = 'admin.php?page=lisaisik_' . $group_id;
-	wp_redirect(admin_url($url));
-	die();
-}
-
-add_action( 'admin_post_add_person', 'add_person');
-
-function edit_person(){
-	$group_id = $_POST['id'];
-	$url = 'admin.php?page=muudaisik_' . $group_id;
-	wp_redirect(admin_url($url));
-	die();
-}
-
-add_action( 'admin_post_edit_person', 'edit_person');
-
-function edit_group(){
-	$group_id = $_POST['id'];
-	$url = 'admin.php?page=muudagrupp_' . $group_id;
-	wp_redirect(admin_url($url));
-	die();
-}
-
-add_action( 'admin_post_edit_group', 'edit_group');
 function onMailError( $wp_error ) {
     echo "<p>";
     print_r($wp_error);

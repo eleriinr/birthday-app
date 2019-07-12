@@ -57,4 +57,25 @@ jQuery(document).ready(function() {
 			console.log("fail");
 		})
 	});
+	
+	jQuery(".edit").click(function() {
+		var id = this.id;
+		
+		var data = { 
+						action: "edit_current",
+						id: id,
+						table: "people"
+		};
+		
+		$.ajax(ajaxurl, {
+			"data": data,
+			"type": "POST"
+		})
+		.done(function () {
+			console.log("done");
+		})
+		.fail(function () {
+			console.log("fail");
+		})
+	});
 })

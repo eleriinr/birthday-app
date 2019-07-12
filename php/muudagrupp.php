@@ -1,13 +1,15 @@
 <?php
-$jupid = explode("_",$url);
-$group_id = end($jupid);
+//Destination url
+$url = str_replace('muudagrupp', 'sunnipaevaplugin',$url);
+
 //Acquiring the necessary data from the 'grupid' table
 global $wpdb;
 
 $groups = $wpdb->prefix . 'groups';
-
-//Destination url
-$url = str_replace('muudagrupp_' . $group_id, 'sunnipaevaplugin',$url);
+	
+$current_group = $wpdb->get_results( "SELECT id FROM $groups WHERE current='Yes'" );
+$current_group = $current_group[0];
+$group_id = $current_group->id;
 
 $retrieve_data = $wpdb->get_results("SELECT * FROM $groups WHERE id=$group_id");
 $retrieved_data = $retrieve_data[0];

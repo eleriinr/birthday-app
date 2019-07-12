@@ -9,6 +9,7 @@ jQuery(document).ready(function() {
 		info['comment'] = jQuery("#comment").val();
 		info['group_id'] = jQuery("#group_id").val();
 		info['element_activity'] = "No";
+		info['current'] = "No";
 	
 		if ( $("#active").is(':checked')) { 
 			info['element_activity'] = "Yes";

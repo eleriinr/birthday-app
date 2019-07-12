@@ -1,13 +1,16 @@
 <?php 
 //Destination url
-$jupid = explode("_",$url);
-$id = end($jupid);
+$url = str_replace('muudaisik', 'isikud',$url);
 
-//Acquiring the necessary data from the 'isikud' table
+//Acquiring the necessary data from the 'people' table
 global $wpdb;
 	
 $people = $wpdb->prefix . 'people';
 	
+$current_person = $wpdb->get_results( "SELECT id FROM $people WHERE current='Yes'" );
+$current_person = $current_person[0];
+$id = $current_person->id;
+
 $retrieve_data = $wpdb->get_results("SELECT * FROM $people WHERE id=$id");
 $retrieved_data = $retrieve_data[0];
 	
@@ -19,8 +22,6 @@ $email = $retrieved_data->email;
 $recipients_email = $retrieved_data->recipients_email;
 $comment = $retrieved_data->comment;
 $group_id = $retrieved_data->group_id;
-
-$url = str_replace('muudaisik_' . $id, 'isikud_' . $group_id,$url);
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/muudaisik.js"></script></head>
 

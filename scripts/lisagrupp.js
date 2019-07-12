@@ -5,6 +5,7 @@ jQuery(document).ready(function() {
 		info['str_id'] = jQuery("#str_id").val();
 		info['group_email'] = jQuery("#group_email").val();
 		info['element_activity'] = "No";
+		info['current'] = "No";
 	
 		if ( $("#active").is(':checked')) { 
 			info['element_activity'] = "Yes";

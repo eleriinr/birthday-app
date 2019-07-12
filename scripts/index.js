@@ -27,6 +27,7 @@ jQuery(document).ready(function() {
 		});
 	});
 	
+	
 	jQuery(".active").click(function() {
 		var row = this.parentElement.parentElement;
 		var id = row.id;
@@ -43,6 +44,50 @@ jQuery(document).ready(function() {
 						action: "edit_activity",
 						id: id,
 						active: active,
+						table: "groups"
+		};
+		
+		$.ajax(ajaxurl, {
+			"data": data,
+			"type": "POST"
+		})
+		.done(function () {
+			console.log("done");
+		})
+		.fail(function () {
+			console.log("fail");
+		})
+	});
+	
+	
+	jQuery(".peoples_table").click(function(){
+		var id = this.id;
+		
+		var data = { 
+						action: "edit_current",
+						id: id,
+						table: "groups"
+		};
+		
+		$.ajax(ajaxurl, {
+			"data": data,
+			"type": "POST"
+		})
+		.done(function () {
+			console.log("done");
+		})
+		.fail(function () {
+			console.log("fail");
+		})
+	});
+	
+	
+	jQuery(".edit").click(function(){
+		var id = this.id;
+		
+		var data = { 
+						action: "edit_current",
+						id: id,
 						table: "groups"
 		};
 		

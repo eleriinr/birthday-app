@@ -1,8 +1,12 @@
 <?php 
 //Destination url
-$jupid = explode("_",$url);
-$group_id = end($jupid);
-$url = str_replace('lisaisik_' . $group_id, 'isikud_' . $group_id,$url);
+$url = str_replace('lisaisik', 'isikud',$url);
+
+$groups = $wpdb->prefix . 'groups';
+	
+$current_group = $wpdb->get_results( "SELECT id FROM $groups WHERE current='Yes'" );
+$current_group = $current_group[0];
+$group_id = $current_group->id;
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/lisaisik.js"></script></head>
 
