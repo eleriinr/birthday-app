@@ -1,4 +1,5 @@
 <?php
+
 $todays_date = new DateTime('today');
 $todays_date = substr($todays_date->format('Y-m-d'), 0,10);
 $today = substr($todays_date, 5, 5);
@@ -8,7 +9,6 @@ $tomorrow = substr($tomorrow, 5, 5);
 
 $jubilee = date('Y-m-d', strtotime("+1 month", strtotime($todays_date)));
 $jubilee = substr($jubilee, 5, 5);
-
 $current_year = substr($todays_date, 0, 4);
 
 global $wpdb;
@@ -34,7 +34,7 @@ foreach ($peoples_data as $data){
 		$email = $data->email;
 		$recipients_email = $data->recipients_email;
 		$active = $data->element_activity;
-		
+				
 		$persons_group = $wpdb->get_results("SELECT group_email, str_id from $groups WHERE id=$group_id");
 		$persons_group = $persons_group[0];	
 		$group_email = $persons_group->group_email;
@@ -61,7 +61,7 @@ foreach ($peoples_data as $data){
 				$group = general_email($today_, $group_name, $group_email, $group, $info);
 			}
 			if($recipients_email != ''){
-				$recipients = private_email($today_, $recipients_email, $recipients, $info);
+				$recipients = private_email('Today_', $recipients_email, $recipients, $info);
 			}
 		}
 		//Birthday tomorrow
@@ -70,16 +70,16 @@ foreach ($peoples_data as $data){
 				$group = general_email($tomorrow_, $group_name, $group_email, $group, $info);
 			}
 			if($recipients_email != ''){
-				$recipients = private_email($tomorrow_, $recipients_email, $recipients, $info);
+				$recipients = private_email('Tomorrow_', $recipients_email, $recipients, $info);
 			}
 		}
 		//Jubilee in a month
-		else if($jubilee == $sunni_kuupaev && (intval($current_year) - intval($birth_year)) % 5 == 0){
+		else if($jubilee == $birth_date && (intval($current_year) - intval($birth_year)) % 5 == 0){
 			if($active == 'Yes'){
 				$group = general_email($jubilee_, $group_name, $group_email, $group, $info);
 			}
 			if($recipients_email != ''){
-				$recipients = private_email($jubilee_, $recipients_email, $recipients, $info);
+				$recipients = private_email('Jubilee_', $recipients_email, $recipients, $info);
 			}
 		}
 	}
@@ -110,7 +110,7 @@ foreach(array_keys($group) as $group_name){
 	$message = $message . '<br>Lp. <a href="mailto:' . $group[$group_name]['email'] . '">' . $group[$group_name]['email'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
 	foreach(array_keys($group[$group_name]) as $day){
 		if($day != 'email'){
-			if(substr($day, 0, 7) == 'Today_'){
+			if(substr($day, 0, 6) == 'Today_'){
 				$message = $message . 'Täna: ';
 			}
 			else if(substr($day, 0, 9) == 'Tomorrow_'){
@@ -126,8 +126,8 @@ foreach(array_keys($group) as $group_name){
 	}
 	$to = 'eleriinr@ut.ee'; //$to = $group[$group_name]['email'];
 	$subject = 'Tähtis meil';
-	//$result = wp_mail( $to, $subject, $message );
-	//echo $result;
+	$result = wp_mail( $to, $subject, $message );
+	echo $result;
 }
 foreach(array_keys($recipients) as $recipient){
 	$message = "";
@@ -148,7 +148,7 @@ foreach(array_keys($recipients) as $recipient){
 	}
 	$to = 'eleriinr@ut.ee'; //$to = $recipient;
 	$subject = 'Tähtis meil';
-	//$result = wp_mail( $to, $subject, $message );
-	//echo $result;
+	$result = wp_mail( $to, $subject, $message );
+	echo $result;
 }
 ?>

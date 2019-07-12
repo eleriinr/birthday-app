@@ -12,6 +12,7 @@ function test_plugin_setup_menu(){
 	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', 'isikud', 'isikud_init' );
 	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', 'lisaisik', 'lisaisik_init' );
 	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'muudagrupp', 'muudagrupp_init');
+	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', 'muudaisik', 'muudaisik_init');
 }
  add_action('admin_menu', 'test_plugin_setup_menu');
  

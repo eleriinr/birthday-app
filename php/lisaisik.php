@@ -2,6 +2,8 @@
 //Destination url
 $url = str_replace('lisaisik', 'isikud',$url);
 
+global $wpdb;
+
 $groups = $wpdb->prefix . 'groups';
 	
 $current_group = $wpdb->get_results( "SELECT id FROM $groups WHERE current='Yes'" );

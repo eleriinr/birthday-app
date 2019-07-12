@@ -32,7 +32,7 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 						<th class="p-2"></th>
 					</tr>
 				</thead>
-				<h3 id="nogroups" class="h3 ml-2 mt-4" <?php if(sizeof($retrieve_data) != 0) echo ' hidden';?> >Gruppe pole</h3>
+				<h3 id="nogroups" class="h3 mt-4" <?php if(sizeof($retrieve_data) != 0) echo ' hidden';?> >Gruppe pole</h3>
 				<tbody>
 					<?php foreach ($retrieve_data as $retrieved_data){
 						$gid = $retrieved_data->id;
@@ -79,7 +79,7 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 				</tbody>
 			</table>
 				<a  href=<?php echo $addgroup_url;?>>
-					<button class="btn btn-info pull-right">+ Lisa grupp</button>
+					<button class="btn btn-info pull-right" id="addgroupbutton">+ Lisa grupp</button>
 				</a>
 		</div>
 		<div class="col"></div>

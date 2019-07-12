@@ -19,7 +19,6 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$grou
 <head><script src="../wp-content/plugins/birthday-app/scripts/isikud.js"></script></head>
 
 <h1 class="h1 text-center my-4">Isikud</h1>
-<h1 class="h1 text-center my-4">GRUPI ID: <?php echo $group_id;?>.</h1>
 
 <div class="container">
 	<div class="row justify-content-md-center">
