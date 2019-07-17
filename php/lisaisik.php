@@ -6,6 +6,7 @@ global $wpdb;
 
 $groups = $wpdb->prefix . 'groups';
 	
+$all_ids = $wpdb->get_results( "SELECT id FROM $groups" );
 $current_group = $wpdb->get_results( "SELECT id FROM $groups WHERE current='Yes'" );
 $current_group = $current_group[0];
 $group_id = $current_group->id;
@@ -50,8 +51,16 @@ $group_id = $current_group->id;
 					<input class="form-control" id="comment" type="text" placeholder="Kommentaar">
 				</div>
 				<div class="form-group">
-					<label for="group_id">Grupi ID: </label>
-					<input class="form-control" id="group_id" type="number" value="<?php echo $group_id; ?>" placeholder="ID"  required>
+					<label for="group_id">Grupi ID:</label>
+					<select class="form-control" id="group_id">
+						<?php foreach($all_ids as $option){
+							echo '<option '; 
+							if ($option->id == $group_id){
+								echo 'selected ';
+							}
+							echo 'value="' . $option->id . '">' . $option->id . '</option>';
+						} ?>
+					</select>
 				</div>
 				<div class="form-group">
 					<label class="form-check-label" for="active">Aktiivne</label>

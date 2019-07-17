@@ -6,7 +6,10 @@ $url = str_replace('muudaisik', 'isikud',$url);
 global $wpdb;
 	
 $people = $wpdb->prefix . 'people';
-	
+$groups = $wpdb->prefix . 'groups';
+
+$all_ids = $wpdb->get_results( "SELECT id FROM $groups" );
+
 $current_person = $wpdb->get_results( "SELECT id FROM $people WHERE current='Yes'" );
 $current_person = $current_person[0];
 $id = $current_person->id;
@@ -63,8 +66,16 @@ $group_id = $retrieved_data->group_id;
 					<input class="form-control" id="comment" type="text" value="<?php echo $comment; ?>">
 				</div>
 				<div class="form-group">
-					<label for="group_id">Grupi ID: </label>
-					<input class="form-control" id="group_id" type="number" value="<?php echo $group_id; ?>" required>
+					<label for="group_id">Grupi ID:</label>
+					<select class="form-control" id="group_id">
+						<?php foreach($all_ids as $option){
+							echo '<option '; 
+							if ($option->id == $group_id){
+								echo 'selected ';
+							}
+							echo 'value="' . $option->id . '">' . $option->id . '</option>';
+						} ?>
+					</select>
 				</div>
 				<input type="number" name="id" value="<?php echo $group_id; ?>" hidden>
 				<input value="Muuda" id="edit" type="submit" class="btn btn-info pull-right d-block"> 
