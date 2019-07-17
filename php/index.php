@@ -10,8 +10,6 @@ global $wpdb;
 $groups = $wpdb->prefix . 'groups';
 
 $retrieve_data = $wpdb->get_results( "SELECT * FROM $groups" );
-
-include('../wp-content/plugins/birthday-app/php/kontrollskript.php'); 
 ?>
 <head><script src="../wp-content/plugins/birthday-app/scripts/index.js"></script></head>
 
@@ -78,8 +76,11 @@ include('../wp-content/plugins/birthday-app/php/kontrollskript.php');
 					}?>
 				</tbody>
 			</table>
-				<a  href=<?php echo $addgroup_url;?>>
-					<button class="btn btn-info pull-right" id="addgroupbutton">+ Lisa grupp</button>
+				<a id="addgroupbutton" href=<?php echo $addgroup_url; if(sizeof($retrieve_data) == 0) echo ' hidden';?>>
+					<button class="btn btn-info pull-right">+ Lisa grupp</button>
+				</a>
+				<a id="addgroupbuttoncenter" class="text-center ml-4" href=<?php echo $addgroup_url; if(sizeof($retrieve_data) != 0) echo ' hidden';?>>
+					<button class="btn btn-info">+ Lisa grupp</button>
 				</a>
 		</div>
 		<div class="col"></div>

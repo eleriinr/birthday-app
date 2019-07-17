@@ -97,14 +97,44 @@ function general_email($day, $group_name, $group_email, $group, $info){
 	return $group;
 }
 function private_email($day, $recipients_email, $recipients, $info){
-	$nr = 1;
-	if(array_key_exists($recipients_email, $recipients) && array_key_exists($day, $recipients[$recipients_email])){
-		$nr = count($recipients[$recipients_email][$day]) + 1;
+	$recipient_array = array();
+	
+	if (strpos($recipients_email, ',') == false) {
+		$recipient_array[] = $recipients_email;
+	} 
+	else { 
+		$array = explode(",", $recipients_email);
+		foreach($array as $email){
+			$recipient_array[] = trim($email);
+		}
 	}
 	
-	$recipients[$recipients_email][$day]['person_' . $nr] =  $info;
+	foreach($recipient_array as $recipient){
+		$nr = 1;
+		if(array_key_exists($recipient, $recipients) && array_key_exists($day, $recipients[$recipient])){
+			$nr = count($recipients[$recipient][$day]) + 1;
+		}
+		
+		$recipients[$recipient][$day]['person_' . $nr] =  $info;
+	}
 	return $recipients;
 }
+
+
+require 'class.phpmailer.php';
+
+$mail = new PHPMailer;
+$mail->IsSMTP();                                      // Set mailer to use SMTP
+$mail->Host = 'mailhost.ut.ee';                 // Specify main and backup server
+$mail->Port = 25;                                    // Set the SMTP port
+$mail->SMTPAuth = true;                               // Enable SMTP authentication
+$mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+$mail->From = 'olen.meeldetuletus@ut.ee';
+$mail->FromName = 'Meeldetuletus';
+$mail->IsHTML(true);                                  // Set email format to HTML
+$mail->CharSet = 'UTF-8';
+$mail->Subject = 'Sünnipäev';
+
 foreach(array_keys($group) as $group_name){
 	$message = "";
 	$message = $message . '<br>Lp. <a href="mailto:' . $group[$group_name]['email'] . '">' . $group[$group_name]['email'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
@@ -124,11 +154,16 @@ foreach(array_keys($group) as $group_name){
 			}
 		}
 	}
-	$to = 'eleriinr@ut.ee'; //$to = $group[$group_name]['email'];
-	$subject = 'Tähtis meil';
-	$result = wp_mail( $to, $subject, $message );
-	echo $result;
+	
+	$mail->AddAddress($group[$group_name]['email']);  
+	$mail->Body    = $message;
+	$mail->AltBody = $message;
+	if(!$mail->Send()) {
+		echo 'Message could not be sent.';
+		echo 'Mailer Error: ' . $mail->ErrorInfo;
+	}
 }
+
 foreach(array_keys($recipients) as $recipient){
 	$message = "";
 	$message = $message . '<br>Lp. <a href="mailto:' . $recipient . '">' . $recipient . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
@@ -146,9 +181,13 @@ foreach(array_keys($recipients) as $recipient){
 			$message = $message . $person['name'] . ' (' . $person['birthday'] . '), Osakond: ' . $person['str_id'] . ', email: <a href="mailto:' . $person['email'] . '">' . $person['email'] . '</a><br>';	
 		}
 	}
-	$to = 'eleriinr@ut.ee'; //$to = $recipient;
-	$subject = 'Tähtis meil';
-	$result = wp_mail( $to, $subject, $message );
-	echo $result;
+	$mail->AddAddress($recipient);  
+	$mail->Body    = $message;
+	$mail->AltBody = $message;
+
+	if(!$mail->Send()) {
+		echo 'Message could not be sent.';
+		echo 'Mailer Error: ' . $mail->ErrorInfo;
+	}
 }
 ?>

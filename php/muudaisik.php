@@ -56,7 +56,7 @@ $group_id = $retrieved_data->group_id;
 				</div>
 				<div class="form-group">
 					<label for="email">Meili saaja: </label>
-					<input class="form-control" id="recipients_email" type="email" value="<?php echo $recipients_email; ?>">
+					<input class="form-control" id="recipients_email" type="text" value="<?php echo $recipients_email; ?>">
 				</div>
 				<div class="form-group">
 					<label for="comment">Kommentaar: </label>

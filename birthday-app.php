@@ -216,14 +216,4 @@ function onMailError( $wp_error ) {
     echo "</p>";
 }
 add_action( 'wp_mail_failed', 'onMailError', 10, 1 );
-
-function mailer_config(PHPMailer $mailer){
-  $mailer->IsSMTP();
-  $mailer->Host = SMTP_HOST;
-  $mailer->Port = SMTP_PORT;
-  $mailer->SMTPSecure = SMTP_SECURE;
-  $mailer->SMTPDebug = SMTP_DEBUG;
-}
-add_action( 'phpmailer_init', 'mailer_config', 10, 1);
-
 ?>

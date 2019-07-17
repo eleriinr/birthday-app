@@ -7,6 +7,9 @@ jQuery(document).ready(function() {
 		if(rows.length == 1){
 			$("thead").attr("hidden", "hidden");
 			$("#nogroups").removeAttr("hidden");
+			$("#addgroupbutton").attr("hidden", "hidden");
+			$("#addgroupbuttoncenter").removeAttr("hidden");
+			
 		}
 		
 		var data = {

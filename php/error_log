@@ -1,0 +1,4 @@
+[12-Jul-2019 10:12:49 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_results() on null in /webpages/hurraa/public_html/wp-content/plugins/birthday-app/php/kontrollskript.php:17
+Stack trace:
+#0 {main}
+  thrown in /webpages/hurraa/public_html/wp-content/plugins/birthday-app/php/kontrollskript.php on line 17

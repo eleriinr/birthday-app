@@ -43,7 +43,7 @@ $group_id = $current_group->id;
 				</div>
 				<div class="form-group">
 					<label for="recipients_email">Meili saaja: </label>
-					<input class="form-control" id="recipients_email" type="email" placeholder="Saaja Email">
+					<input class="form-control" id="recipients_email" type="text" placeholder="Saaja Email">
 				</div>
 				<div class="form-group">
 					<label for="comment">Kommentaar: </label>
