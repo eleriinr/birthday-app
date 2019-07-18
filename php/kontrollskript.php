@@ -1,4 +1,6 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'] . $folder . '/wp-config.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . $folder . '/wp-load.php');
 
 $todays_date = new DateTime('today');
 $todays_date = substr($todays_date->format('Y-m-d'), 0,10);
