@@ -7,6 +7,10 @@ jQuery(document).ready(function() {
 		if(rows.length == 1){
 			$("thead").attr("hidden", "hidden");
 			$("#nopeople").removeAttr("hidden");
+			$("#addpersonbutton").attr("hidden", "hidden");
+			$("#addpersonbuttoncenter").removeAttr("hidden");
+			$("#backbutton").attr("hidden", "hidden");
+			$("#backbuttoncenter").removeAttr("hidden");
 		}
 		
 		var data = { 

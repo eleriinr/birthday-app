@@ -1,5 +1,5 @@
 jQuery(document).ready(function() {
-	jQuery("#add").click(function() {
+	jQuery("#add").click(function(event) {
 		var info = {};
 		info['name'] = jQuery("#name").val();
 		info['str_id'] = jQuery("#str_id").val();
@@ -10,8 +10,16 @@ jQuery(document).ready(function() {
 		if ( $("#active").is(':checked')) { 
 			info['element_activity'] = "Yes";
 		}
-			
-		if(info['name'] != "" && info['str_id'] != "" && info['group_email'] != ""){
+		
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		var valid = re.test(info['group_email']);
+
+		if(!valid){
+			event.preventDefault();
+			$("#invalid").removeAttr("hidden");
+			$("#invalid").parentElement.classList.toggle("bg-danger");
+		}
+		else if(info['name'] != "" && info['str_id'] != ""){
 			var data = { 
 							action: "add_element",
 							table: "groups",

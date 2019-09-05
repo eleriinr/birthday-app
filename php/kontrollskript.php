@@ -125,18 +125,6 @@ function private_email($day, $recipients_email, $recipients, $info){
 
 require 'class.phpmailer.php';
 
-$mail = new PHPMailer;
-$mail->IsSMTP();                                      // Set mailer to use SMTP
-$mail->Host = 'mailhost.ut.ee';                 // Specify main and backup server
-$mail->Port = 25;                                    // Set the SMTP port
-$mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
-$mail->From = 'olen.meeldetuletus@ut.ee';
-$mail->FromName = 'Meeldetuletus';
-$mail->IsHTML(true);                                  // Set email format to HTML
-$mail->CharSet = 'UTF-8';
-$mail->Subject = 'Sünnipäev';
-
 foreach(array_keys($group) as $group_name){
 	$message = "";
 	$message = $message . '<br>Lp. <a href="mailto:' . $group[$group_name]['email'] . '">' . $group[$group_name]['email'] . '</a>!<br>Ära unusta sünnipäevi!<br><br>';
@@ -156,7 +144,17 @@ foreach(array_keys($group) as $group_name){
 			}
 		}
 	}
-	
+	$mail = new PHPMailer;
+	$mail->IsSMTP();                                      // Set mailer to use SMTP
+	$mail->Host = 'mailhost.ut.ee';                 // Specify main and backup server
+	$mail->Port = 25;                                    // Set the SMTP port
+	$mail->SMTPAuth = true;                               // Enable SMTP authentication
+	$mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+	$mail->From = 'olen.meeldetuletus@ut.ee';
+	$mail->FromName = 'Meeldetuletus';
+	$mail->IsHTML(true);                                  // Set email format to HTML
+	$mail->CharSet = 'UTF-8';
+	$mail->Subject = 'Sünnipäev';
 	$mail->AddAddress($group[$group_name]['email']);  
 	$mail->Body    = $message;
 	$mail->AltBody = $message;
@@ -183,6 +181,17 @@ foreach(array_keys($recipients) as $recipient){
 			$message = $message . $person['name'] . ' (' . $person['birthday'] . '), Osakond: ' . $person['str_id'] . ', email: <a href="mailto:' . $person['email'] . '">' . $person['email'] . '</a><br>';	
 		}
 	}
+	$mail = new PHPMailer;
+	$mail->IsSMTP();                                      // Set mailer to use SMTP
+	$mail->Host = 'mailhost.ut.ee';                 // Specify main and backup server
+	$mail->Port = 25;                                    // Set the SMTP port
+	$mail->SMTPAuth = true;                               // Enable SMTP authentication
+	$mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+	$mail->From = 'olen.meeldetuletus@ut.ee';
+	$mail->FromName = 'Meeldetuletus';
+	$mail->IsHTML(true);                                  // Set email format to HTML
+	$mail->CharSet = 'UTF-8';
+	$mail->Subject = 'Sünnipäev';
 	$mail->AddAddress($recipient);  
 	$mail->Body    = $message;
 	$mail->AltBody = $message;

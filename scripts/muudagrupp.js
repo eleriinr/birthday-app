@@ -5,8 +5,16 @@ jQuery(document).ready(function() {
 		info['name'] = jQuery("#name").val();
 		info['str_id'] = jQuery("#str_id").val();
 		info['group_email'] = jQuery("#group_email").val();
-	
-		if(info['name'] != "" && info['str_id'] != "" && info['group_email'] != ""){
+		var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		var valid = re.test(info['group_email']);
+
+		if(!valid){
+			event.preventDefault();
+			$("#invalid").removeAttr("hidden");
+			var box = $("#invalid").parentElement;
+			box.classList.toggle("bg-danger");
+			}
+		else if(info['name'] != "" && info['str_id'] != ""){
 			var data = { 
 							action: "edit_element",
 							id: id,

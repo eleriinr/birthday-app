@@ -65,7 +65,6 @@ jQuery(document).ready(function() {
 	
 	jQuery(".peoples_table").click(function(){
 		var id = this.id;
-		
 		var data = { 
 						action: "edit_current",
 						id: id,

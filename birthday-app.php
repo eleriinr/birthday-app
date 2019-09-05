@@ -8,11 +8,11 @@
 **/
 function test_plugin_setup_menu(){
     add_menu_page( 'Sünnipäevaplugin', 'Sünnipäevaplugin', 'manage_options', 'sunnipaevaplugin', 'test_init' );
-	add_submenu_page( '', 'Lisa grupp', 'Lisa grupp', 'manage_options', 'lisagrupp', 'lisagrupp_init' );
-	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', 'isikud', 'isikud_init' );
-	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', 'lisaisik', 'lisaisik_init' );
-	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'muudagrupp', 'muudagrupp_init');
-	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', 'muudaisik', 'muudaisik_init');
+	add_submenu_page( '', 'Lisa grupp', 'Lisa grupp', 'manage_options', 'sunnipaevaplugin-lisagrupp', 'lisagrupp_init' );
+	add_submenu_page( '', 'Isikud', 'Isikud', 'manage_options', 'sunnipaevaplugin-isikud', 'isikud_init' );
+	add_submenu_page( '', 'Lisaisik', 'Lisaisik', 'manage_options', 'sunnipaevaplugin-lisaisik', 'lisaisik_init' );
+	add_submenu_page( '', 'Muuda grupp', 'Muuda grupp', 'manage_options', 'sunnipaevaplugin-muudagrupp', 'muudagrupp_init');
+	add_submenu_page( '', 'Muuda isik', 'Muuda isik', 'manage_options', 'sunnipaevaplugin-muudaisik', 'muudaisik_init');
 }
  add_action('admin_menu', 'test_plugin_setup_menu');
  

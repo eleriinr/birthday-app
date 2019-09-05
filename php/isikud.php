@@ -2,7 +2,7 @@
 //Destination urls
 $addperson_url = str_replace('isikud','lisaisik',$url);
 $editperson_url = str_replace('isikud','muudaisik',$url);
-$url = str_replace('isikud', 'sunnipaevaplugin',$url);
+$url = str_replace('sunnipaevaplugin-isikud', 'sunnipaevaplugin',$url);
 
 //Acquiring the necessary data from the 'people' table
 global $wpdb;
@@ -10,7 +10,7 @@ global $wpdb;
 $people = $wpdb->prefix . 'people';
 $groups = $wpdb->prefix . 'groups';
 	
-$current_group = $wpdb->get_results( "SELECT id FROM $groups WHERE current='Yes'" );
+$current_group = $wpdb->get_results( "SELECT * FROM $groups WHERE current='Yes'" );
 $current_group = $current_group[0];
 $group_id = $current_group->id;
 
@@ -24,9 +24,21 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$grou
 	<div class="row justify-content-md-center">
 		<div class="col"></div>
 		<div class="col col-md-auto">
-			<a href=<?php echo $url; ?>>
-				<button class="btn btn-danger">Tagasi</button>
-			</a>
+			<div class="container">
+				<div class="row justify-content-md-center">
+				<div class="col">
+					<a id="addpersonbutton" href=<?php echo $addperson_url; if(sizeof($retrieve_data) == 0) echo ' hidden';?>>
+						<button class="add btn btn-info pull-left" id="<?php echo $group_id;?>">+ Lisa isik</button>
+					</a>
+				</div>
+					<div class="col col-md-auto">
+						<a id="addpersonbuttoncenter" class="text-center m-auto" href=<?php echo $addperson_url; if(sizeof($retrieve_data) != 0) echo ' hidden';?>>
+							<button class="add btn btn-info" id="<?php echo $group_id;?>">+ Lisa isik</button>
+						</a>
+					</div>
+					<div class="col"></div>
+				</div>					
+			</div>
 			<table class="table-striped table-hover border-0 mx-auto text-center my-3">
 				<thead <?php if(sizeof($retrieve_data) == 0) echo ' hidden';?> >
 					<tr>
@@ -38,7 +50,7 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$grou
 						<th class="p-2">Aktiivne</th>
 					</tr>
 				</thead>
-				<h3 id="nopeople" class="h3 mt-4" <?php if(sizeof($retrieve_data) != 0) echo ' hidden';?> >Isikuid pole</h3>
+				<h3 id="nopeople" class="h3 mt-3 ml-3" <?php if(sizeof($retrieve_data) != 0) echo ' hidden';?> >Isikuid pole</h3>
 				<tbody>
 				<?php foreach($retrieve_data as $retrieved_data){
 					$first_name = $retrieved_data->first_name;
@@ -83,9 +95,21 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $people WHERE group_id=$grou
 				}?>
 				</tbody>
 			</table>
-			<a href="<?php echo $addperson_url;?>">
-				<button class="btn btn-info pull-right" id="<?php echo $group_id;?>">+ Lisa isik</button>
-			</a>
+			<div class="container">
+				<div class="row justify-content-md-center">
+					<div class="col">
+						<a id="backbutton" href=<<?php echo $url; if(sizeof($retrieve_data) == 0) echo ' hidden';?>>
+							<button class="back btn btn-danger pull-left">Tagasi</button>
+						</a>
+					</div>
+					<div class="col col-md-auto">
+						<a id="backbuttoncenter" class="text-center m-auto" href=<?php echo $url; if(sizeof($retrieve_data) != 0) echo ' hidden';?>>
+							<button class="back btn btn-danger">Tagasi</button>
+						</a>
+					</div>
+					<div class="col"></div>
+				</div>					
+			</div>
 		</div>
 		<div class="col"></div>
 	</div>

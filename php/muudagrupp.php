@@ -1,6 +1,6 @@
 <?php
 //Destination url
-$url = str_replace('muudagrupp', 'sunnipaevaplugin',$url);
+$url = str_replace('sunnipaevaplugin-muudagrupp', 'sunnipaevaplugin',$url);
 
 //Acquiring the necessary data from the 'grupid' table
 global $wpdb;
@@ -26,11 +26,7 @@ $group_email = $retrieved_data->group_email;
 	<div class="row">
 		<div class="col"></div>
 		<div class="col">
-			<a href=<?php echo $url; ?>>
-				<button class="btn btn-danger mb-3">Tagasi</button>
-			</a>
-
-			<?php echo '<form action=' . $url . ' method="post">';?>
+				<?php echo '<form action=' . $url . ' method="post">';?>
 				<div class="form-group">
 					<label for="group_id">Grupi ID: </label>
 					<?php echo '<input class="form-control" id="group_id" type="number" value="' . $group_id . '" readonly>';?>
@@ -47,8 +43,12 @@ $group_email = $retrieved_data->group_email;
 					<label for="group_email">Üldmeil: </label>
 					<input class="form-control" id="group_email" type="email" placeholder="Email" value="<?php echo $group_email; ?>" required>
 				</div>
+				<h6 id="invalid" class="h6" hidden>Email on vigane!</h6>
 				<input value="Muuda" type="submit" id="edit" class="btn btn-info pull-right d-block"> 
 			</form>
+			<a href=<?php echo $url; ?>>
+				<button class="btn btn-danger mb-3">Tagasi</button>
+			</a>
 		</div>
 		<div class="col"></div>
 	</div>

@@ -1,8 +1,8 @@
 <?php 
 //Destination urls 
-$people_url = str_replace('sunnipaevaplugin','isikud',$url);
-$editgroup_url = str_replace('sunnipaevaplugin','muudagrupp',$url);
-$addgroup_url = str_replace('sunnipaevaplugin','lisagrupp',$url);
+$people_url = str_replace('sunnipaevaplugin','sunnipaevaplugin-isikud',$url);
+$editgroup_url = str_replace('sunnipaevaplugin','sunnipaevaplugin-muudagrupp',$url);
+$addgroup_url = str_replace('sunnipaevaplugin','sunnipaevaplugin-lisagrupp',$url);
 
 //Acquiring the data from the 'groups' table
 global $wpdb;
@@ -19,6 +19,9 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $groups" );
 	<div class="row justify-content-md-center">
 		<div class="col"></div>
 		<div class="col-md-auto">
+			<a id="addgroupbutton" href=<?php echo $addgroup_url; if(sizeof($retrieve_data) == 0) echo ' hidden';?>>
+				<button class="btn btn-info pull-left">+ Lisa grupp</button>
+			</a>
 			<table class="table-striped table-hover border-0 mx-auto my-3 text-center">
 				<thead <?php if(sizeof($retrieve_data) == 0) echo ' hidden';?> >
 					<tr>
@@ -76,9 +79,6 @@ $retrieve_data = $wpdb->get_results( "SELECT * FROM $groups" );
 					}?>
 				</tbody>
 			</table>
-				<a id="addgroupbutton" href=<?php echo $addgroup_url; if(sizeof($retrieve_data) == 0) echo ' hidden';?>>
-					<button class="btn btn-info pull-right">+ Lisa grupp</button>
-				</a>
 				<a id="addgroupbuttoncenter" class="text-center ml-4" href=<?php echo $addgroup_url; if(sizeof($retrieve_data) != 0) echo ' hidden';?>>
 					<button class="btn btn-info">+ Lisa grupp</button>
 				</a>
